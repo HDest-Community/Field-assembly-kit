@@ -36,7 +36,7 @@ class WUK_Hunter_FullAuto : WUK_WeaponUpgrade
 {
 	override string GetWeapon() { return "Hunter"; }
 	override string GetDisplayName() { return "Full-Auto"; }
-	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 1; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 1; wpn.WeaponStatus[0] &= ~64; }
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 1; } // [Ace] Yes, you can upgrade an Export hunter and make it full-auto. But why would you do that? Are you mad? Do you work for Tchernobog?
 }
 
@@ -111,7 +111,6 @@ class WUK_Boss_CustomChamber : WUK_WeaponUpgrade
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 2; }
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 2; }
 }
-
 
 // --------------- PEPPERGRINDER ---------------
 
