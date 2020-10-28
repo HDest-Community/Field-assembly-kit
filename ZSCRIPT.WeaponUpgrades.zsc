@@ -309,3 +309,29 @@ class WUK_Aug9mm_Masterkey : WUK_WeaponUpgrade
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[7] = 1; }
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[7] == 1; }
 }
+
+// --------------- ACCENSUS' STUFF ---------------
+
+class WUK_Gungnir_Accelerator : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HDGungnir"; }
+	override string GetDisplayName() { return "Accelerator"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 1; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 1; }
+}
+
+class WUK_Gungnir_Capacitor : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HDGungnir"; }
+	override string GetDisplayName() { return "Capacitor"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 2; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 2; }
+}
+
+class WUK_Gungnir_Processor : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HDGungnir"; }
+	override string GetDisplayName() { return "Processor"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 4; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 4; }
+}
