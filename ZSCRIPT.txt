@@ -32,6 +32,7 @@ class HDWeaponUpgradeKit : HDWeapon
 	override string GetHelpText()
 	{
 		return WEPHELP_FIRE.."  Upgrade weapon\n"
+		..WEPHELP_ALTFIRE.."  Downgrade weapon\n"
 		..WEPHELP_ZOOM.."+"..WEPHELP_FIRE.."/"..WEPHELP_ALTFIRE.."  Cycle weapons\n"
 		..WEPHELP_FIREMODE.."+"..WEPHELP_FIRE.."/"..WEPHELP_ALTFIRE.."  Cycle upgrades\n";
 	}
@@ -42,6 +43,14 @@ class HDWeaponUpgradeKit : HDWeapon
 	override HDWeapon GetSpareWeapon(actor newowner, bool reverse, bool doselect) { return GetSpareWeaponRegular(newowner, reverse, doselect); }
 	override void InitializeWepStats(bool idfa) { WeaponStatus[KProp_Durability] = 1; }
 	override void LoadoutConfigure(string input) { WeaponStatus[KProp_Durability] = 1; }
+
+	private void ResetConfirmation()
+	{
+		for (int i = 0; i < Confirmation.Size(); ++i)
+		{
+			Confirmation[i] = false;
+		}
+	}
 
 	private action void A_UpdateAvailableWeapons()
 	{
@@ -116,18 +125,30 @@ class HDWeaponUpgradeKit : HDWeapon
 		let SelWeapon = GetSelectedWeapon();
 		if (SelWeapon)
 		{
-			sb.DrawImage(SelWeapon.GetPickupSprite(), (0, BaseYOffset - 130) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER, alpha: 1.0);
-			sb.DrawString(sb.pSmallFont, SelWeapon.GetTag(), (0, BaseYOffset - 110) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_SAPPHIRE, 1.0);
+			sb.DrawImage(SelWeapon.GetPickupSprite(), (0, BaseYOffset - 150) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER, alpha: 1.0);
+			sb.DrawString(sb.pSmallFont, SelWeapon.GetTag(), (0, BaseYOffset - 130) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_SAPPHIRE, 1.0);
 
 			for (int i = 0; i < CurrWeaponUpgrades.Size(); ++i)
 			{
-				string DisplayString = (i == hdw.WeaponStatus[KProp_SelectedUpgrade] ? "\c[Ice]" : "")..CurrWeaponUpgrades[i].GetDisplayName().."\c-"..(CurrWeaponUpgrades[i].HasUpgrade(SelWeapon) ? " \c[Green](Installed)\c-" : " \c[Red](Not installed)\c-");
-				sb.DrawString(sb.pSmallFont, DisplayString, (0, BaseYOffset - (100 - 10 * i)) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_DARKGRAY, 1.0);
+				bool CanDowngrade = CurrWeaponUpgrades[i].CanDowngrade();
+				string InstalledString = CurrWeaponUpgrades[i].HasUpgrade(SelWeapon) ? " \c[Green](Installed)\c-" : " \c[Red](Not installed)\c-";
+				string DisplayString = (i == hdw.WeaponStatus[KProp_SelectedUpgrade] ? (CanDowngrade ? "\c[Orange]" : "\c[White]") : "")..CurrWeaponUpgrades[i].GetDisplayName().."\c-"..InstalledString;
+				sb.DrawString(sb.pSmallFont, DisplayString, (0, BaseYOffset - (120 - 10 * i)) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, CanDowngrade ? Font.FindFontColor("WUK_Downgradeable") : Font.CR_DARKGRAY, 1.0);
 			}
 
-			if (Confirmation)
+			string ConfirmString = "";
+			if (Confirmation[0])
 			{
-				sb.DrawString(sb.pSmallFont, "Confirm upgrade?", (0, BaseYOffset - 60) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_GREEN, 1.0);
+				ConfirmString = "Confirm upgrade?";
+			}
+			else if (Confirmation[1])
+			{
+				ConfirmString = "Confirm downgrade?";
+			}
+
+			if (ConfirmString != "")
+			{
+				sb.DrawString(sb.pSmallFont, ConfirmString, (0, BaseYOffset - 60) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_GREEN, 1.0);
 			}
 		}
 		else
@@ -158,7 +179,7 @@ class HDWeaponUpgradeKit : HDWeapon
 		invoker.WeaponStatus[KProp_SelectedWeapon] = SelIndex;
 		invoker.WeaponStatus[KProp_SelectedUpgrade] = 0;
 		A_UpdateUpgradesForWeapon(invoker.GetSelectedWeapon());
-		invoker.Confirmation = false;
+		invoker.ResetConfirmation();
 	}
 
 	private action void A_CheckUpgradeCycle(int cycleDir)
@@ -180,10 +201,47 @@ class HDWeaponUpgradeKit : HDWeapon
 				break;
 		}
 		invoker.WeaponStatus[KProp_SelectedUpgrade] = SelIndex;
-		invoker.Confirmation = false;
+		invoker.ResetConfirmation();
 	}
 
-	bool Confirmation;
+	private action void A_PerformKitAction(int act)
+	{
+		if (invoker.WeaponStatus[KProp_Durability] < 1)
+		{
+			return;
+		}
+
+		HDWeapon SelWeapon = invoker.GetSelectedWeapon();
+		if (!SelWeapon) // [Ace] Lack of parentheses for the OR is intentional. Don't "fix" it again, you dolt.
+		{
+			return;
+		}
+
+		WUK_WeaponUpgrade Upgrade = invoker.GetSelectedUpgrade();
+		if (!Upgrade || act == 0 && Upgrade.HasUpgrade(SelWeapon) || act == 1 && (!Upgrade.HasUpgrade(SelWeapon) || !Upgrade.CanDowngrade()))
+		{
+			return;
+		}
+
+		if (invoker.Confirmation[act])
+		{
+			switch (act)
+			{
+				case 0: Upgrade.DoUpgrade(SelWeapon); break;
+				case 1: Upgrade.DoDowngrade(SelWeapon); break;
+			}
+			A_PlaySound("WUKit/InstallUpgrade", 10);
+			invoker.WeaponStatus[KProp_Durability]--;
+			invoker.ResetConfirmation();
+		}
+		else
+		{
+			invoker.Confirmation[act] = true;
+		}
+		
+	}
+
+	bool Confirmation[2];
 	private Array<WUK_WeaponUpgrade> AllUpgrades;
 	private Array<HDWeapon> AvailableWeapons;
 	private Array<WUK_WeaponUpgrade> CurrWeaponUpgrades;
@@ -211,7 +269,7 @@ class HDWeaponUpgradeKit : HDWeapon
 		Select0:
 			TNT1 A 0
 			{
-				invoker.Confirmation = false;
+				invoker.ResetConfirmation();
 				invoker.WeaponStatus[KProp_SelectedUpgrade] = 0;
 				A_UpdateAvailableWeapons();
 				A_UpdateUpgradesForWeapon(invoker.GetSelectedWeapon());
@@ -234,34 +292,7 @@ class HDWeaponUpgradeKit : HDWeapon
 				}
 				else
 				{
-					if (invoker.WeaponStatus[KProp_Durability] < 1)
-					{
-						return;
-					}
-
-					HDWeapon SelWeapon = invoker.GetSelectedWeapon();
-					if (!SelWeapon) // [Ace] Lack of parentheses for the OR is intentional. Don't "fix" it again, you dolt.
-					{
-						return;
-					}
-
-					WUK_WeaponUpgrade Upgrade = invoker.GetSelectedUpgrade();
-					if (!Upgrade || Upgrade.HasUpgrade(SelWeapon))
-					{
-						return;
-					}
-
-					if (invoker.Confirmation)
-					{
-						A_PlaySound("WUKit/InstallUpgrade", 10);
-						Upgrade.DoUpgrade(SelWeapon);
-						invoker.WeaponStatus[KProp_Durability]--;
-						invoker.Confirmation = false;
-					}
-					else
-					{
-						invoker.Confirmation = true;
-					}
+					A_PerformKitAction(0);
 				}
 			}
 			Goto Ready;
@@ -275,6 +306,10 @@ class HDWeaponUpgradeKit : HDWeapon
 				else if (PressingFiremode())
 				{
 					A_CheckUpgradeCycle(-1);
+				}
+				else
+				{
+					A_PerformKitAction(1);
 				}
 			}
 			Goto Ready;
