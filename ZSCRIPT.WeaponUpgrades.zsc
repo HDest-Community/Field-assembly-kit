@@ -104,6 +104,15 @@ class WUK_Liberator_Bullpup : WUK_WeaponUpgrade
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 512; }
 }
 
+class WUK_Boss_CustomChamber : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "BossRifle"; }
+	override string GetDisplayName() { return "Custom Chamber"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 2; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 2; }
+}
+
+
 // --------------- PEPPERGRINDER ---------------
 
 class WUK_ScopedSlayer_MaxChoke : WUK_WeaponUpgrade
