@@ -211,3 +211,13 @@ class WUK_ZM69_FullAuto : WUK_WeaponUpgrade
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 32; }
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 32; }
 }
+
+// --------------- HEXADOKEN'S STUFF ---------------
+
+class WUK_Bossmerg_ExtendedMag : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "Bossmerg"; }
+	override string GetDisplayName() { return "Extended Magazine"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 32; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 32; }
+}
