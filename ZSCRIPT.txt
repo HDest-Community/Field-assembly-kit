@@ -35,7 +35,7 @@ class HDWeaponUpgradeKit : HDWeapon
 		..WEPHELP_ZOOM.."+"..WEPHELP_FIRE.."/"..WEPHELP_ALTFIRE.."  Cycle weapons\n"
 		..WEPHELP_FIREMODE.."+"..WEPHELP_FIRE.."/"..WEPHELP_ALTFIRE.."  Cycle upgrades\n";
 	}
-	override string, double GetPickupSprite(){ return "WUKTA0", 1.0; }
+	override string, double GetPickupSprite(){ return WeaponStatus[KProp_Durability] > 0 ? "WUKTA0" : "WUKTB0", 1.0; }
 	override double GunMass() { return 0; }
 	override double WeaponBulk() { return 40 * Amount; }
 	override bool AddSpareWeapon(actor newowner) { return AddSpareWeaponRegular(newowner); }
@@ -109,25 +109,25 @@ class HDWeaponUpgradeKit : HDWeapon
 		sb.DrawWepNum(hdw.WeaponStatus[KProp_Durability], 1);
 
 		vector2 bob = hpl.hudbob * 0.3;
-		int BaseYOffset = -70;
+		int BaseYOffset = -50;
 		
-		sb.DrawImage("WUKTA0", (0, BaseYOffset) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER, 1.0, scale:(2, 2));
+		sb.DrawImage(GetPickupSprite(), (0, BaseYOffset) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER_BOTTOM, 1.0, scale:(2, 2));
 
 		let SelWeapon = GetSelectedWeapon();
 		if (SelWeapon)
 		{
-			sb.DrawImage(SelWeapon.GetPickupSprite(), (0, BaseYOffset - 110) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER, alpha: 1.0);
-			sb.DrawString(sb.pSmallFont, SelWeapon.GetTag(), (0, BaseYOffset - 90) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_SAPPHIRE, 1.0);
+			sb.DrawImage(SelWeapon.GetPickupSprite(), (0, BaseYOffset - 130) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER, alpha: 1.0);
+			sb.DrawString(sb.pSmallFont, SelWeapon.GetTag(), (0, BaseYOffset - 110) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_SAPPHIRE, 1.0);
 
 			for (int i = 0; i < CurrWeaponUpgrades.Size(); ++i)
 			{
 				string DisplayString = (i == hdw.WeaponStatus[KProp_SelectedUpgrade] ? "\c[Ice]" : "")..CurrWeaponUpgrades[i].GetDisplayName().."\c-"..(CurrWeaponUpgrades[i].HasUpgrade(SelWeapon) ? " \c[Green](Installed)\c-" : " \c[Red](Not installed)\c-");
-				sb.DrawString(sb.pSmallFont, DisplayString, (0, BaseYOffset - (80 - 10 * i)) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_DARKGRAY, 1.0);
+				sb.DrawString(sb.pSmallFont, DisplayString, (0, BaseYOffset - (100 - 10 * i)) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_DARKGRAY, 1.0);
 			}
 		}
 		else
 		{
-			sb.DrawString(sb.pSmallFont, "No available weapons.", (0, BaseYOffset - 40) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_ORANGE, 1.0);
+			sb.DrawString(sb.pSmallFont, "No available weapons.", (0, BaseYOffset - 60) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_ORANGE, 1.0);
 		}
 	}
 
@@ -195,11 +195,15 @@ class HDWeaponUpgradeKit : HDWeapon
 	States
 	{
 		Spawn:
-			WUKT A -1;
+			WUKT A -1 NoDelay
+			{
+				frame = invoker.WeaponStatus[KProp_Durability] > 0 ? 0 : 1;
+			}
 			Stop;
 		Select0:
 			TNT1 A 0
 			{
+				invoker.WeaponStatus[KProp_SelectedUpgrade] = 0;
 				A_UpdateAvailableWeapons();
 				A_UpdateUpgradesForWeapon(invoker.GetSelectedWeapon());
 				A_Raise(999);
