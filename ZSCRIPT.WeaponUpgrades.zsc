@@ -96,7 +96,7 @@ class WUK_Liberator_GL : WUK_WeaponUpgrade
 	override bool HasUpgrade(HDWeapon wpn) { return !(wpn.WeaponStatus[0] & 8); }
 }
 
-class WUK_Liberator_Bullpup : WUK_WeaponUpgrade
+class WUK_Liberator_Bullpup : WUK_WeaponUpgrade // [Ace] The name is a misnomer. I called it Bullpup but it actually is NoBullpup. Don't wanna change it now because it'll break saves.
 {
 	override string GetWeapon() { return "LiberatorRifle"; }
 	override string GetDisplayName() { return "Long Rifle"; }
