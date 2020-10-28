@@ -105,7 +105,9 @@ class WUK_Liberator_NoBullpup : WUK_WeaponUpgrade
 	override string GetWeapon() { return "LiberatorRifle"; }
 	override string GetDisplayName() { return "Long Rifle"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 512; }
+	override void DoDowngrade(HDWeapon wpn) { wpn.WeaponStatus[0] &= ~512; }
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 512; }
+	override bool CanDowngrade() { return true; }
 }
 
 class WUK_Liberator_FrontReticle : WUK_WeaponUpgrade
@@ -217,7 +219,9 @@ class WUK_IronsLiberator_NoBullpup : WUK_WeaponUpgrade
 	override string GetWeapon() { return "IronsLiberatorRifle"; }
 	override string GetDisplayName() { return "Long Rifle"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 512; }
+	override void DoDowngrade(HDWeapon wpn) { wpn.WeaponStatus[0] &= ~512; }
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 512; }
+	override bool CanDowngrade() { return true; }
 }
 
 class WUK_IronsLiberator_FrontReticle : WUK_WeaponUpgrade
