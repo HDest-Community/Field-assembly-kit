@@ -41,8 +41,8 @@ class HDWeaponUpgradeKit : HDWeapon
 	override double WeaponBulk() { return 40 * Amount; }
 	override bool AddSpareWeapon(actor newowner) { return AddSpareWeaponRegular(newowner); }
 	override HDWeapon GetSpareWeapon(actor newowner, bool reverse, bool doselect) { return GetSpareWeaponRegular(newowner, reverse, doselect); }
-	override void InitializeWepStats(bool idfa) { WeaponStatus[KProp_Durability] = 1; }
-	override void LoadoutConfigure(string input) { WeaponStatus[KProp_Durability] = 1; }
+	override void InitializeWepStats(bool idfa) { WeaponStatus[KProp_Durability] = MaxDurability; }
+	override void LoadoutConfigure(string input) { WeaponStatus[KProp_Durability] = MaxDurability; }
 
 	private void ResetConfirmation()
 	{
@@ -115,7 +115,7 @@ class HDWeaponUpgradeKit : HDWeapon
 		sb.DrawRect(-32, -20, 11, 3); // Scope.
 		sb.DrawRect(-18, -17, 6, 1); // Barrel.
 
-		sb.DrawWepNum(hdw.WeaponStatus[KProp_Durability], 1);
+		sb.DrawWepNum(hdw.WeaponStatus[KProp_Durability], MaxDurability);
 
 		vector2 bob = hpl.hudbob * 0.3;
 		int BaseYOffset = -50;
@@ -218,7 +218,7 @@ class HDWeaponUpgradeKit : HDWeapon
 		}
 
 		WUK_WeaponUpgrade Upgrade = invoker.GetSelectedUpgrade();
-		if (!Upgrade || act == 0 && Upgrade.HasUpgrade(SelWeapon) || act == 1 && (!Upgrade.HasUpgrade(SelWeapon) || !Upgrade.CanDowngrade()))
+		if (!Upgrade || invoker.WeaponStatus[KProp_Durability] < Upgrade.GetCost() || act == 0 && Upgrade.HasUpgrade(SelWeapon) || act == 1 && (!Upgrade.HasUpgrade(SelWeapon) || !Upgrade.CanDowngrade()))
 		{
 			return;
 		}
@@ -231,7 +231,7 @@ class HDWeaponUpgradeKit : HDWeapon
 				case 1: Upgrade.DoDowngrade(SelWeapon); break;
 			}
 			A_PlaySound("WUKit/InstallUpgrade", 10);
-			invoker.WeaponStatus[KProp_Durability]--;
+			invoker.WeaponStatus[KProp_Durability] -= Upgrade.GetCost();
 			invoker.ResetConfirmation();
 		}
 		else
@@ -241,6 +241,7 @@ class HDWeaponUpgradeKit : HDWeapon
 		
 	}
 
+	const MaxDurability = 2;
 	bool Confirmation[2];
 	private Array<WUK_WeaponUpgrade> AllUpgrades;
 	private Array<HDWeapon> AvailableWeapons;

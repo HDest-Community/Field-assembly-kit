@@ -2,6 +2,7 @@ class WUK_WeaponUpgrade
 {
 	virtual string GetWeapon() { return ""; }
 	virtual string GetDisplayName() { return ""; }
+	virtual clearscope int GetCost() { return 2; }
 	virtual play void DoUpgrade(HDWeapon wpn) { }
 	virtual play void DoDowngrade(HDWeapon wpn) { }
 	virtual clearscope bool HasUpgrade(HDWeapon wpn) { return false; }
@@ -30,6 +31,7 @@ class WUK_SMG_ReflexSight : WUK_WeaponUpgrade
 {
 	override string GetWeapon() { return "HDSMG"; }
 	override string GetDisplayName() { return "Reflex Sight"; }
+	override int GetCost() { return 1; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 2; }
 	override void DoDowngrade(HDWeapon wpn) { wpn.WeaponStatus[0] &= ~2; }
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 2; }
@@ -114,6 +116,7 @@ class WUK_Liberator_FrontReticle : WUK_WeaponUpgrade
 {
 	override string GetWeapon() { return "LiberatorRifle"; }
 	override string GetDisplayName() { return "Front Reticle"; }
+	override int GetCost() { return 1; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 32; }
 	override void DoDowngrade(HDWeapon wpn) { wpn.WeaponStatus[0] &= ~32; }
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 32; }
@@ -124,6 +127,7 @@ class WUK_Liberator_AltReticle : WUK_WeaponUpgrade
 {
 	override string GetWeapon() { return "LiberatorRifle"; }
 	override string GetDisplayName() { return "Alt Reticle"; }
+	override int GetCost() { return 1; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 64; }
 	override void DoDowngrade(HDWeapon wpn) { wpn.WeaponStatus[0] &= ~64; }
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 64; }
@@ -162,6 +166,7 @@ class WUK_HLAR_HairTrigger : WUK_WeaponUpgrade
 {
 	override string GetWeapon() { return "HDHLAR"; }
 	override string GetDisplayName() { return "GL Hair-Trigger"; }
+	override int GetCost() { return 1; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] &= ~4; }
 	override void DoDowngrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 4; }
 	override bool HasUpgrade(HDWeapon wpn) { return !(wpn.WeaponStatus[0] & 4); }
@@ -238,6 +243,7 @@ class WUK_IronsLiberator_FrontReticle : WUK_WeaponUpgrade
 {
 	override string GetWeapon() { return "IronsLiberatorRifle"; }
 	override string GetDisplayName() { return "Front Reticle"; }
+	override int GetCost() { return 1; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 32; }
 	override void DoDowngrade(HDWeapon wpn) { wpn.WeaponStatus[0] &= ~32; }
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 32; }
@@ -248,6 +254,7 @@ class WUK_IronsLiberator_AltReticle : WUK_WeaponUpgrade
 {
 	override string GetWeapon() { return "IronsLiberatorRifle"; }
 	override string GetDisplayName() { return "Alt Reticle"; }
+	override int GetCost() { return 1; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 64; }
 	override void DoDowngrade(HDWeapon wpn) { wpn.WeaponStatus[0] &= ~64; }
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 64; }
