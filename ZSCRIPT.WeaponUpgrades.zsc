@@ -140,6 +140,16 @@ class WUK_Boss_CustomChamber : WUK_WeaponUpgrade
 
 // --------------- PEPPERGRINDER ---------------
 
+class WUK_Oddball_Pump : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HDOddball"; }
+	override string GetDisplayName() { return "Pump"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 8; }
+	override void DoDowngrade(HDWeapon wpn) { wpn.WeaponStatus[0] &= ~8; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 8; }
+	override bool CanDowngrade() { return true; }
+}
+
 class WUK_HLAR_SelectFire : WUK_WeaponUpgrade
 {
 	override string GetWeapon() { return "HDHLAR"; }
