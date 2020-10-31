@@ -134,6 +134,17 @@ class WUK_Liberator_AltReticle : WUK_WeaponUpgrade
 	override bool CanDowngrade() { return true; }
 }
 
+class WUK_Boss_FrontReticle : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "BossRifle"; }
+	override string GetDisplayName() { return "Front Reticle"; }
+	override int GetCost() { return 1; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 1; }
+	override void DoDowngrade(HDWeapon wpn) { wpn.WeaponStatus[0] &= ~1; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 1; }
+	override bool CanDowngrade() { return true; }
+}
+
 class WUK_Boss_CustomChamber : WUK_WeaponUpgrade
 {
 	override string GetWeapon() { return "BossRifle"; }
