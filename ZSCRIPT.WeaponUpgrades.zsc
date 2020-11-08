@@ -332,6 +332,38 @@ class WUK_Bossmerg_ExtendedMag : WUK_WeaponUpgrade
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 32; }
 }
 
+class WUK_SpeedHunter_FullAuto : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HunterSpeed"; }
+	override string GetDisplayName() { return "Full-Auto"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 1; wpn.WeaponStatus[0] &= ~64; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 1; } // [Ace] Yes, you can upgrade an Export hunter and make it full-auto. But why would you do that? Are you mad? Do you work for Tchernobog?
+}
+
+class WUK_SpeedHunter_MaxChoke : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HunterSpeed"; }
+	override string GetDisplayName() { return "Max Choke"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[7] = 7; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[7] == 7; }
+}
+
+class WUK_SpeedHunter_TubeUpgrade : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HunterSpeed"; }
+	override string GetDisplayName() { return "Tube Upgrade (+2)"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[5] += 2; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[5] > 7; }
+}
+
+class WUK_SpeedHunter_SideSaddles : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HunterSpeed"; }
+	override string GetDisplayName() { return "Side Saddles"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] &= ~128; }
+	override bool HasUpgrade(HDWeapon wpn) { return !(wpn.WeaponStatus[0] & 128); }
+}
+
 // --------------- POTETOBLOKE'S STUFF ---------------
 
 class WUK_AutoMag_SelectFire : WUK_WeaponUpgrade
