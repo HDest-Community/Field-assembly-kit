@@ -274,7 +274,7 @@ class WUK_IronsLiberator_AltReticle : WUK_WeaponUpgrade
 
 class WUK_BoxCannon_ExtendedMag : WUK_WeaponUpgrade
 {
-	override string GetWeapon() { return "HDMauser"; }
+	override string GetWeapon() { return "HDBoxCannon"; }
 	override string GetDisplayName() { return "Extended Magazine"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 16; wpn.WeaponStatus[0] &= ~64; }
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 16; }
@@ -282,7 +282,7 @@ class WUK_BoxCannon_ExtendedMag : WUK_WeaponUpgrade
 
 class WUK_BoxCannon_DrumMag : WUK_WeaponUpgrade
 {
-	override string GetWeapon() { return "HDMauser"; }
+	override string GetWeapon() { return "HDBoxCannon"; }
 	override string GetDisplayName() { return "Drum Magazine"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 64; wpn.WeaponStatus[0] &= ~16; }
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 64; }
@@ -290,7 +290,7 @@ class WUK_BoxCannon_DrumMag : WUK_WeaponUpgrade
 
 class WUK_BoxCannon_Broomhandle : WUK_WeaponUpgrade
 {
-	override string GetWeapon() { return "HDMauser"; }
+	override string GetWeapon() { return "HDBoxCannon"; }
 	override string GetDisplayName() { return "Broomhandle Stock"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 8; }
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 8; }
@@ -298,7 +298,7 @@ class WUK_BoxCannon_Broomhandle : WUK_WeaponUpgrade
 
 class WUK_BoxCannon_LongerBarrel : WUK_WeaponUpgrade
 {
-	override string GetWeapon() { return "HDMauser"; }
+	override string GetWeapon() { return "HDBoxCannon"; }
 	override string GetDisplayName() { return "Longer Barrel"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 32; }
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 32; }
