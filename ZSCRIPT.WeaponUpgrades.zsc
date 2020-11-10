@@ -356,28 +356,19 @@ class WUK_Bossmerg_ExtendedMag : WUK_WeaponUpgrade
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 32; }
 }
 
-class WUK_SpeedHunter_FullAuto : WUK_WeaponUpgrade
+class WUK_SpeedHunter_FullAuto : WUK_Hunter_FullAuto
 {
 	override string GetWeapon() { return "HunterSpeed"; }
-	override string GetDisplayName() { return "Full-Auto"; }
-	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 1; wpn.WeaponStatus[0] &= ~64; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 1; } // [Ace] Yes, you can upgrade an Export hunter and make it full-auto. But why would you do that? Are you mad? Do you work for Tchernobog?
 }
 
-class WUK_SpeedHunter_MaxChoke : WUK_WeaponUpgrade
+class WUK_SpeedHunter_MaxChoke : WUK_Hunter_MaxChoke
 {
 	override string GetWeapon() { return "HunterSpeed"; }
-	override string GetDisplayName() { return "Max Choke"; }
-	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[7] = 7; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[7] == 7; }
 }
 
-class WUK_SpeedHunter_TubeUpgrade : WUK_WeaponUpgrade
+class WUK_SpeedHunter_TubeUpgrade : WUK_Hunter_TubeUpgrade
 {
 	override string GetWeapon() { return "HunterSpeed"; }
-	override string GetDisplayName() { return "Tube Upgrade (+2)"; }
-	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[5] += 2; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[5] > 7; }
 }
 
 class WUK_SpeedHunter_SideSaddles : WUK_WeaponUpgrade
@@ -442,34 +433,22 @@ class WUK_Gungnir_Processor : WUK_WeaponUpgrade
 
 // --------------- ICARUS' STUFF ---------------
 
-class WUK_SpeedLotus_Scope : WUK_WeaponUpgrade
+class WUK_SpeedLotus_Scope : WUK_Lotus_Scope
 {
 	override string GetWeapon() { return "HDLotusSpeed"; }
-	override string GetDisplayName() { return "Scope"; }
-	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 4; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 4; }
 }
 
-class WUK_SpeedLotus_GasSeal : WUK_WeaponUpgrade
+class WUK_SpeedLotus_GasSeal : WUK_Lotus_GasSeal
 {
 	override string GetWeapon() { return "HDLotusSpeed"; }
-	override string GetDisplayName() { return "Improved Gas Seal"; }
-	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 2; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 2; }
 }
 
-class WUK_SpeedLotus_ExtendedBarrel : WUK_WeaponUpgrade
+class WUK_SpeedLotus_ExtendedBarrel : WUK_Lotus_ExtendedBarrel
 {
 	override string GetWeapon() { return "HDLotusSpeed"; }
-	override string GetDisplayName() { return "Extended Barrel"; }
-	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[7] = 1; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[7] == 1; }
 }
 
-class WUK_SpeedLotus_Suppressor : WUK_WeaponUpgrade
+class WUK_SpeedLotus_Suppressor : WUK_Lotus_Suppressor
 {
 	override string GetWeapon() { return "HDLotusSpeed"; }
-	override string GetDisplayName() { return "Suppressor"; }
-	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[7] = 2; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[7] == 2; }
 }
