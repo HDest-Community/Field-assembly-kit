@@ -125,15 +125,23 @@ class HDWeaponUpgradeKit : HDWeapon
 		let SelWeapon = GetSelectedWeapon();
 		if (SelWeapon)
 		{
-			sb.DrawImage(SelWeapon.GetPickupSprite(), (0, BaseYOffset - 150) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER, alpha: 1.0);
-			sb.DrawString(sb.pSmallFont, SelWeapon.GetTag(), (0, BaseYOffset - 130) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_SAPPHIRE, 1.0);
+			sb.DrawImage(SelWeapon.GetPickupSprite(), (0, BaseYOffset - 160) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER, alpha: 1.0);
+			sb.DrawString(sb.pSmallFont, SelWeapon.GetTag(), (0, BaseYOffset - 140) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_SAPPHIRE, 1.0);
 
-			for (int i = 0; i < CurrWeaponUpgrades.Size(); ++i)
+			int Size = CurrWeaponUpgrades.Size();
+			for (int i = 0; i < Size; ++i)
 			{
+				bool Selected = i == hdw.WeaponStatus[KProp_SelectedUpgrade];
 				bool CanDowngrade = CurrWeaponUpgrades[i].CanDowngrade();
 				string InstalledString = CurrWeaponUpgrades[i].HasUpgrade(SelWeapon) ? " \c[Green](Installed)\c-" : " \c[Red](Not installed)\c-";
-				string DisplayString = (i == hdw.WeaponStatus[KProp_SelectedUpgrade] ? (CanDowngrade ? "\c[Orange]" : "\c[White]") : "")..CurrWeaponUpgrades[i].GetDisplayName().."\c-"..InstalledString;
-				sb.DrawString(sb.pSmallFont, DisplayString, (0, BaseYOffset - (120 - 10 * i)) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, CanDowngrade ? Font.FindFontColor("WUK_Downgradeable") : Font.CR_DARKGRAY, 1.0);
+				string DisplayString = CurrWeaponUpgrades[i].GetDisplayName().."\c-"..InstalledString;
+				int StringCol = Selected ? (CanDowngrade ? Font.CR_ORANGE : Font.CR_WHITE) : (CanDowngrade ? Font.FindFontColor("WUK_Downgradeable") : Font.CR_DARKGRAY);
+				sb.DrawString(sb.pSmallFont, DisplayString, (0, BaseYOffset - (130 - 10 * i)) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, StringCol);
+
+				if (Selected)
+				{
+					sb.DrawString(sb.pSmallFont, "Cost: "..CurrWeaponUpgrades[i].GetCost(), (0, BaseYOffset - (120 - 10 * Size)) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_TAN);
+				}
 			}
 
 			string ConfirmString = "";
@@ -233,6 +241,10 @@ class HDWeaponUpgradeKit : HDWeapon
 			A_PlaySound("WUKit/InstallUpgrade", 10);
 			invoker.WeaponStatus[KProp_Durability] -= Upgrade.GetCost();
 			invoker.ResetConfirmation();
+			if (invoker.WeaponStatus[KProp_Durability] == 0)
+			{
+				DropInventory(invoker);
+			}
 		}
 		else
 		{
