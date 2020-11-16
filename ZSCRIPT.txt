@@ -214,11 +214,6 @@ class HDWeaponUpgradeKit : HDWeapon
 
 	private action void A_PerformKitAction(int act)
 	{
-		if (invoker.WeaponStatus[KProp_Durability] < 1)
-		{
-			return;
-		}
-
 		HDWeapon SelWeapon = invoker.GetSelectedWeapon();
 		if (!SelWeapon) // [Ace] Lack of parentheses for the OR is intentional. Don't "fix" it again, you dolt.
 		{
@@ -226,8 +221,26 @@ class HDWeaponUpgradeKit : HDWeapon
 		}
 
 		WUK_WeaponUpgrade Upgrade = invoker.GetSelectedUpgrade();
-		if (!Upgrade || invoker.WeaponStatus[KProp_Durability] < Upgrade.GetCost() || act == 0 && Upgrade.HasUpgrade(SelWeapon) || act == 1 && (!Upgrade.HasUpgrade(SelWeapon) || !Upgrade.CanDowngrade()))
+		if (!Upgrade)
 		{
+			return;
+		}
+
+		if (act == 0 && Upgrade.HasUpgrade(SelWeapon))
+		{
+			A_WeaponMessage("Upgrade has already been installed.");
+			return;
+		}
+
+		if (act == 1 && (!Upgrade.HasUpgrade(SelWeapon) || !Upgrade.CanDowngrade()))
+		{
+			A_WeaponMessage("Upgrade has already been uninstalled or no downgrade is available.");
+			return;
+		}
+
+		if (invoker.WeaponStatus[KProp_Durability] < Upgrade.GetCost())
+		{
+			A_WeaponMessage("Insufficient durability.");
 			return;
 		}
 
