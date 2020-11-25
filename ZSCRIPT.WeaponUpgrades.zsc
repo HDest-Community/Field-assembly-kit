@@ -439,6 +439,14 @@ class WUK_Gungnir_Charger : WUK_WeaponUpgrade
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 8; }
 }
 
+class WUK_Gungnir_Purifier : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HDGungnir"; }
+	override string GetDisplayName() { return "Purifier"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 16; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 16; }
+}
+
 // --------------- ICARUS' STUFF ---------------
 
 class WUK_SpeedLotus_Scope : WUK_Lotus_Scope
