@@ -431,6 +431,30 @@ class WUK_Gungnir_Processor : WUK_WeaponUpgrade
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 4; }
 }
 
+class WUK_Redline_Scope : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HDRedline"; }
+	override string GetDisplayName() { return "Scope"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 4; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 4; }
+}
+
+class WUK_Redline_CustomBolt : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HDRedline"; }
+	override string GetDisplayName() { return "Custom Bolt"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 1; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 1; }
+}
+
+class WUK_Redline_Capacitor : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HDRedline"; }
+	override string GetDisplayName() { return "Capacitor"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 2; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 2; }
+}
+
 // --------------- ICARUS' STUFF ---------------
 
 class WUK_SpeedLotus_Scope : WUK_Lotus_Scope
