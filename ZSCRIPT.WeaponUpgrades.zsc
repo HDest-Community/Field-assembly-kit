@@ -455,6 +455,22 @@ class WUK_Redline_Capacitor : WUK_WeaponUpgrade
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 2; }
 }
 
+class WUK_Eris_LightTrigger : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HDEris"; }
+	override string GetDisplayName() { return "Lighter Trigger"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 2; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 2; }
+}
+
+class WUK_Eris_HeavyFrame : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HDEris"; }
+	override string GetDisplayName() { return "Heavy Frame"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 4; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 4; }
+}
+
 // --------------- ICARUS' STUFF ---------------
 
 class WUK_SpeedLotus_Scope : WUK_Lotus_Scope
