@@ -479,6 +479,14 @@ class WUK_Eris_HeavyFrame : WUK_WeaponUpgrade
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 4; }
 }
 
+class WUK_Eris_ExtendedBarrel : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HDEris"; }
+	override string GetDisplayName() { return "Extended Barrel"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 8; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 8; }
+}
+
 // --------------- ICARUS' STUFF ---------------
 
 class WUK_SpeedLotus_Scope : WUK_Lotus_Scope
