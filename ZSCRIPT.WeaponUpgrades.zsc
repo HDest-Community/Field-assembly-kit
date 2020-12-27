@@ -1,5 +1,6 @@
-class WUK_WeaponUpgrade
+class WUK_WeaponUpgrade abstract
 {
+	// [Ace] Make these abstract at some point.
 	virtual string GetWeapon() { return ""; }
 	virtual string GetDisplayName() { return ""; }
 	virtual clearscope int GetCost() { return 2; }
@@ -485,6 +486,14 @@ class WUK_Eris_ExtendedBarrel : WUK_WeaponUpgrade
 	override string GetDisplayName() { return "Extended Barrel"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 8; }
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 8; }
+}
+
+class WUK_Jackdaw_RapidFire : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HDJackdaw"; }
+	override string GetDisplayName() { return "Rapid-Fire"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 2; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 2; }
 }
 
 // --------------- ICARUS' STUFF ---------------
