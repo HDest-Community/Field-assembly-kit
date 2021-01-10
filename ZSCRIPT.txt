@@ -125,7 +125,9 @@ class HDWeaponUpgradeKit : HDWeapon
 		let SelWeapon = GetSelectedWeapon();
 		if (SelWeapon)
 		{
-			sb.DrawImage(SelWeapon.GetPickupSprite(), (0, BaseYOffset - 160) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER, alpha: 1.0);
+			string Image; double ImageScale;
+			[Image, ImageScale] = SelWeapon.GetPickupSprite();
+			sb.DrawImage(Image, (0, BaseYOffset - 160) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER, 1.0, scale: (ImageScale, ImageScale));
 			sb.DrawString(sb.pSmallFont, SelWeapon.GetTag(), (0, BaseYOffset - 140) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_SAPPHIRE, 1.0);
 
 			int Size = CurrWeaponUpgrades.Size();
