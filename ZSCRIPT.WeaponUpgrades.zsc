@@ -517,3 +517,19 @@ class WUK_SpeedLotus_Suppressor : WUK_Lotus_Suppressor
 {
 	override string GetWeapon() { return "HDLotusSpeed"; }
 }
+
+class WUK_Fenris_PolyFrame : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HDFenris"; }
+	override string GetDisplayName() { return "Poly Frame"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 2; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 2; }
+}
+
+class WUK_Fenris_Capacitor : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HDFenris"; }
+	override string GetDisplayName() { return "Capacitor"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 4; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 4; }
+}
