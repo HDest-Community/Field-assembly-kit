@@ -533,3 +533,11 @@ class WUK_Fenris_Capacitor : WUK_WeaponUpgrade
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 4; }
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 4; }
 }
+
+class WUK_GFB_Capacitor : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HDGFBlaster"; }
+	override string GetDisplayName() { return "Capacitor"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 1; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 1; }
+}
