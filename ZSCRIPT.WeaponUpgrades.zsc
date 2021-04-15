@@ -107,8 +107,8 @@ class WUK_Liberator_NoBullpup : WUK_WeaponUpgrade
 {
 	override string GetWeapon() { return "LiberatorRifle"; }
 	override string GetDisplayName() { return "Long Rifle"; }
-	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 512; }
-	override void DoDowngrade(HDWeapon wpn) { wpn.WeaponStatus[0] &= ~512; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 512; wpn.bFITSINBACKPACK = false; }
+	override void DoDowngrade(HDWeapon wpn) { wpn.WeaponStatus[0] &= ~512; wpn.bFITSINBACKPACK = true; }
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 512; }
 	override bool CanDowngrade() { return true; }
 }
@@ -225,52 +225,29 @@ class WUK_Lisa_Scope : WUK_WeaponUpgrade
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 4; }
 }
 
-class WUK_IronsLiberator_SelectFire : WUK_WeaponUpgrade
+class WUK_IronsLiberator_SelectFire : WUK_Liberator_SelectFire
 {
 	override string GetWeapon() { return "IronsLiberatorRifle"; }
-	override string GetDisplayName() { return "Select-Fire"; }
-	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] &= ~1024; }
-	override bool HasUpgrade(HDWeapon wpn) { return !(wpn.WeaponStatus[0] & 1024); }
 }
 
-class WUK_IronsLiberator_GL : WUK_WeaponUpgrade
+class WUK_IronsLiberator_GL : WUK_Liberator_GL
 {
 	override string GetWeapon() { return "IronsLiberatorRifle"; }
-	override string GetDisplayName() { return "Grenade Launcher"; }
-	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] &= ~8; }
-	override bool HasUpgrade(HDWeapon wpn) { return !(wpn.WeaponStatus[0] & 8); }
 }
 
-class WUK_IronsLiberator_NoBullpup : WUK_WeaponUpgrade
+class WUK_IronsLiberator_NoBullpup : WUK_Liberator_NoBullpup
 {
 	override string GetWeapon() { return "IronsLiberatorRifle"; }
-	override string GetDisplayName() { return "Long Rifle"; }
-	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 512; }
-	override void DoDowngrade(HDWeapon wpn) { wpn.WeaponStatus[0] &= ~512; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 512; }
-	override bool CanDowngrade() { return true; }
 }
 
-class WUK_IronsLiberator_FrontReticle : WUK_WeaponUpgrade
+class WUK_IronsLiberator_FrontReticle : WUK_Liberator_FrontReticle
 {
 	override string GetWeapon() { return "IronsLiberatorRifle"; }
-	override string GetDisplayName() { return "Front Reticle"; }
-	override int GetCost() { return 1; }
-	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 32; }
-	override void DoDowngrade(HDWeapon wpn) { wpn.WeaponStatus[0] &= ~32; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 32; }
-	override bool CanDowngrade() { return true; }
 }
 
-class WUK_IronsLiberator_AltReticle : WUK_WeaponUpgrade
+class WUK_IronsLiberator_AltReticle : WUK_Liberator_AltReticle
 {
 	override string GetWeapon() { return "IronsLiberatorRifle"; }
-	override string GetDisplayName() { return "Alt Reticle"; }
-	override int GetCost() { return 1; }
-	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 64; }
-	override void DoDowngrade(HDWeapon wpn) { wpn.WeaponStatus[0] &= ~64; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 64; }
-	override bool CanDowngrade() { return true; }
 }
 
 class WUK_BoxCannon_ExtendedMag : WUK_WeaponUpgrade
