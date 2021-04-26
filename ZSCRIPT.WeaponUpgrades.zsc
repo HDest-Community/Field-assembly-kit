@@ -254,16 +254,16 @@ class WUK_BoxCannon_ExtendedMag : WUK_WeaponUpgrade
 {
 	override string GetWeapon() { return "HDBoxCannon"; }
 	override string GetDisplayName() { return "Extended Magazine"; }
-	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 16; wpn.WeaponStatus[0] &= ~64; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 16; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[7] = 1; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[7] == 1; }
 }
 
 class WUK_BoxCannon_DrumMag : WUK_WeaponUpgrade
 {
 	override string GetWeapon() { return "HDBoxCannon"; }
 	override string GetDisplayName() { return "Drum Magazine"; }
-	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 64; wpn.WeaponStatus[0] &= ~16; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 64; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[7] = 2; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[7] == 2; }
 }
 
 class WUK_BoxCannon_Broomhandle : WUK_WeaponUpgrade
@@ -278,8 +278,16 @@ class WUK_BoxCannon_LongerBarrel : WUK_WeaponUpgrade
 {
 	override string GetWeapon() { return "HDBoxCannon"; }
 	override string GetDisplayName() { return "Longer Barrel"; }
-	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 32; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 32; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[6] = 1; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[6] == 1; }
+}
+
+class WUK_BoxCannon_Suppressor : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HDBoxCannon"; }
+	override string GetDisplayName() { return "Suppressor"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[6] = 2; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[6] == 2; }
 }
 
 class WUK_Lotus_Scope : WUK_WeaponUpgrade
