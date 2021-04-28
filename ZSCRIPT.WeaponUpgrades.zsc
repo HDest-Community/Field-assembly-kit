@@ -564,16 +564,56 @@ class WUK_Six12_Barracuda : WUK_WeaponUpgrade
 	{
 		// [Ace] The framework was never meant for this. Ah well.
 		Actor plr = wpn.owner;
-		Inventory CurWeapon = wpn;
+
+		HDWeapon CurWeapon = wpn;
+		int MagOne = CurWeapon.WeaponStatus[1];
+		int MagTypeOne = CurWeapon.WeaponStatus[2];
 		plr.DropInventory(CurWeapon);
-		Inventory NewWeapon = plr.FindInventory(CurWeapon.GetClass());
+
+		HDWeapon NewWeapon = HDWeapon(plr.FindInventory(CurWeapon.GetClass()));
+		int MagTwo = NewWeapon.WeaponStatus[1];
+		int MagTypeTwo = NewWeapon.WeaponStatus[2];
 		plr.DropInventory(NewWeapon);
+
 		CurWeapon.Destroy();
 		NewWeapon.Destroy();
 
-		plr.A_GiveInventory('HDBarracuda');
+		Name BarracudaCls = 'HDBarracuda';
+		HDWeapon Barr;
+		if (plr.FindInventory(BarracudaCls))
+		{
+			Barr = HDWeapon(Actor.Spawn(BarracudaCls, plr.pos + (0, 0, plr.height / 2)));
+			Barr.angle = plr.angle;
+			Barr.A_ChangeVelocity(1, 0, 1, CVF_RELATIVE);
+		}
+		else
+		{
+			Barr = HDWeapon(plr.GiveInventoryType(BarracudaCls));
+		}
+		Barr.WeaponStatus[1] = MagOne;
+		Barr.WeaponStatus[2] = MagTwo;
+		if (MagTypeOne == 1)
+		{
+			Barr.WeaponStatus[3] |= 1 << 0;
+		}
+		if (MagTypeTwo == 1)
+		{
+			Barr.WeaponStatus[3] |= 1 << 1;
+		}
 	}
 	override bool HasUpgrade(HDWeapon wpn) { return false; }
-	override bool CheckPrerequisites(HDWeapon wpn) { return wpn.ActualAmount >= 2; }
-	override string GetFailMessage(int type) { return type == 0 ? "You need two Six12 shotguns for upgrade." : Super.GetFailMessage(type); }
+	override bool CheckPrerequisites(HDWeapon wpn)
+	{
+		Name BarracudaCls = 'HDBarracuda';
+		return wpn.ActualAmount >= 2 && (class<Actor>)(BarracudaCls);
+	}
+	override string GetFailMessage(int type)
+	{
+		Name BarracudaCls = 'HDBarracuda';
+		if (type == 0)
+		{
+			return (class<Actor>)(BarracudaCls) ? "You need two Six12 shotguns for upgrade." : "What the hell is a Barracuda?";
+		}
+		return Super.GetFailMessage(type);
+	}
 }
