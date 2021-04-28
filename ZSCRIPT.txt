@@ -228,15 +228,23 @@ class HDWeaponUpgradeKit : HDWeapon
 			return;
 		}
 
-		if (act == 0 && Upgrade.HasUpgrade(SelWeapon))
+		if (act == 0)
 		{
-			A_WeaponMessage("Upgrade has already been installed.");
-			return;
+			if (!Upgrade.CheckPrerequisites(SelWeapon))
+			{
+				A_WeaponMessage(Upgrade.GetFailMessage(0));
+				return;
+			}
+			if (Upgrade.HasUpgrade(SelWeapon))
+			{
+				A_WeaponMessage(Upgrade.GetFailMessage(1));
+				return;
+			}
 		}
 
 		if (act == 1 && (!Upgrade.HasUpgrade(SelWeapon) || !Upgrade.CanDowngrade()))
 		{
-			A_WeaponMessage("Upgrade has already been uninstalled or no downgrade is available.");
+			A_WeaponMessage(Upgrade.GetFailMessage(2));
 			return;
 		}
 

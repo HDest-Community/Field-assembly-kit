@@ -1,13 +1,27 @@
 class WUK_WeaponUpgrade abstract
 {
 	// [Ace] Make these abstract at some point.
-	virtual string GetWeapon() { return ""; }
-	virtual string GetDisplayName() { return ""; }
+	abstract string GetWeapon();
+	abstract string GetDisplayName();
 	virtual clearscope int GetCost() { return 2; }
-	virtual play void DoUpgrade(HDWeapon wpn) { }
+
+	abstract play void DoUpgrade(HDWeapon wpn);
+	abstract clearscope bool HasUpgrade(HDWeapon wpn);
+
 	virtual play void DoDowngrade(HDWeapon wpn) { }
-	virtual clearscope bool HasUpgrade(HDWeapon wpn) { return false; }
 	virtual clearscope bool CanDowngrade() { return false; }
+
+	virtual clearscope bool CheckPrerequisites(HDWeapon wpn) { return true; }
+	virtual string GetFailMessage(int type) const
+	{
+		switch (type)
+		{
+			case 0: return "Requirements not met.";
+			case 1: return "Upgrade has already been installed.";
+			case 2: return "Upgrade has already been uninstalled or no downgrade is available.";
+		}
+		return "Error message that the player should never see. Go complain to Ace.";
+	}
 }
 
 // --------------- VANILLA ---------------
@@ -540,4 +554,26 @@ class WUK_DEagle_HeavyFrame : WUK_Eris_HeavyFrame
 class WUK_DEagle_ExtendedBarrel : WUK_Eris_ExtendedBarrel
 {
 	override string GetWeapon() { return "HDDEagle"; }
+}
+
+class WUK_Six12_Barracuda : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HDSix12"; }
+	override string GetDisplayName() { return "Barracuda"; }
+	override void DoUpgrade(HDWeapon wpn)
+	{
+		// [Ace] The framework was never meant for this. Ah well.
+		Actor plr = wpn.owner;
+		Inventory CurWeapon = wpn;
+		plr.DropInventory(CurWeapon);
+		Inventory NewWeapon = plr.FindInventory(CurWeapon.GetClass());
+		plr.DropInventory(NewWeapon);
+		CurWeapon.Destroy();
+		NewWeapon.Destroy();
+
+		plr.A_GiveInventory('HDBarracuda');
+	}
+	override bool HasUpgrade(HDWeapon wpn) { return false; }
+	override bool CheckPrerequisites(HDWeapon wpn) { return wpn.ActualAmount >= 2; }
+	override string GetFailMessage(int type) { return type == 0 ? "You need two Six12 shotguns for upgrade." : Super.GetFailMessage(type); }
 }
