@@ -1,0 +1,23 @@
+class WUK_AutoMag_SelectFire : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HD_AutoMag"; }
+	override string GetDisplayName() { return "Select-Fire"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 1; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 1; }
+}
+
+class WUK_Colt355_Masterkey : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HD_Colt355"; }
+	override string GetDisplayName() { return "Masterkey"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[7] = 1; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[7] == 1; }
+}
+
+class WUK_Aug9mm_Masterkey : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HD_Aug9mm"; }
+	override string GetDisplayName() { return "Masterkey"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[7] = 1; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[7] == 1; }
+}

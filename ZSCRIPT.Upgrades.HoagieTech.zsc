@@ -1,0 +1,7 @@
+class WUK_ZM69_FullAuto : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "ZM69Rifle"; }
+	override string GetDisplayName() { return "Full-Auto"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 32; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 32; }
+}

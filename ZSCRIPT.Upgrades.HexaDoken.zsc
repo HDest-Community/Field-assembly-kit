@@ -1,0 +1,30 @@
+class WUK_Bossmerg_ExtendedMag : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "Bossmerg"; }
+	override string GetDisplayName() { return "Extended Magazine"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 32; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 32; }
+}
+
+class WUK_SpeedHunter_FullAuto : WUK_Hunter_FullAuto
+{
+	override string GetWeapon() { return "HunterSpeed"; }
+}
+
+class WUK_SpeedHunter_MaxChoke : WUK_Hunter_MaxChoke
+{
+	override string GetWeapon() { return "HunterSpeed"; }
+}
+
+class WUK_SpeedHunter_TubeUpgrade : WUK_Hunter_TubeUpgrade
+{
+	override string GetWeapon() { return "HunterSpeed"; }
+}
+
+class WUK_SpeedHunter_SideSaddles : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HunterSpeed"; }
+	override string GetDisplayName() { return "Side Saddles"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] &= ~128; }
+	override bool HasUpgrade(HDWeapon wpn) { return !(wpn.WeaponStatus[0] & 128); }
+}

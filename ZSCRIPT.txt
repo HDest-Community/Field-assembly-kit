@@ -1,6 +1,38 @@
 version "4.0"
 
-#include "ZSCRIPT.WeaponUpgrades.zsc"
+#include "ZSCRIPT.Upgrades.Vanilla.zsc"
+#include "ZSCRIPT.Upgrades.AceCorp.zsc"
+#include "ZSCRIPT.Upgrades.Icarus.zsc"
+#include "ZSCRIPT.Upgrades.Peppergrinder.zsc"
+#include "ZSCRIPT.Upgrades.Hoagietech.zsc"
+#include "ZSCRIPT.Upgrades.HexaDoken.zsc"
+#include "ZSCRIPT.Upgrades.Potetobloke.zsc"
+
+class WUK_WeaponUpgrade abstract
+{
+	// [Ace] Make these abstract at some point.
+	abstract string GetWeapon();
+	abstract string GetDisplayName();
+	virtual clearscope int GetCost() { return 2; }
+
+	abstract play void DoUpgrade(HDWeapon wpn);
+	abstract clearscope bool HasUpgrade(HDWeapon wpn);
+
+	virtual play void DoDowngrade(HDWeapon wpn) { }
+	virtual clearscope bool CanDowngrade() { return false; }
+
+	virtual clearscope bool CheckPrerequisites(HDWeapon wpn) { return true; }
+	virtual string GetFailMessage(int type) const
+	{
+		switch (type)
+		{
+			case 0: return "Requirements not met.";
+			case 1: return "Upgrade has already been installed.";
+			case 2: return "Upgrade has already been uninstalled or no downgrade is available.";
+		}
+		return "Error message that the player should never see. Go complain to Ace.";
+	}
+}
 
 class HDWeaponUpgradeKit : HDWeapon
 {
