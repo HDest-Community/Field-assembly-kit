@@ -1,23 +1,3 @@
-class WUK_SpeedLotus_Scope : WUK_Lotus_Scope
-{
-	override string GetWeapon() { return "HDLotusSpeed"; }
-}
-
-class WUK_SpeedLotus_GasSeal : WUK_Lotus_GasSeal
-{
-	override string GetWeapon() { return "HDLotusSpeed"; }
-}
-
-class WUK_SpeedLotus_ExtendedBarrel : WUK_Lotus_ExtendedBarrel
-{
-	override string GetWeapon() { return "HDLotusSpeed"; }
-}
-
-class WUK_SpeedLotus_Suppressor : WUK_Lotus_Suppressor
-{
-	override string GetWeapon() { return "HDLotusSpeed"; }
-}
-
 class WUK_Fenris_PolyFrame : WUK_WeaponUpgrade
 {
 	override string GetWeapon() { return "HDFenris"; }
@@ -117,4 +97,53 @@ class WUK_Six12_Barracuda : WUK_WeaponUpgrade
 		}
 		return Super.GetFailMessage(type);
 	}
+}
+
+
+class WUK_MBR_Firemode : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HDMBR"; }
+	override string GetDisplayName() { return "Firemode Selector"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 4; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 4; }
+}
+
+class WUK_MBR_Scope : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HDMBR"; }
+	override string GetDisplayName() { return "Scope"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 8; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 8; }
+}
+
+class WUK_MBR_GL : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HDMBR"; }
+	override string GetDisplayName() { return "Grenade Launcher"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 16; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 16; }
+}
+
+class WUK_MBR_FactoryFrame : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HDMBR"; }
+	override string GetDisplayName() { return "Frame (Factory)"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[3] = 0; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[3] == 0; }
+}
+
+class WUK_MBR_CQCFrame : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HDMBR"; }
+	override string GetDisplayName() { return "Frame (CQC)"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[3] = 1; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[3] == 1; }
+}
+
+class WUK_MBR_DMRFrame : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HDMBR"; }
+	override string GetDisplayName() { return "Frame (DMR)"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[3] = 2; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[3] == 2; }
 }
