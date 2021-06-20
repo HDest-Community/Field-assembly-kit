@@ -1,0 +1,7 @@
+class WUK_500SWLeverRifle_Scope : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HD50SWLeverRifle"; }
+	override string GetDisplayName() { return "Scope"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[12] = 1; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[12] == 1; }
+}
