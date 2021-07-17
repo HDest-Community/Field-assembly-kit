@@ -22,17 +22,17 @@ class WUK_GFB_Capacitor : WUK_WeaponUpgrade
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 1; }
 }
 
-class WUK_DEagle_LightTrigger : WUK_Eris_LightTrigger
+class WUK_DEagle_LightTrigger : WUK_Viper_LightTrigger
 {
 	override string GetWeapon() { return "HDDEagle"; }
 }
 
-class WUK_DEagle_HeavyFrame : WUK_Eris_HeavyFrame
+class WUK_DEagle_HeavyFrame : WUK_Viper_HeavyFrame
 {
 	override string GetWeapon() { return "HDDEagle"; }
 }
 
-class WUK_DEagle_ExtendedBarrel : WUK_Eris_ExtendedBarrel
+class WUK_DEagle_ExtendedBarrel : WUK_Viper_ExtendedBarrel
 {
 	override string GetWeapon() { return "HDDEagle"; }
 }
