@@ -37,6 +37,14 @@ class WUK_DEagle_ExtendedBarrel : WUK_Eris_ExtendedBarrel
 	override string GetWeapon() { return "HDDEagle"; }
 }
 
+class WUK_PD42_Slugger : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HDPDFour"; }
+	override string GetDisplayName() { return "Slugger"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 4; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 4; }
+}
+
 class WUK_Six12_Barracuda : WUK_WeaponUpgrade
 {
 	override string GetWeapon() { return "HDSix12"; }
