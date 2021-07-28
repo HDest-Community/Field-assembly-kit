@@ -162,3 +162,19 @@ class WUK_FoG_Efficiency : WUK_WeaponUpgrade
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 1; }
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 1; }
 }
+
+class WUK_Bitch_RapidFire : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HDBitch"; }
+	override string GetDisplayName() { return "Rapid-Fire"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 2; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 2; }
+}
+
+class WUK_Bitch_GL : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HDBitch"; }
+	override string GetDisplayName() { return "Grenade Launcher"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 8; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 8; }
+}
