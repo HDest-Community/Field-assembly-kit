@@ -93,5 +93,5 @@ class WUK_PSG_ExtraPoint : WUK_WeaponUpgrade
 	override string GetWeapon() { return "HDPersonalShieldGenerator"; }
 	override string GetDisplayName() { return "+1 Unallocated Energy"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[7]++; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[8] + wpn.WeaponStatus[9] + wpn.WeaponStatus[10] == 6; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[7] + wpn.WeaponStatus[8] + wpn.WeaponStatus[9] + wpn.WeaponStatus[10] == 6; }
 }
