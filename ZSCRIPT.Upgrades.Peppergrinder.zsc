@@ -51,20 +51,28 @@ class WUK_Wiseau_Capacitor : WUK_WeaponUpgrade
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 2; }
 }
 
+class WUK_Lisa_Scope : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HDLisa"; }
+	override string GetDisplayName() { return "Box Scope"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 4; wpn.WeaponStatus[0] &= ~8; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 4; }
+}
+
+class WUK_Lisa_TechScope : WUK_WeaponUpgrade
+{
+	override string GetWeapon() { return "HDLisa"; }
+	override string GetDisplayName() { return "Tech Scope"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 8; wpn.WeaponStatus[0] &= ~4; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 8; }
+}
+
 class WUK_Lisa_DoubleAction : WUK_WeaponUpgrade
 {
 	override string GetWeapon() { return "HDLisa"; }
 	override string GetDisplayName() { return "Double-Action"; }
-	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 8; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 8; }
-}
-
-class WUK_Lisa_Scope : WUK_WeaponUpgrade
-{
-	override string GetWeapon() { return "HDLisa"; }
-	override string GetDisplayName() { return "Scope"; }
-	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 4; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 4; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 16; }
+	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 16; }
 }
 
 class WUK_IronsLiberator_SelectFire : WUK_Liberator_SelectFire
