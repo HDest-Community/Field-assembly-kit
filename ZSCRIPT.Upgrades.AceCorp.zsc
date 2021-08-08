@@ -46,16 +46,6 @@ class WUK_Redline_Capacitor : WUK_WeaponUpgrade
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 4; }
 }
 
-class WUK_Redline_Resonator : WUK_WeaponUpgrade
-{
-	override string GetWeapon() { return "HDRedline"; }
-	override string GetDisplayName() { return "Resonator"; }
-	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 8; }
-	override void DoDowngrade(HDWeapon wpn) { wpn.WeaponStatus[0] &= ~8; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 8; }
-	override bool CanDowngrade() { return true; }
-}
-
 class WUK_Viper_LightTrigger : WUK_WeaponUpgrade
 {
 	override string GetWeapon() { return "HDViper"; }
