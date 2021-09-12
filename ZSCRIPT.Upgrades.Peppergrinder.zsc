@@ -57,6 +57,7 @@ class WUK_Lisa_Scope : WUK_WeaponUpgrade
 	override string GetDisplayName() { return "Box Scope"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 4; wpn.WeaponStatus[0] &= ~8; }
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 4; }
+	override string GetConflictingUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 8 ? "Tech Scope" : ""; }
 }
 
 class WUK_Lisa_TechScope : WUK_WeaponUpgrade
@@ -65,6 +66,7 @@ class WUK_Lisa_TechScope : WUK_WeaponUpgrade
 	override string GetDisplayName() { return "Tech Scope"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 8; wpn.WeaponStatus[0] &= ~4; }
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 8; }
+	override string GetConflictingUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 4 ? "Box Scope" : ""; }
 }
 
 class WUK_Lisa_DoubleAction : WUK_WeaponUpgrade
@@ -106,6 +108,7 @@ class WUK_BoxCannon_ExtendedMag : WUK_WeaponUpgrade
 	override string GetDisplayName() { return "Extended Magazine"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[7] = 1; }
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[7] == 1; }
+	override string GetConflictingUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[7] == 2 ? "Drum Mag" : ""; }
 }
 
 class WUK_BoxCannon_DrumMag : WUK_WeaponUpgrade
@@ -114,6 +117,7 @@ class WUK_BoxCannon_DrumMag : WUK_WeaponUpgrade
 	override string GetDisplayName() { return "Drum Magazine"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[7] = 2; }
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[7] == 2; }
+	override string GetConflictingUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[7] == 1 ? "Extended Magazine" : ""; }
 }
 
 class WUK_BoxCannon_Broomhandle : WUK_WeaponUpgrade
@@ -130,6 +134,7 @@ class WUK_BoxCannon_LongerBarrel : WUK_WeaponUpgrade
 	override string GetDisplayName() { return "Longer Barrel"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[6] = 1; }
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[6] == 1; }
+	override string GetConflictingUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[6] == 2 ? "Longer Barrel" : ""; }
 }
 
 class WUK_BoxCannon_Suppressor : WUK_WeaponUpgrade
@@ -138,6 +143,7 @@ class WUK_BoxCannon_Suppressor : WUK_WeaponUpgrade
 	override string GetDisplayName() { return "Suppressor"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[6] = 2; }
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[6] == 2; }
+	override string GetConflictingUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[6] == 1 ? "Suppressor" : ""; }
 }
 
 class WUK_Lotus_Scope : WUK_WeaponUpgrade
@@ -162,6 +168,7 @@ class WUK_Lotus_ExtendedBarrel : WUK_WeaponUpgrade
 	override string GetDisplayName() { return "Extended Barrel"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[7] = 1; }
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[7] == 1; }
+	override string GetConflictingUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[7] == 1 ? "Suppressor" : ""; }
 }
 
 class WUK_Lotus_Suppressor : WUK_WeaponUpgrade
@@ -170,4 +177,5 @@ class WUK_Lotus_Suppressor : WUK_WeaponUpgrade
 	override string GetDisplayName() { return "Suppressor"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[7] = 2; }
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[7] == 2; }
+	override string GetConflictingUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[7] == 2 ? "Extended Barrel" : ""; }
 }

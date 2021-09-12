@@ -22,6 +22,8 @@ class WUK_WeaponUpgrade abstract
 	virtual play void DoDowngrade(HDWeapon wpn) { }
 	virtual clearscope bool CanDowngrade() { return false; }
 
+	virtual clearscope string GetConflictingUpgrade(HDWeapon wpn) { return ""; }
+
 	virtual clearscope bool CheckPrerequisites(HDWeapon wpn) { return true; }
 	virtual string GetFailMessage(int type) const
 	{
@@ -155,12 +157,15 @@ class HDWeaponUpgradeKit : HDWeapon
 		
 		sb.DrawImage(GetPickupSprite(), (0, BaseYOffset) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER_BOTTOM, 1.0, scale:(2, 2));
 
+		vector2 pos = (0, BaseYOffset - 160);
 		let selWeapon = GetSelectedWeapon();
 		if (selWeapon)
 		{
 			string img = selWeapon.GetPickupSprite();
-			sb.DrawImage(img, (0, BaseYOffset - 160) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER, 1.0, box: (80, 20));
-			sb.DrawString(sb.pSmallFont, selWeapon.GetTag(), (0, BaseYOffset - 140) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_SAPPHIRE, 1.0);
+			sb.DrawImage(img, pos + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER, box: (80, 20));
+			pos.y += 20;
+			sb.DrawString(sb.pSmallFont, selWeapon.GetTag(), pos + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_SAPPHIRE);
+			pos.y += 10;
 
 			int Size = CurrWeaponUpgrades.Size();
 			for (int i = 0; i < Size; ++i)
@@ -168,34 +173,40 @@ class HDWeaponUpgradeKit : HDWeapon
 				bool selected = i == hdw.WeaponStatus[KProp_SelectedUpgrade];
 				bool canDowngrade = CurrWeaponUpgrades[i].CanDowngrade();
 				string InstalledString = CurrWeaponUpgrades[i].HasUpgrade(selWeapon) ? " \c[Green](Installed)\c-" : " \c[Red](Not installed)\c-";
-				string DisplayString = CurrWeaponUpgrades[i].GetDisplayName().."\c-"..InstalledString;
-				int StringCol = selected ? (canDowngrade ? Font.CR_ORANGE : Font.CR_WHITE) : (canDowngrade ? Font.FindFontColor("WUK_Downgradeable") : Font.CR_DARKGRAY);
-				sb.DrawString(sb.pSmallFont, DisplayString, (0, BaseYOffset - (130 - 10 * i)) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, StringCol);
 
-				if (selected)
-				{
-					sb.DrawString(sb.pSmallFont, "Cost: "..CurrWeaponUpgrades[i].GetCost(), (0, BaseYOffset - (120 - 10 * Size)) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_TAN);
-				}
+				string costStr = "\c[Gold]("..CurrWeaponUpgrades[i].GetCost()..")\c-";
+				string fullstr = costStr.." "..CurrWeaponUpgrades[i].GetDisplayName().."\c-"..InstalledString;
+				int StringCol = selected ? (canDowngrade ? Font.CR_ORANGE : Font.CR_WHITE) : (canDowngrade ? Font.FindFontColor("WUK_Downgradeable") : Font.CR_DARKGRAY);
+				sb.DrawString(sb.pSmallFont, fullstr, pos + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, StringCol);
+				pos.y += 10;
 			}
 
-			string ConfirmString = "";
+			string str = "";
 			if (Confirmation[0])
 			{
-				ConfirmString = "Confirm upgrade?";
+				str = "Confirm upgrade?";
 			}
 			else if (Confirmation[1])
 			{
-				ConfirmString = "Confirm downgrade?";
+				str = "Confirm downgrade?";
 			}
 
-			if (ConfirmString != "")
+			if (str != "")
 			{
-				sb.DrawString(sb.pSmallFont, ConfirmString, (0, BaseYOffset - (130 - 10 * Size)) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_GREEN, 1.0);
+				pos.y += 10;
+				sb.DrawString(sb.pSmallFont, str, pos + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_GREEN);
+
+				string conflict = GetSelectedUpgrade().GetConflictingUpgrade(selWeapon);
+				if (conflict != "")
+				{
+					pos.y += 10;
+					sb.DrawString(sb.pSmallFont, "This will remove "..conflict.."!", pos + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_FIRE);
+				}
 			}
 		}
 		else
 		{
-			sb.DrawString(sb.pSmallFont, "No available weapons.", (0, BaseYOffset - 60) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_ORANGE, 1.0);
+			sb.DrawString(sb.pSmallFont, "No available weapons.", pos + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_ORANGE, 1.0);
 		}
 	}
 
