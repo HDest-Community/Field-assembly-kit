@@ -52,7 +52,7 @@ class HDWeaponUpgradeKit : HDWeapon
 
 		for (int i = 0; i < AllClasses.Size(); ++i)
 		{
-			if (AllClasses[i] is "WUK_WeaponUpgrade" && AllClasses[i].GetClassName() != 'WUK_WeaponUpgrade')
+			if (AllClasses[i] is 'WUK_WeaponUpgrade' && !AllClasses[i].IsAbstract())
 			{
 				WUK_WeaponUpgrade Upgrade = WUK_WeaponUpgrade(new(AllClasses[i]));
 				class<HDWeapon> wpn = Upgrade.GetWeapon();
