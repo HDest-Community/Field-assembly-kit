@@ -11,6 +11,14 @@ version "4.0"
 
 class WUK_WeaponUpgrade abstract
 {
+	enum FailMessageType
+	{
+		FMType_Requirements,
+		FMType_Installed,
+		FMType_Uninstalled,
+		FMType_NotAvailable
+	}
+
 	// [Ace] Make these abstract at some point.
 	abstract string GetWeapon();
 	abstract string GetDisplayName();
@@ -25,13 +33,14 @@ class WUK_WeaponUpgrade abstract
 	virtual clearscope string GetConflictingUpgrade(HDWeapon wpn) { return ""; }
 
 	virtual clearscope bool CheckPrerequisites(HDWeapon wpn) { return true; }
-	virtual string GetFailMessage(int type) const
+	virtual string GetFailMessage(HDWeapon wpn, int type) const
 	{
 		switch (type)
 		{
-			case 0: return "Requirements not met.";
-			case 1: return "Upgrade has already been installed.";
-			case 2: return "Upgrade has already been uninstalled or no downgrade is available.";
+			case FMType_Requirements: return "Requirements not met.";
+			case FMType_Installed: return "Upgrade has already been installed.";
+			case FMType_Uninstalled: return "Upgrade has already been uninstalled.";
+			case FMType_NotAvailable: return " Downgrade not available.";
 		}
 		return "Error message that the player should never see. Go complain to Ace.";
 	}
@@ -259,39 +268,46 @@ class HDWeaponUpgradeKit : HDWeapon
 
 	private action void A_PerformKitAction(int act)
 	{
-		HDWeapon SelWeapon = invoker.GetSelectedWeapon();
-		if (!SelWeapon) // [Ace] Lack of parentheses for the OR is intentional. Don't "fix" it again, you dolt.
+		HDWeapon wpn = invoker.GetSelectedWeapon();
+		if (!wpn) // [Ace] Lack of parentheses for the OR is intentional. Don't "fix" it again, you dolt.
 		{
 			return;
 		}
 
-		WUK_WeaponUpgrade Upgrade = invoker.GetSelectedUpgrade();
-		if (!Upgrade)
+		WUK_WeaponUpgrade upgrade = invoker.GetSelectedUpgrade();
+		if (!upgrade)
 		{
 			return;
 		}
 
 		if (act == 0)
 		{
-			if (!Upgrade.CheckPrerequisites(SelWeapon))
+			if (upgrade.HasUpgrade(wpn))
 			{
-				A_WeaponMessage(Upgrade.GetFailMessage(0));
+				A_WeaponMessage(upgrade.GetFailMessage(wpn, WUK_WeaponUpgrade.FMType_Installed));
 				return;
 			}
-			if (Upgrade.HasUpgrade(SelWeapon))
+			if (!upgrade.CheckPrerequisites(wpn))
 			{
-				A_WeaponMessage(Upgrade.GetFailMessage(1));
+				A_WeaponMessage(upgrade.GetFailMessage(wpn, WUK_WeaponUpgrade.FMType_Requirements));
 				return;
 			}
 		}
-
-		if (act == 1 && (!Upgrade.HasUpgrade(SelWeapon) || !Upgrade.CanDowngrade()))
+		else if (act == 1)
 		{
-			A_WeaponMessage(Upgrade.GetFailMessage(2));
-			return;
+			if (!upgrade.CanDowngrade())
+			{
+				A_WeaponMessage(upgrade.GetFailMessage(wpn, WUK_WeaponUpgrade.FMType_NotAvailable));
+				return;
+			}
+			if (!upgrade.HasUpgrade(wpn))
+			{
+				A_WeaponMessage(upgrade.GetFailMessage(wpn, WUK_WeaponUpgrade.FMType_Uninstalled));
+				return;
+			}
 		}
 
-		if (invoker.WeaponStatus[KProp_Durability] < Upgrade.GetCost())
+		if (invoker.WeaponStatus[KProp_Durability] < upgrade.GetCost())
 		{
 			A_WeaponMessage("Insufficient durability.");
 			return;
@@ -301,11 +317,11 @@ class HDWeaponUpgradeKit : HDWeapon
 		{
 			switch (act)
 			{
-				case 0: Upgrade.DoUpgrade(SelWeapon); break;
-				case 1: Upgrade.DoDowngrade(SelWeapon); break;
+				case 0: upgrade.DoUpgrade(wpn); break;
+				case 1: upgrade.DoDowngrade(wpn); break;
 			}
 			A_PlaySound("WUKit/InstallUpgrade", 10);
-			invoker.WeaponStatus[KProp_Durability] -= Upgrade.GetCost();
+			invoker.WeaponStatus[KProp_Durability] -= upgrade.GetCost();
 			invoker.ResetConfirmation();
 			if (invoker.WeaponStatus[KProp_Durability] == 0)
 			{

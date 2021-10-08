@@ -96,14 +96,14 @@ class WUK_Slayer_SawnOff : WUK_WeaponUpgrade
 		Name cls = 'SawedSlayer';
 		return (class<Actor>)(cls);
 	}
-	override string GetFailMessage(int type)
+	override string GetFailMessage(HDWeapon wpn, int type)
 	{
 		Name cls = 'SawedSlayer';
-		if (type == 0 && !((class<Actor>)(cls)))
+		if (type == FMType_Requirements && !((class<Actor>)(cls)))
 		{
 			return "You don't have a saw on hand.";
 		}
-		return Super.GetFailMessage(type);
+		return Super.GetFailMessage(wpn, type);
 	}
 }
 

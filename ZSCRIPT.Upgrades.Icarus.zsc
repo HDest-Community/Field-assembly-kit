@@ -51,7 +51,7 @@ class WUK_Six12_Barracuda : WUK_WeaponUpgrade
 	override string GetDisplayName() { return "Barracuda"; }
 	override void DoUpgrade(HDWeapon wpn)
 	{
-		// [Ace] The framework was never meant for this. Ah well.
+		// [Ace] The framework was never meant for this. Ah well. It is now.
 		Actor plr = wpn.owner;
 
 		HDWeapon CurWeapon = wpn;
@@ -67,17 +67,17 @@ class WUK_Six12_Barracuda : WUK_WeaponUpgrade
 		CurWeapon.Destroy();
 		NewWeapon.Destroy();
 
-		Name BarracudaCls = 'HDBarracuda';
+		Name cls = 'HDBarracuda';
 		HDWeapon Barr;
-		if (plr.FindInventory(BarracudaCls))
+		if (plr.FindInventory(cls))
 		{
-			Barr = HDWeapon(Actor.Spawn(BarracudaCls, plr.pos + (0, 0, plr.height / 2)));
+			Barr = HDWeapon(Actor.Spawn(cls, plr.pos + (0, 0, plr.height / 2)));
 			Barr.angle = plr.angle;
 			Barr.A_ChangeVelocity(1, 0, 1, CVF_RELATIVE);
 		}
 		else
 		{
-			Barr = HDWeapon(plr.GiveInventoryType(BarracudaCls));
+			Barr = HDWeapon(plr.GiveInventoryType(cls));
 		}
 		Barr.WeaponStatus[1] = MagOne;
 		Barr.WeaponStatus[2] = MagTwo;
@@ -93,17 +93,17 @@ class WUK_Six12_Barracuda : WUK_WeaponUpgrade
 	override bool HasUpgrade(HDWeapon wpn) { return false; }
 	override bool CheckPrerequisites(HDWeapon wpn)
 	{
-		Name BarracudaCls = 'HDBarracuda';
-		return wpn.ActualAmount >= 2 && (class<Actor>)(BarracudaCls);
+		Name cls = 'HDBarracuda';
+		return wpn.ActualAmount >= 2 && (class<Actor>)(cls);
 	}
-	override string GetFailMessage(int type)
+	override string GetFailMessage(HDWeapon wpn, int type)
 	{
-		Name BarracudaCls = 'HDBarracuda';
-		if (type == 0)
+		Name cls = 'HDBarracuda';
+		if (type == FMType_Requirements)
 		{
-			return (class<Actor>)(BarracudaCls) ? "You need two Six12 shotguns for upgrade." : "What the hell is a Barracuda?";
+			return (class<Actor>)(cls) ? "You need two Six12 shotguns for upgrade." : "What the hell is a Barracuda?";
 		}
-		return Super.GetFailMessage(type);
+		return Super.GetFailMessage(wpn, type);
 	}
 }
 
