@@ -278,7 +278,7 @@ class HDWeaponUpgradeKit : HDWeapon
 	private action void A_PerformKitAction(int act)
 	{
 		HDWeapon wpn = invoker.GetSelectedWeapon();
-		if (!wpn) // [Ace] Lack of parentheses for the OR is intentional. Don't "fix" it again, you dolt.
+		if (!wpn)
 		{
 			return;
 		}
