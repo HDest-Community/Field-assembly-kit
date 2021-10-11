@@ -1,0 +1,4 @@
+GameInfo
+{
+	AddEventHandlers = "WUK_Handler"
+}

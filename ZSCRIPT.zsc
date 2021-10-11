@@ -1,5 +1,6 @@
 version "4.0"
 
+#include "ZSCRIPT.Upgrades.Thinker.zsc"
 #include "ZSCRIPT.Upgrades.Vanilla.zsc"
 #include "ZSCRIPT.Upgrades.AceCorp.zsc"
 #include "ZSCRIPT.Upgrades.Icarus.zsc"
@@ -8,6 +9,15 @@ version "4.0"
 #include "ZSCRIPT.Upgrades.HexaDoken.zsc"
 #include "ZSCRIPT.Upgrades.Potetobloke.zsc"
 #include "ZSCRIPT.Upgrades.Mohl.zsc"
+
+class WUK_Handler : EventHandler
+{
+	override void PlayerEntered(PlayerEvent e)
+	{
+		WUK_UpgradeThinker thonker = new('WUK_UpgradeThinker');
+		thonker.PlayerNumber = e.PlayerNumber;
+	}
+}
 
 class WUK_WeaponUpgrade abstract
 {
@@ -19,7 +29,6 @@ class WUK_WeaponUpgrade abstract
 		FMType_NotAvailable
 	}
 
-	// [Ace] Make these abstract at some point.
 	abstract string GetWeapon();
 	abstract string GetDisplayName();
 	virtual clearscope int GetCost() { return 2; }

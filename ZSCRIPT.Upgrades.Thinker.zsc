@@ -1,0 +1,47 @@
+class WUK_UpgradeThinker : Thinker
+{
+	override void Tick()
+	{
+		let plr = HDPlayerPawn(players[PlayerNumber].mo);
+		if (!plr || !plr.player || plr.Health <= 0 || plr.incapacitated > 0) // [Ace] Incap check is just in case.
+		{
+			return;
+		}
+
+		let wpn = HDWeapon(plr.player.ReadyWeapon);
+		if (wpn is 'HDRevolver')
+		{
+			let rev = HDRevolver(wpn);
+			if (rev.WeaponStatus[0] & 64 && rev.CylinderOpen && plr.player.cmd.buttons & BT_RELOAD && !(plr.player.oldbuttons & BT_RELOAD))
+			{
+				int totalRounds = 0;
+				for (int i = BUGS_CYL1; i <= BUGS_CYL6; ++i)
+				{
+					if (wpn.WeaponStatus[i] > 0)
+					{
+						totalRounds++;
+					}
+				}
+				if (totalRounds == 0)
+				{
+					for (int i = 0; i < 6; ++i)
+					{
+						bool useNineMil = (plr.player.cmd.buttons & BT_FIREMODE || plr.CountInv("HDRevolverAmmo") == 0);
+						if (useNineMil && plr.CountInv("HDPistolAmmo") == 0)
+						{
+							break;
+						}
+						class<Inventory> ammotype = useNineMil ? 'HDPistolAmmo'  :'HDRevolverAmmo';
+						plr.A_TakeInventory(ammotype, 1, TIF_NOTAKEINFINITE);
+						rev.WeaponStatus[BUGS_CYL1] = useNineMil ? BUGS_NINEMIL : BUGS_MASTERBALL;
+						plr.A_StartSound("weapons/deinoload", 8, CHANF_OVERLAP);
+						rev.RotateCylinder();
+					}
+				}
+			}
+		}
+	}
+
+	// [Ace] The reference may go null, but the number stays the same.
+	int PlayerNumber;
+}
