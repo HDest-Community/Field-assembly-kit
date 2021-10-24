@@ -31,17 +31,17 @@ class WUK_WeaponUpgrade abstract
 
 	abstract string GetWeapon();
 	abstract string GetDisplayName();
-	virtual clearscope int GetCost() { return 2; }
+	virtual int GetCost() const { return 2; }
 
 	abstract play void DoUpgrade(HDWeapon wpn);
-	abstract clearscope bool HasUpgrade(HDWeapon wpn);
+	abstract bool HasUpgrade(HDWeapon wpn) const;
 
 	virtual play void DoDowngrade(HDWeapon wpn) { }
-	virtual clearscope bool CanDowngrade() { return false; }
+	virtual bool CanDowngrade() const { return false; }
 
-	virtual clearscope string GetConflictingUpgrade(HDWeapon wpn) { return ""; }
+	virtual string GetConflictingUpgrade(HDWeapon wpn) const { return ""; }
 
-	virtual clearscope bool CheckPrerequisites(HDWeapon wpn) { return true; }
+	virtual bool CheckPrerequisites(HDWeapon wpn) const { return true; }
 	virtual string GetFailMessage(HDWeapon wpn, int type) const
 	{
 		switch (type)

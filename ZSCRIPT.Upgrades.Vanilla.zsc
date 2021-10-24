@@ -12,6 +12,7 @@ class WUK_HDRevolver_Speedloader : WUK_WeaponUpgrade
 	override string GetDisplayName() { return "Speedloader"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 64; }
 	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 64; }
+	override int GetCost() { return 1; }
 }
 
 class WUK_SMG_SelectFire : WUK_WeaponUpgrade
