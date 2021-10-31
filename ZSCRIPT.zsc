@@ -34,7 +34,7 @@ class WUK_WeaponUpgrade abstract
 	virtual int GetCost() const { return 2; }
 
 	abstract play void DoUpgrade(HDWeapon wpn);
-	abstract bool HasUpgrade(HDWeapon wpn) const;
+	abstract int HasUpgrade(HDWeapon wpn) const;
 
 	virtual play void DoDowngrade(HDWeapon wpn) { }
 	virtual bool CanDowngrade() const { return false; }
@@ -190,10 +190,16 @@ class HDWeaponUpgradeKit : HDWeapon
 			{
 				bool selected = i == hdw.WeaponStatus[KProp_SelectedUpgrade];
 				bool canDowngrade = CurrWeaponUpgrades[i].CanDowngrade();
-				string InstalledString = CurrWeaponUpgrades[i].HasUpgrade(selWeapon) ? " \c[Green](Installed)\c-" : " \c[Red](Not installed)\c-";
+
+				string hasUpStr = " \c[Red](Not installed)\c-";
+				switch (CurrWeaponUpgrades[i].HasUpgrade(selWeapon))
+				{
+					case 1: hasUpStr = " \c[Green](Installed)\c-"; break;
+					case 2: hasUpStr = " \c[Purple](Repeatable)\c-"; break;
+				}
 
 				string costStr = "\c[Gold]("..CurrWeaponUpgrades[i].GetCost()..")\c-";
-				string fullstr = costStr.." "..CurrWeaponUpgrades[i].GetDisplayName().."\c-"..InstalledString;
+				string fullstr = costStr.." "..CurrWeaponUpgrades[i].GetDisplayName().."\c-"..hasUpStr;
 				int StringCol = selected ? (canDowngrade ? Font.CR_ORANGE : Font.CR_WHITE) : (canDowngrade ? Font.FindFontColor("WUK_Downgradeable") : Font.CR_DARKGRAY);
 				sb.DrawString(sb.pSmallFont, fullstr, pos + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, StringCol);
 				pos.y += 10;
@@ -291,7 +297,7 @@ class HDWeaponUpgradeKit : HDWeapon
 
 		if (act == 0)
 		{
-			if (upgrade.HasUpgrade(wpn))
+			if (upgrade.HasUpgrade(wpn) == 1)
 			{
 				A_WeaponMessage(upgrade.GetFailMessage(wpn, WUK_WeaponUpgrade.FMType_Installed));
 				return;
@@ -309,7 +315,7 @@ class HDWeaponUpgradeKit : HDWeapon
 				A_WeaponMessage(upgrade.GetFailMessage(wpn, WUK_WeaponUpgrade.FMType_NotAvailable));
 				return;
 			}
-			if (!upgrade.HasUpgrade(wpn))
+			if (upgrade.HasUpgrade(wpn) == 0)
 			{
 				A_WeaponMessage(upgrade.GetFailMessage(wpn, WUK_WeaponUpgrade.FMType_Uninstalled));
 				return;

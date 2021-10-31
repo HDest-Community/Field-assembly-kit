@@ -3,7 +3,7 @@ class WUK_Bossmerg_ExtendedMag : WUK_WeaponUpgrade
 	override string GetWeapon() { return "Bossmerg"; }
 	override string GetDisplayName() { return "Extended Magazine"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 32; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 32; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 32; }
 }
 
 class WUK_SpeedHunter_FullAuto : WUK_Hunter_FullAuto
@@ -26,5 +26,5 @@ class WUK_SpeedHunter_SideSaddles : WUK_WeaponUpgrade
 	override string GetWeapon() { return "HunterSpeed"; }
 	override string GetDisplayName() { return "Side Saddles"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] &= ~128; }
-	override bool HasUpgrade(HDWeapon wpn) { return !(wpn.WeaponStatus[0] & 128); }
+	override int HasUpgrade(HDWeapon wpn) { return !(wpn.WeaponStatus[0] & 128); }
 }

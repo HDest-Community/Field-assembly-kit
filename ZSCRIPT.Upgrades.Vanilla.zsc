@@ -3,7 +3,7 @@ class WUK_HDPistol_SelectFire : WUK_WeaponUpgrade
 	override string GetWeapon() { return "HDPistol"; }
 	override string GetDisplayName() { return "Select-Fire"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 1; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 1; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 1; }
 }
 
 class WUK_HDRevolver_Speedloader : WUK_WeaponUpgrade
@@ -11,7 +11,7 @@ class WUK_HDRevolver_Speedloader : WUK_WeaponUpgrade
 	override string GetWeapon() { return "HDRevolver"; }
 	override string GetDisplayName() { return "Speedloader"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 64; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 64; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 64; }
 	override int GetCost() { return 1; }
 }
 
@@ -20,7 +20,7 @@ class WUK_SMG_SelectFire : WUK_WeaponUpgrade
 	override string GetWeapon() { return "HDSMG"; }
 	override string GetDisplayName() { return "Select-Fire"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[5] = 0; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[5] == 0; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[5] == 0; }
 }
 
 class WUK_SMG_ReflexSight : WUK_WeaponUpgrade
@@ -30,7 +30,7 @@ class WUK_SMG_ReflexSight : WUK_WeaponUpgrade
 	override int GetCost() { return 1; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 2; }
 	override void DoDowngrade(HDWeapon wpn) { wpn.WeaponStatus[0] &= ~2; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 2; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 2; }
 	override bool CanDowngrade() { return true; }
 }
 
@@ -39,7 +39,7 @@ class WUK_Hunter_FullAuto : WUK_WeaponUpgrade
 	override string GetWeapon() { return "Hunter"; }
 	override string GetDisplayName() { return "Full-Auto"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 1; wpn.WeaponStatus[0] &= ~64; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 1; } // [Ace] Yes, you can upgrade an Export hunter and make it full-auto. But why would you do that? Are you mad? Do you work for Tchernobog?
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 1; } // [Ace] Yes, you can upgrade an Export hunter and make it full-auto. But why would you do that? Are you mad? Do you work for Tchernobog?
 }
 
 class WUK_Hunter_MaxChoke : WUK_WeaponUpgrade
@@ -47,7 +47,7 @@ class WUK_Hunter_MaxChoke : WUK_WeaponUpgrade
 	override string GetWeapon() { return "Hunter"; }
 	override string GetDisplayName() { return "Max Choke"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[7] = 7; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[7] == 7; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[7] == 7; }
 }
 
 class WUK_Hunter_TubeUpgrade : WUK_WeaponUpgrade
@@ -55,7 +55,7 @@ class WUK_Hunter_TubeUpgrade : WUK_WeaponUpgrade
 	override string GetWeapon() { return "Hunter"; }
 	override string GetDisplayName() { return "Tube Upgrade (+2)"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[5] += 2; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[5] > 7; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[5] > 7; }
 }
 
 class WUK_Slayer_MaxChoke : WUK_WeaponUpgrade
@@ -63,7 +63,7 @@ class WUK_Slayer_MaxChoke : WUK_WeaponUpgrade
 	override string GetWeapon() { return "Slayer"; }
 	override string GetDisplayName() { return "Max Choke"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[6] = 7; wpn.WeaponStatus[7] = 7; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[6] == 7 && wpn.WeaponStatus[7] == 7; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[6] == 7 && wpn.WeaponStatus[7] == 7; }
 }
 
 class WUK_Slayer_SawnOff : WUK_WeaponUpgrade
@@ -99,7 +99,7 @@ class WUK_Slayer_SawnOff : WUK_WeaponUpgrade
 		sawedOff.WeaponStatus[1] = leftChamber;
 		sawedOff.WeaponStatus[2] = rightChamber;
 	}
-	override bool HasUpgrade(HDWeapon wpn) { return false; }
+	override int HasUpgrade(HDWeapon wpn) { return false; }
 	override bool CheckPrerequisites(HDWeapon wpn)
 	{
 		Name cls = 'SawedSlayer';
@@ -121,7 +121,7 @@ class WUK_ZM66_SelectFire : WUK_WeaponUpgrade
 	override string GetWeapon() { return "ZM66AssaultRifle"; }
 	override string GetDisplayName() { return "Select-Fire"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] &= ~32; }
-	override bool HasUpgrade(HDWeapon wpn) { return !(wpn.WeaponStatus[0] & 32); }
+	override int HasUpgrade(HDWeapon wpn) { return !(wpn.WeaponStatus[0] & 32); }
 }
 
 class WUK_ZM66_GL : WUK_WeaponUpgrade
@@ -129,7 +129,7 @@ class WUK_ZM66_GL : WUK_WeaponUpgrade
 	override string GetWeapon() { return "ZM66AssaultRifle"; }
 	override string GetDisplayName() { return "Grenade Launcher"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] &= ~16; }
-	override bool HasUpgrade(HDWeapon wpn) { return !(wpn.WeaponStatus[0] & 16); }
+	override int HasUpgrade(HDWeapon wpn) { return !(wpn.WeaponStatus[0] & 16); }
 }
 
 class WUK_Liberator_SelectFire : WUK_WeaponUpgrade
@@ -137,7 +137,7 @@ class WUK_Liberator_SelectFire : WUK_WeaponUpgrade
 	override string GetWeapon() { return "LiberatorRifle"; }
 	override string GetDisplayName() { return "Select-Fire"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] &= ~1024; }
-	override bool HasUpgrade(HDWeapon wpn) { return !(wpn.WeaponStatus[0] & 1024); }
+	override int HasUpgrade(HDWeapon wpn) { return !(wpn.WeaponStatus[0] & 1024); }
 }
 
 class WUK_Liberator_GL : WUK_WeaponUpgrade
@@ -145,7 +145,7 @@ class WUK_Liberator_GL : WUK_WeaponUpgrade
 	override string GetWeapon() { return "LiberatorRifle"; }
 	override string GetDisplayName() { return "Grenade Launcher"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] &= ~8; }
-	override bool HasUpgrade(HDWeapon wpn) { return !(wpn.WeaponStatus[0] & 8); }
+	override int HasUpgrade(HDWeapon wpn) { return !(wpn.WeaponStatus[0] & 8); }
 }
 
 class WUK_Liberator_NoBullpup : WUK_WeaponUpgrade
@@ -154,7 +154,7 @@ class WUK_Liberator_NoBullpup : WUK_WeaponUpgrade
 	override string GetDisplayName() { return "Long Rifle"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 512; wpn.bFITSINBACKPACK = false; }
 	override void DoDowngrade(HDWeapon wpn) { wpn.WeaponStatus[0] &= ~512; wpn.bFITSINBACKPACK = true; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 512; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 512; }
 	override bool CanDowngrade() { return true; }
 }
 
@@ -165,7 +165,7 @@ class WUK_Liberator_FrontReticle : WUK_WeaponUpgrade
 	override int GetCost() { return 1; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 32; }
 	override void DoDowngrade(HDWeapon wpn) { wpn.WeaponStatus[0] &= ~32; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 32; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 32; }
 	override bool CanDowngrade() { return true; }
 }
 
@@ -176,7 +176,7 @@ class WUK_Liberator_AltReticle : WUK_WeaponUpgrade
 	override int GetCost() { return 1; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 64; }
 	override void DoDowngrade(HDWeapon wpn) { wpn.WeaponStatus[0] &= ~64; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 64; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 64; }
 	override bool CanDowngrade() { return true; }
 }
 
@@ -187,7 +187,7 @@ class WUK_Boss_FrontReticle : WUK_WeaponUpgrade
 	override int GetCost() { return 1; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 1; }
 	override void DoDowngrade(HDWeapon wpn) { wpn.WeaponStatus[0] &= ~1; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 1; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 1; }
 	override bool CanDowngrade() { return true; }
 }
 
@@ -196,5 +196,5 @@ class WUK_Boss_CustomChamber : WUK_WeaponUpgrade
 	override string GetWeapon() { return "BossRifle"; }
 	override string GetDisplayName() { return "Custom Chamber"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 2; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 2; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 2; }
 }

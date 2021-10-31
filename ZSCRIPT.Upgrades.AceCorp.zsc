@@ -3,7 +3,7 @@ class WUK_Gungnir_Accelerator : WUK_WeaponUpgrade
 	override string GetWeapon() { return "HDGungnir"; }
 	override string GetDisplayName() { return "Accelerator"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 1; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 1; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 1; }
 }
 
 class WUK_Gungnir_Capacitor : WUK_WeaponUpgrade
@@ -11,7 +11,7 @@ class WUK_Gungnir_Capacitor : WUK_WeaponUpgrade
 	override string GetWeapon() { return "HDGungnir"; }
 	override string GetDisplayName() { return "Capacitor"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 2; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 2; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 2; }
 }
 
 class WUK_Gungnir_Processor : WUK_WeaponUpgrade
@@ -19,7 +19,7 @@ class WUK_Gungnir_Processor : WUK_WeaponUpgrade
 	override string GetWeapon() { return "HDGungnir"; }
 	override string GetDisplayName() { return "Processor"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 4; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 4; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 4; }
 }
 
 class WUK_Gungnir_AntiFrag : WUK_WeaponUpgrade
@@ -35,7 +35,7 @@ class WUK_Gungnir_AntiFrag : WUK_WeaponUpgrade
 		wpn.owner.DropInventory(fog);
 		fog.Destroy();
 	}
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 8; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 8; }
 	override bool CheckPrerequisites(HDWeapon wpn)
 	{
 		Name cls = 'HDFoG';
@@ -61,7 +61,7 @@ class WUK_Redline_HeatSink : WUK_WeaponUpgrade
 	override string GetWeapon() { return "HDRedline"; }
 	override string GetDisplayName() { return "Heat Sink"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 1; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 1; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 1; }
 }
 
 class WUK_Redline_Scope : WUK_WeaponUpgrade
@@ -69,7 +69,7 @@ class WUK_Redline_Scope : WUK_WeaponUpgrade
 	override string GetWeapon() { return "HDRedline"; }
 	override string GetDisplayName() { return "Scope"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 2; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 2; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 2; }
 }
 
 class WUK_Redline_Capacitor : WUK_WeaponUpgrade
@@ -77,7 +77,7 @@ class WUK_Redline_Capacitor : WUK_WeaponUpgrade
 	override string GetWeapon() { return "HDRedline"; }
 	override string GetDisplayName() { return "Capacitor"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 4; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 4; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 4; }
 }
 
 class WUK_Viper_LightTrigger : WUK_WeaponUpgrade
@@ -85,7 +85,7 @@ class WUK_Viper_LightTrigger : WUK_WeaponUpgrade
 	override string GetWeapon() { return "HDViper"; }
 	override string GetDisplayName() { return "Lighter Trigger"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 2; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 2; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 2; }
 }
 
 class WUK_Viper_HeavyFrame : WUK_WeaponUpgrade
@@ -93,7 +93,7 @@ class WUK_Viper_HeavyFrame : WUK_WeaponUpgrade
 	override string GetWeapon() { return "HDViper"; }
 	override string GetDisplayName() { return "Heavy Frame"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 4; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 4; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 4; }
 }
 
 class WUK_Viper_ExtendedBarrel : WUK_WeaponUpgrade
@@ -101,7 +101,7 @@ class WUK_Viper_ExtendedBarrel : WUK_WeaponUpgrade
 	override string GetWeapon() { return "HDViper"; }
 	override string GetDisplayName() { return "Extended Barrel"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 8; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 8; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 8; }
 }
 
 class WUK_Jackdaw_RapidFire : WUK_WeaponUpgrade
@@ -109,13 +109,13 @@ class WUK_Jackdaw_RapidFire : WUK_WeaponUpgrade
 	override string GetWeapon() { return "HDJackdaw"; }
 	override string GetDisplayName() { return "Rapid-Fire"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 2; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 2; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 2; }
 }
 
 class WUK_PSG_ExtraPoint : WUK_WeaponUpgrade
 {
 	override string GetWeapon() { return "HDPersonalShieldGenerator"; }
 	override string GetDisplayName() { return "+1 Unallocated Energy"; }
-	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[7]++; wpn.Icon = TexMan.CheckForTexture(wpn.GetPickupSprite(), TexMan.Type_Any); }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[7] + wpn.WeaponStatus[8] + wpn.WeaponStatus[9] + wpn.WeaponStatus[10] == 6; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[8]++; wpn.Icon = TexMan.CheckForTexture(wpn.GetPickupSprite(), TexMan.Type_Any); }
+	override int HasUpgrade(HDWeapon wpn) { return 2; }
 }

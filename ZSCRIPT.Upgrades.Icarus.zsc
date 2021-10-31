@@ -3,7 +3,7 @@ class WUK_Fenris_PolyFrame : WUK_WeaponUpgrade
 	override string GetWeapon() { return "HDFenris"; }
 	override string GetDisplayName() { return "Poly Frame"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 2; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 2; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 2; }
 }
 
 class WUK_Fenris_Capacitor : WUK_WeaponUpgrade
@@ -11,7 +11,7 @@ class WUK_Fenris_Capacitor : WUK_WeaponUpgrade
 	override string GetWeapon() { return "HDFenris"; }
 	override string GetDisplayName() { return "Capacitor"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 4; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 4; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 4; }
 }
 
 class WUK_GFB_Capacitor : WUK_WeaponUpgrade
@@ -19,7 +19,7 @@ class WUK_GFB_Capacitor : WUK_WeaponUpgrade
 	override string GetWeapon() { return "HDGFBlaster"; }
 	override string GetDisplayName() { return "Capacitor"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 1; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 1; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 1; }
 }
 
 class WUK_DEagle_LightTrigger : WUK_Viper_LightTrigger
@@ -42,7 +42,7 @@ class WUK_PD42_Slugger : WUK_WeaponUpgrade
 	override string GetWeapon() { return "HDPDFour"; }
 	override string GetDisplayName() { return "Slugger"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 4; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 4; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 4; }
 }
 
 class WUK_Six12_Barracuda : WUK_WeaponUpgrade
@@ -90,7 +90,7 @@ class WUK_Six12_Barracuda : WUK_WeaponUpgrade
 			Barr.WeaponStatus[3] |= 1 << 1;
 		}
 	}
-	override bool HasUpgrade(HDWeapon wpn) { return false; }
+	override int HasUpgrade(HDWeapon wpn) { return false; }
 	override bool CheckPrerequisites(HDWeapon wpn)
 	{
 		Name cls = 'HDBarracuda';
@@ -112,7 +112,7 @@ class WUK_MBR_Firemode : WUK_WeaponUpgrade
 	override string GetWeapon() { return "HDMBR"; }
 	override string GetDisplayName() { return "Firemode Selector"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 4; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 4; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 4; }
 }
 
 class WUK_MBR_Scope : WUK_WeaponUpgrade
@@ -120,7 +120,7 @@ class WUK_MBR_Scope : WUK_WeaponUpgrade
 	override string GetWeapon() { return "HDMBR"; }
 	override string GetDisplayName() { return "Scope"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 8; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 8; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 8; }
 }
 
 class WUK_MBR_GL : WUK_WeaponUpgrade
@@ -128,7 +128,7 @@ class WUK_MBR_GL : WUK_WeaponUpgrade
 	override string GetWeapon() { return "HDMBR"; }
 	override string GetDisplayName() { return "Grenade Launcher"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 16; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 16; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 16; }
 }
 
 class WUK_MBR_FactoryFrame : WUK_WeaponUpgrade
@@ -136,7 +136,7 @@ class WUK_MBR_FactoryFrame : WUK_WeaponUpgrade
 	override string GetWeapon() { return "HDMBR"; }
 	override string GetDisplayName() { return "Frame (Factory)"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[3] = 0; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[3] == 0; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[3] == 0; }
 }
 
 class WUK_MBR_CQCFrame : WUK_WeaponUpgrade
@@ -144,7 +144,7 @@ class WUK_MBR_CQCFrame : WUK_WeaponUpgrade
 	override string GetWeapon() { return "HDMBR"; }
 	override string GetDisplayName() { return "Frame (CQC)"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[3] = 1; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[3] == 1; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[3] == 1; }
 }
 
 class WUK_MBR_DMRFrame : WUK_WeaponUpgrade
@@ -152,7 +152,7 @@ class WUK_MBR_DMRFrame : WUK_WeaponUpgrade
 	override string GetWeapon() { return "HDMBR"; }
 	override string GetDisplayName() { return "Frame (DMR)"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[3] = 2; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[3] == 2; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[3] == 2; }
 }
 
 class WUK_FoG_Efficiency : WUK_WeaponUpgrade
@@ -160,7 +160,7 @@ class WUK_FoG_Efficiency : WUK_WeaponUpgrade
 	override string GetWeapon() { return "HDFoG"; }
 	override string GetDisplayName() { return "Efficency Upgrade"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 1; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 1; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 1; }
 }
 
 class WUK_Bitch_RapidFire : WUK_WeaponUpgrade
@@ -168,7 +168,7 @@ class WUK_Bitch_RapidFire : WUK_WeaponUpgrade
 	override string GetWeapon() { return "HDBitch"; }
 	override string GetDisplayName() { return "Rapid-Fire"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 2; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 2; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 2; }
 }
 
 class WUK_Bitch_GL : WUK_WeaponUpgrade
@@ -176,5 +176,5 @@ class WUK_Bitch_GL : WUK_WeaponUpgrade
 	override string GetWeapon() { return "HDBitch"; }
 	override string GetDisplayName() { return "Grenade Launcher"; }
 	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 8; }
-	override bool HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 8; }
+	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 8; }
 }
