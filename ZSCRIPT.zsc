@@ -49,7 +49,7 @@ class WUK_WeaponUpgrade abstract
 			case FMType_Requirements: return "Requirements not met.";
 			case FMType_Installed: return "Upgrade has already been installed.";
 			case FMType_Uninstalled: return "Upgrade has already been uninstalled.";
-			case FMType_NotAvailable: return " Downgrade not available.";
+			case FMType_NotAvailable: return "Downgrade not available.";
 		}
 		return "Error message that the player should never see. Go complain to Ace.";
 	}
