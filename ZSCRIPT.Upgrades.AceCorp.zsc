@@ -115,7 +115,7 @@ class WUK_Jackdaw_RapidFire : WUK_WeaponUpgrade
 class WUK_PSG_ExtraPoint : WUK_WeaponUpgrade
 {
 	override string GetWeapon() { return "HDPersonalShieldGenerator"; }
-	override string GetDisplayName() { return "+1 Unallocated Energy"; }
-	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[8]++; wpn.Icon = TexMan.CheckForTexture(wpn.GetPickupSprite(), TexMan.Type_Any); }
+	override string GetDisplayName() { return "+2 Upgrade Points"; }
+	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[8] += 2; wpn.Icon = TexMan.CheckForTexture(wpn.GetPickupSprite(), TexMan.Type_Any); }
 	override int HasUpgrade(HDWeapon wpn) { return 2; }
 }
