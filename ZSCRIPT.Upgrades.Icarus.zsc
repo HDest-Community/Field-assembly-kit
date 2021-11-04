@@ -194,7 +194,7 @@ class FAK_Bitch_GL : FAK_Upgrade
 
 class FAK_HEV_Repair : FAK_Upgrade
 {
-	override string GetItem() { return "HDHEVArmour "; }
+	override string GetItem() { return "HDHEVArmour"; }
 	override string GetDisplayName() { return "Repair"; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp)
 	{

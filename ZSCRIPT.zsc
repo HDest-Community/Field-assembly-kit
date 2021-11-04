@@ -122,9 +122,26 @@ class HDFieldAssemblyKit : HDWeapon
 	}
 	override string, double GetPickupSprite() { return "FAKTA0" , 1.0; }
 	override double GunMass() { return 0; }
-	override double WeaponBulk() { return 40 * Amount; }
+	override double WeaponBulk() { return 40 + 15 * (owner ? owner.CountInv('AssemblyCore') : 0); }
 	override bool AddSpareWeapon(actor newowner) { return AddSpareWeaponRegular(newowner); }
 	override HDWeapon GetSpareWeapon(actor newowner, bool reverse, bool doselect) { return GetSpareWeaponRegular(newowner, reverse, doselect); }
+	override int GetSbarNum(int flags)
+	{
+		return owner.CountInv('AssemblyCore');
+	}
+
+	override void ActualPickup(Actor other, bool silent)
+	{
+		let kit = other.FindInventory('HDFieldAssemblyKit');
+		if (kit)
+		{
+			other.A_Log("Assembly kit was converted to a core.", true);
+			other.A_GiveInventory('AssemblyCore', 1);
+			Destroy();
+			return;
+		}
+		Super.ActualPickup(other, silent);
+	}
 
 	private void ResetConfirmation()
 	{
@@ -472,13 +489,14 @@ class AssemblyCore : HDPickup
 {
 	Default
 	{
-		+HDPICKUP.FITSINBACKPACK
-		+INVENTORY.INVBAR
+		-HDPICKUP.FITSINBACKPACK
+		-INVENTORY.INVBAR
+		+HDPICKUP.CHEATNOGIVE
 		Tag "Assembly Core";
 		Inventory.Icon "ASCRA0";
 		Inventory.PickupMessage "Picked up an assembly core.";
 		Inventory.PickupSound "weapons/pocket";
-		HDPickup.Bulk 15;
+		HDPickup.Bulk 0;
 	}
 
 	States

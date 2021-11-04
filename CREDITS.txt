@@ -3,3 +3,6 @@ Code:
 
 Sprites:
 - Mor'ladim for the assembly cores. Took them from Bullet-Eye.
+
+Bugtesting:
+- Icarus
