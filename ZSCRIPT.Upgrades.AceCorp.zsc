@@ -138,7 +138,7 @@ class FAK_PSG_ExtraPoint : FAK_Upgrade
 class FAK_PSG_Repair : FAK_Upgrade
 {
 	override string GetItem() { return "HDPersonalShieldGenerator"; }
-	override string GetDisplayName() { return "Repair 50%"; }
+	override string GetDisplayName() { return "Repair 50% Degradation"; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[6] /= 2; }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return 2; }
 }
@@ -146,7 +146,7 @@ class FAK_PSG_Repair : FAK_Upgrade
 class FAK_Barricade_Repair : FAK_Upgrade
 {
 	override string GetItem() { return "HDDeployableBarricade"; }
-	override string GetDisplayName() { return "Repair 50%"; }
-	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { pkp.Health = min(pkp.default.Health, pkp.Health + pkp.default.Health / 2); }
+	override string GetDisplayName() { return "Full Repair"; }
+	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { pkp.Health = pkp.default.Health; }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return 2; }
 }

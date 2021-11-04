@@ -152,7 +152,7 @@ class FAK_ZM66_GL : FAK_Upgrade
 class FAK_Vulcanette_Repair : FAK_Upgrade
 {
 	override string GetItem() { return "Vulcanette"; }
-	override string GetDisplayName() { return "Repair"; }
+	override string GetDisplayName() { return "Full Repair"; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[VULCS_PERMADAMAGE] = 0; wpn.WeaponStatus[VULCS_BREAKCHANCE] = 0; }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return 2; }
 }
@@ -236,7 +236,7 @@ class FAK_Boss_CustomChamber : FAK_Upgrade
 class FAK_Armor_Repair : FAK_Upgrade
 {
 	override string GetItem() { return "HDArmour"; }
-	override string GetDisplayName() { return "Repair"; }
+	override string GetDisplayName() { return "Full Repair"; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp)
 	{
 		let arm = HDArmour(pkp);

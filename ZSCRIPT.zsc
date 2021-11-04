@@ -135,7 +135,7 @@ class HDFieldAssemblyKit : HDWeapon
 		let kit = other.FindInventory('HDFieldAssemblyKit');
 		if (kit)
 		{
-			other.A_Log("Assembly kit was converted to a core.", true);
+			other.A_Log("Assembly kit was converted to an assembly core.", true);
 			other.A_GiveInventory('AssemblyCore', 1);
 			Destroy();
 			return;
@@ -162,6 +162,7 @@ class HDFieldAssemblyKit : HDWeapon
 				invoker.AvailableItems.Push(item);
 			}
 		}
+		invoker.WeaponStatus[KProp_SelectedWeapon] = min(invoker.WeaponStatus[KProp_SelectedWeapon], invoker.AvailableItems.Size() - 1);
 	}
 
 	private action void A_UpdateUpgradesForItem(Inventory item)

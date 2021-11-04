@@ -169,6 +169,7 @@ class FAK_FoG_Efficiency : FAK_Upgrade
 {
 	override string GetItem() { return "HDFoG"; }
 	override string GetDisplayName() { return "Efficency Upgrade"; }
+	override int GetCost() { return 2; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 1; }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 1 > 0; }
 	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~1; GiveCore(wpn.owner, 0.9); }
@@ -195,7 +196,7 @@ class FAK_Bitch_GL : FAK_Upgrade
 class FAK_HEV_Repair : FAK_Upgrade
 {
 	override string GetItem() { return "HDHEVArmour"; }
-	override string GetDisplayName() { return "Repair"; }
+	override string GetDisplayName() { return "Full Repair"; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp)
 	{
 		let arm = HDArmour(pkp);
