@@ -1,6 +1,11 @@
+### Important
+---
+- This mod requires [AceCoreLib](https://gitlab.com/accensi/hd-addons/acecorelib).
+
 ### Notes
 ---
-- Weapon upgrade kits can only be found in backpacks. They are also sold by the [Merchant](https://gitlab.com/accensi/hd-addons/merchant) if you have that loaded.
-- Loadout code is `wuk`.
-- Orange items mean it's a feature rather than an actual upgrade (at least in general; exceptions may exist). These items can be downgraded if installed.
-- You do not get points back from downgrading weapons.
+- FAKs can only be found in backpacks. 
+- Loadout code is `fak`.
+- There is a small chance to gain an assembly core from downgrading weapons.
+- Finding all secrets and killing 90% of all monsters in the level will reward you with an assembly core upon exiting the level.
+- Cores can also drop from Archviles sometimes and much more often from bosses.

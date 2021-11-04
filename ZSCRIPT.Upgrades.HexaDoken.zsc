@@ -1,30 +1,32 @@
-class WUK_Bossmerg_ExtendedMag : WUK_WeaponUpgrade
+class FAK_Bossmerg_ExtendedMag : FAK_Upgrade
 {
-	override string GetWeapon() { return "Bossmerg"; }
+	override string GetItem() { return "Bossmerg"; }
 	override string GetDisplayName() { return "Extended Magazine"; }
-	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 32; }
-	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 32; }
+	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 32; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 32 > 0; }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~32; GiveCore(wpn.owner, 0.2); }
 }
 
-class WUK_SpeedHunter_FullAuto : WUK_Hunter_FullAuto
+class FAK_SpeedHunter_FullAuto : FAK_Hunter_FullAuto
 {
-	override string GetWeapon() { return "HunterSpeed"; }
+	override string GetItem() { return "HunterSpeed"; }
 }
 
-class WUK_SpeedHunter_MaxChoke : WUK_Hunter_MaxChoke
+class FAK_SpeedHunter_MaxChoke : FAK_Hunter_MaxChoke
 {
-	override string GetWeapon() { return "HunterSpeed"; }
+	override string GetItem() { return "HunterSpeed"; }
 }
 
-class WUK_SpeedHunter_TubeUpgrade : WUK_Hunter_TubeUpgrade
+class FAK_SpeedHunter_TubeUpgrade : FAK_Hunter_TubeUpgrade
 {
-	override string GetWeapon() { return "HunterSpeed"; }
+	override string GetItem() { return "HunterSpeed"; }
 }
 
-class WUK_SpeedHunter_SideSaddles : WUK_WeaponUpgrade
+class FAK_SpeedHunter_SideSaddles : FAK_Upgrade
 {
-	override string GetWeapon() { return "HunterSpeed"; }
+	override string GetItem() { return "HunterSpeed"; }
 	override string GetDisplayName() { return "Side Saddles"; }
-	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] &= ~128; }
-	override int HasUpgrade(HDWeapon wpn) { return !(wpn.WeaponStatus[0] & 128); }
+	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~128; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return !(wpn.WeaponStatus[0] & 128 > 0); }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~128; GiveCore(wpn.owner, 0.2); }
 }

@@ -1,4 +1,4 @@
 GameInfo
 {
-	AddEventHandlers = "WUK_Handler"
+	AddEventHandlers = "FAK_Handler"
 }

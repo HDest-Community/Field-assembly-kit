@@ -1,32 +1,39 @@
-class WUK_Gungnir_Accelerator : WUK_WeaponUpgrade
+class FAK_Gungnir_Accelerator : FAK_Upgrade
 {
-	override string GetWeapon() { return "HDGungnir"; }
+	override string GetItem() { return "HDGungnir"; }
 	override string GetDisplayName() { return "Accelerator"; }
-	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 1; }
-	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 1; }
+	override int GetCost() { return 2; }
+	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 1; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 1 > 0; }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~1; GiveCore(wpn.owner, 0.8); }
 }
 
-class WUK_Gungnir_Capacitor : WUK_WeaponUpgrade
+class FAK_Gungnir_Capacitor : FAK_Upgrade
 {
-	override string GetWeapon() { return "HDGungnir"; }
+	override string GetItem() { return "HDGungnir"; }
 	override string GetDisplayName() { return "Capacitor"; }
-	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 2; }
-	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 2; }
+	override int GetCost() { return 2; }
+	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 2; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 2 > 0; }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~2; GiveCore(wpn.owner, 0.8); }
 }
 
-class WUK_Gungnir_Processor : WUK_WeaponUpgrade
+class FAK_Gungnir_Processor : FAK_Upgrade
 {
-	override string GetWeapon() { return "HDGungnir"; }
+	override string GetItem() { return "HDGungnir"; }
 	override string GetDisplayName() { return "Processor"; }
-	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 4; }
-	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 4; }
+	override int GetCost() { return 2; }
+	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 4; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 4 > 0; }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~4; GiveCore(wpn.owner, 0.8); }
 }
 
-class WUK_Gungnir_AntiFrag : WUK_WeaponUpgrade
+class FAK_Gungnir_AntiFrag : FAK_Upgrade
 {
-	override string GetWeapon() { return "HDGungnir"; }
+	override string GetItem() { return "HDGungnir"; }
 	override string GetDisplayName() { return "Anti-Frag Containment Cell"; }
-	override void DoUpgrade(HDWeapon wpn)
+	override int GetCost() { return 2; }
+	override void DoUpgrade(HDWeapon wpn, HDPickup pkp)
 	{
 		wpn.WeaponStatus[0] |= 8;
 
@@ -35,13 +42,14 @@ class WUK_Gungnir_AntiFrag : WUK_WeaponUpgrade
 		wpn.owner.DropInventory(fog);
 		fog.Destroy();
 	}
-	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 8; }
-	override bool CheckPrerequisites(HDWeapon wpn)
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 8 > 0; }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~8; GiveCore(wpn.owner, 1.0); }
+	override bool CheckPrerequisites(HDWeapon wpn, HDPickup pkp)
 	{
 		Name cls = 'HDFoG';
 		return (class<Actor>)(cls) && wpn.owner.FindInventory(cls) && wpn.WeaponStatus[0] & 2;
 	}
-	override string GetFailMessage(HDWeapon wpn, int type)
+	override string GetFailMessage(HDWeapon wpn, HDPickup pkp, int type)
 	{
 		if (type == FMType_Requirements)
 		{
@@ -52,70 +60,93 @@ class WUK_Gungnir_AntiFrag : WUK_WeaponUpgrade
 			}
 			return "This technology does not exist.";
 		}
-		return Super.GetFailMessage(wpn, type);
+		return Super.GetFailMessage(wpn, pkp, type);
 	}
 }
 
-class WUK_Redline_HeatSink : WUK_WeaponUpgrade
+class FAK_Redline_HeatSink : FAK_Upgrade
 {
-	override string GetWeapon() { return "HDRedline"; }
+	override string GetItem() { return "HDRedline"; }
 	override string GetDisplayName() { return "Heat Sink"; }
-	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 1; }
-	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 1; }
+	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 1; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 1 > 0; }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~1; GiveCore(wpn.owner, 0.5); }
 }
 
-class WUK_Redline_Scope : WUK_WeaponUpgrade
+class FAK_Redline_Scope : FAK_Upgrade
 {
-	override string GetWeapon() { return "HDRedline"; }
+	override string GetItem() { return "HDRedline"; }
 	override string GetDisplayName() { return "Scope"; }
-	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 2; }
-	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 2; }
+	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 2; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 2 > 0; }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~1; GiveCore(wpn.owner, 0.4); }
 }
 
-class WUK_Redline_Capacitor : WUK_WeaponUpgrade
+class FAK_Redline_Capacitor : FAK_Upgrade
 {
-	override string GetWeapon() { return "HDRedline"; }
+	override string GetItem() { return "HDRedline"; }
 	override string GetDisplayName() { return "Capacitor"; }
-	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 4; }
-	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 4; }
+	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 4; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 4 > 0; }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~1; GiveCore(wpn.owner, 0.6); }
 }
 
-class WUK_Viper_LightTrigger : WUK_WeaponUpgrade
+class FAK_Viper_LightTrigger : FAK_Upgrade
 {
-	override string GetWeapon() { return "HDViper"; }
+	override string GetItem() { return "HDViper"; }
 	override string GetDisplayName() { return "Lighter Trigger"; }
-	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 2; }
-	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 2; }
+	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 2; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 2 > 0; }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~1; GiveCore(wpn.owner, 0.15); }
 }
 
-class WUK_Viper_HeavyFrame : WUK_WeaponUpgrade
+class FAK_Viper_HeavyFrame : FAK_Upgrade
 {
-	override string GetWeapon() { return "HDViper"; }
+	override string GetItem() { return "HDViper"; }
 	override string GetDisplayName() { return "Heavy Frame"; }
-	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 4; }
-	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 4; }
+	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 4; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 4 > 0; }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~1; GiveCore(wpn.owner, 0.25); }
 }
 
-class WUK_Viper_ExtendedBarrel : WUK_WeaponUpgrade
+class FAK_Viper_ExtendedBarrel : FAK_Upgrade
 {
-	override string GetWeapon() { return "HDViper"; }
+	override string GetItem() { return "HDViper"; }
 	override string GetDisplayName() { return "Extended Barrel"; }
-	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 8; }
-	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 8; }
+	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 8; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 8 > 0; }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~1; GiveCore(wpn.owner, 0.25); }
 }
 
-class WUK_Jackdaw_RapidFire : WUK_WeaponUpgrade
+class FAK_Jackdaw_RapidFire : FAK_Upgrade
 {
-	override string GetWeapon() { return "HDJackdaw"; }
+	override string GetItem() { return "HDJackdaw"; }
 	override string GetDisplayName() { return "Rapid-Fire"; }
-	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[0] |= 2; }
-	override int HasUpgrade(HDWeapon wpn) { return wpn.WeaponStatus[0] & 2; }
+	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 2; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 2 > 0; }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~1; GiveCore(wpn.owner, 0.35); }
 }
 
-class WUK_PSG_ExtraPoint : WUK_WeaponUpgrade
+class FAK_PSG_ExtraPoint : FAK_Upgrade
 {
-	override string GetWeapon() { return "HDPersonalShieldGenerator"; }
+	override string GetItem() { return "HDPersonalShieldGenerator"; }
 	override string GetDisplayName() { return "+2 Upgrade Points"; }
-	override void DoUpgrade(HDWeapon wpn) { wpn.WeaponStatus[8] += 2; wpn.Icon = TexMan.CheckForTexture(wpn.GetPickupSprite(), TexMan.Type_Any); }
-	override int HasUpgrade(HDWeapon wpn) { return 2; }
+	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[8] += 2; wpn.Icon = TexMan.CheckForTexture(wpn.GetPickupSprite(), TexMan.Type_Any); }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return 2; }
+}
+
+class FAK_PSG_Repair : FAK_Upgrade
+{
+	override string GetItem() { return "HDPersonalShieldGenerator"; }
+	override string GetDisplayName() { return "Repair 50%"; }
+	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[6] /= 2; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return 2; }
+}
+
+class FAK_Barricade_Repair : FAK_Upgrade
+{
+	override string GetItem() { return "HDDeployableBarricade"; }
+	override string GetDisplayName() { return "Repair 50%"; }
+	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { pkp.Health = min(pkp.default.Health, pkp.Health + pkp.default.Health / 2); }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return 2; }
 }

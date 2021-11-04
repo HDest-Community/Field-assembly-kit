@@ -1,4 +1,0 @@
-WUK_Downgradeable
-{
-	#000000 #755933
-}

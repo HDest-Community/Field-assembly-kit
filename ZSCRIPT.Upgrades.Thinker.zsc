@@ -1,4 +1,4 @@
-class WUK_UpgradeThinker : Thinker
+class FAK_UpgradeThinker : Thinker
 {
 	override void Tick()
 	{
