@@ -136,7 +136,17 @@ class FAK_ZM66_GL : FAK_Upgrade
 	override string GetDisplayName() { return "Grenade Launcher"; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~16; }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return !(wpn.WeaponStatus[0] & 16 > 0); }
-	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 16; GiveCore(wpn.owner, 0.2); }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp)
+	{
+		wpn.WeaponStatus[0] |= 16;
+		GiveCore(wpn.owner, 0.2);
+		if (wpn.WeaponStatus[0] & 8)
+		{
+			wpn.WeaponStatus[0] &= ~8;
+			wpn.owner.A_SpawnItemEx('HDRocketAmmo', cos(wpn.owner.pitch) * 10, 0, wpn.owner.height - 10 - 10 * sin(wpn.owner.pitch), wpn.owner.vel.x, wpn.owner.vel.y, wpn.owner.vel.z, 0, SXF_ABSOLUTEMOMENTUM | SXF_NOCHECKPOSITION | SXF_TRANSFERPITCH);
+			wpn.owner.A_StartSound("weapons/grenopen", CHAN_WEAPON);
+		}
+	}
 }
 
 class FAK_Vulcanette_Repair : FAK_Upgrade
@@ -162,7 +172,17 @@ class FAK_Liberator_GL : FAK_Upgrade
 	override string GetDisplayName() { return "Grenade Launcher"; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~8; }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return !(wpn.WeaponStatus[0] & 8 > 0); }
-	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 8; GiveCore(wpn.owner, 0.6); }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp)
+	{
+		wpn.WeaponStatus[0] |= 8;
+		GiveCore(wpn.owner, 0.6);
+		if (wpn.WeaponStatus[0] & 4)
+		{
+			wpn.WeaponStatus[0] &= ~4;
+			wpn.owner.A_SpawnItemEx('HDRocketAmmo', cos(wpn.owner.pitch) * 10, 0, wpn.owner.height - 10 - 10 * sin(wpn.owner.pitch), wpn.owner.vel.x, wpn.owner.vel.y, wpn.owner.vel.z, 0, SXF_ABSOLUTEMOMENTUM | SXF_NOCHECKPOSITION | SXF_TRANSFERPITCH);
+			wpn.owner.A_StartSound("weapons/grenopen", CHAN_WEAPON);
+		}
+	}
 }
 
 class FAK_Liberator_NoBullpup : FAK_Upgrade
