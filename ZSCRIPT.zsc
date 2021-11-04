@@ -122,7 +122,7 @@ class HDFieldAssemblyKit : HDWeapon
 	}
 	override string, double GetPickupSprite() { return "FAKTA0" , 1.0; }
 	override double GunMass() { return 0; }
-	override double WeaponBulk() { return 40 + 15 * (owner ? owner.CountInv('AssemblyCore') : 0); }
+	override double WeaponBulk() { return 40; }
 	override bool AddSpareWeapon(actor newowner) { return AddSpareWeaponRegular(newowner); }
 	override HDWeapon GetSpareWeapon(actor newowner, bool reverse, bool doselect) { return GetSpareWeaponRegular(newowner, reverse, doselect); }
 	override int GetSbarNum(int flags)
@@ -489,14 +489,14 @@ class AssemblyCore : HDPickup
 {
 	Default
 	{
-		-HDPICKUP.FITSINBACKPACK
+		+HDPICKUP.FITSINBACKPACK
 		-INVENTORY.INVBAR
 		+HDPICKUP.CHEATNOGIVE
 		Tag "Assembly Core";
 		Inventory.Icon "ASCRA0";
 		Inventory.PickupMessage "Picked up an assembly core.";
 		Inventory.PickupSound "weapons/pocket";
-		HDPickup.Bulk 0;
+		HDPickup.Bulk 15;
 	}
 
 	States
