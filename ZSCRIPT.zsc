@@ -244,14 +244,14 @@ class HDFieldAssemblyKit : HDWeapon
 				}
 
 				int cost = CurrUpgrades[i].GetCost();
-				string costStr = "\c[Gold]-"..CurrUpgrades[i].GetCost().."-\c- ";
+				string costStr = "\c[Gold]- "..CurrUpgrades[i].GetCost().." -\c- ";
 				if (cost == 0)
 				{
 					costStr = "  ";
 				}
-				sb.DrawString(sb.pSmallFont, hasUpStr, pos + bob - (15, 0), sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_RIGHT);
+				sb.DrawString(sb.pSmallFont, hasUpStr, pos + bob - (25, 0), sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_RIGHT);
 				sb.DrawString(sb.pSmallFont, costStr, pos + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER);
-				sb.DrawString(sb.pSmallFont, CurrUpgrades[i].GetDisplayName(), pos + bob + (13, 0), sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_LEFT, selected ? Font.CR_WHITE : Font.CR_DARKGRAY);
+				sb.DrawString(sb.pSmallFont, CurrUpgrades[i].GetDisplayName(), pos + bob + (23, 0), sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_LEFT, selected ? Font.CR_WHITE : Font.CR_DARKGRAY);
 				pos.y += 10;
 			}
 
