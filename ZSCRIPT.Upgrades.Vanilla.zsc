@@ -50,7 +50,7 @@ class FAK_Hunter_MaxChoke : FAK_Upgrade
 	override string GetDisplayName() { return "Max Choke"; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[7] = 7; }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[7] == 7; }
-	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[7] = 0; GiveCore(wpn.owner, 0.7); }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[7] = 0; GiveCore(wpn.owner, 0.6); }
 }
 
 class FAK_Hunter_TubeUpgrade : FAK_Upgrade
@@ -59,7 +59,7 @@ class FAK_Hunter_TubeUpgrade : FAK_Upgrade
 	override string GetDisplayName() { return "Tube Upgrade (+2)"; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[5] += 2; }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[5] > 7; }
-	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[5] -= 2; GiveCore(wpn.owner, 0.8); }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[5] -= 2; GiveCore(wpn.owner, 0.5); }
 }
 
 class FAK_Slayer_MaxChoke : FAK_Upgrade
@@ -139,7 +139,7 @@ class FAK_ZM66_GL : FAK_Upgrade
 	override void DoDowngrade(HDWeapon wpn, HDPickup pkp)
 	{
 		wpn.WeaponStatus[0] |= 16;
-		GiveCore(wpn.owner, 0.2);
+		GiveCore(wpn.owner, 0.1);
 		if (wpn.WeaponStatus[0] & 8)
 		{
 			wpn.WeaponStatus[0] &= ~8;
@@ -175,7 +175,7 @@ class FAK_Liberator_GL : FAK_Upgrade
 	override void DoDowngrade(HDWeapon wpn, HDPickup pkp)
 	{
 		wpn.WeaponStatus[0] |= 8;
-		GiveCore(wpn.owner, 0.6);
+		GiveCore(wpn.owner, 0.4);
 		if (wpn.WeaponStatus[0] & 4)
 		{
 			wpn.WeaponStatus[0] &= ~4;
