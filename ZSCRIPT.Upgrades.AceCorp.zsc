@@ -130,8 +130,8 @@ class FAK_Jackdaw_RapidFire : FAK_Upgrade
 class FAK_PSG_ExtraPoint : FAK_Upgrade
 {
 	override string GetItem() { return "HDPersonalShieldGenerator"; }
-	override string GetDisplayName() { return "+2 Upgrade Points"; }
-	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[8] += 2; wpn.Icon = TexMan.CheckForTexture(wpn.GetPickupSprite(), TexMan.Type_Any); }
+	override string GetDisplayName() { return "+1 Upgrade Point"; }
+	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[8] += 1; wpn.Icon = TexMan.CheckForTexture(wpn.GetPickupSprite(), TexMan.Type_Any); }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return 2; }
 }
 
