@@ -40,6 +40,16 @@ class FAK_UpgradeThinker : Thinker
 				}
 			}
 		}
+		else if (wpn is 'Hunter')
+		{
+			let hun = Hunter(wpn);
+			let psp = plr.player.GetPSprite(PSP_WEAPON);
+			if (hun.WeaponStatus[0] & 256 && hun.WeaponStatus[4] < hun.WeaponStatus[5] && hun.WeaponStatus[3] > 0)
+			{
+				hun.WeaponStatus[4]++;
+				hun.WeaponStatus[3]--;
+			}
+		}
 	}
 
 	// [Ace] The reference may go null, but the number stays the same.

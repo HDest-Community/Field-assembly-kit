@@ -17,7 +17,7 @@ class FAK_SpeedHunter_MaxChoke : FAK_Hunter_MaxChoke
 	override string GetItem() { return "HunterSpeed"; }
 }
 
-class FAK_SpeedHunter_TubeUpgrade : FAK_Hunter_TubeUpgrade
+class FAK_SpeedHunter_Feeder : FAK_Hunter_Feeder
 {
 	override string GetItem() { return "HunterSpeed"; }
 }
