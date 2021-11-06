@@ -401,10 +401,12 @@ class HDFieldAssemblyKit : HDWeapon
 			}
 			A_StartSound("FAKit/Use", 10);
 			invoker.ResetConfirmation();
+			SetWeaponState('Nope');
 		}
 		else
 		{
 			invoker.Confirmation[act] = true;
+			SetWeaponState('Nope');
 		}
 	}
 
