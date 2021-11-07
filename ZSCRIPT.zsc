@@ -162,7 +162,7 @@ class HDFieldAssemblyKit : HDWeapon
 				invoker.AvailableItems.Push(item);
 			}
 		}
-		invoker.WeaponStatus[KProp_SelectedWeapon] = min(invoker.WeaponStatus[KProp_SelectedWeapon], invoker.AvailableItems.Size() - 1);
+		invoker.WeaponStatus[KProp_SelectedWeapon] = clamp(invoker.WeaponStatus[KProp_SelectedWeapon], 0, invoker.AvailableItems.Size() - 1);
 	}
 
 	private action void A_UpdateUpgradesForItem(Inventory item)

@@ -40,18 +40,45 @@ class FAK_UpgradeThinker : Thinker
 				}
 			}
 		}
-		else if (wpn is 'Hunter')
+		else if (wpn is 'Hunter' && wpn.WeaponStatus[0] & 256 && wpn.WeaponStatus[HUNTS_TUBE] < wpn.WeaponStatus[HUNTS_TUBESIZE] && wpn.WeaponStatus[SHOTS_SIDESADDLE] > 0)
 		{
-			let hun = Hunter(wpn);
-			let psp = plr.player.GetPSprite(PSP_WEAPON);
-			if (hun.WeaponStatus[0] & 256 && hun.WeaponStatus[4] < hun.WeaponStatus[5] && hun.WeaponStatus[3] > 0)
+			wpn.WeaponStatus[HUNTS_TUBE]++;
+			wpn.WeaponStatus[SHOTS_SIDESADDLE]--;
+		}
+		else if (wpn is 'ThunderBuster')
+		{
+			if (wpn.WeaponStatus[TBS_FLAGS] & 128)
 			{
-				hun.WeaponStatus[4]++;
-				hun.WeaponStatus[3]--;
+				wpn.DrainHeat(TBS_HEAT, 12);
+			}
+			if (wpn.WeaponStatus[TBS_FLAGS] & 256 && wpn.WeaponStatus[TBS_FLAGS] & TBF_ALT)
+			{
+				if (wpn.WeaponStatus[TBS_BATTERY] == -1)
+				{
+					LastBatteryCharge = -1;
+				}
+				else if (LastBatteryCharge == -1 && wpn.WeaponStatus[TBS_BATTERY] > -1)
+				{
+					LastBatteryCharge = wpn.WeaponStatus[TBS_BATTERY];
+				}
+				else if (wpn.WeaponStatus[TBS_BATTERY] < LastBatteryCharge)
+				{
+					if (!random(0, 2))
+					{
+						wpn.WeaponStatus[TBS_BATTERY]++;
+					}
+					LastBatteryCharge = wpn.WeaponStatus[TBS_BATTERY];
+				}
+			}
+			if (wpn.WeaponStatus[TBS_FLAGS] & 512 && !(wpn.WeaponStatus[TBS_FLAGS] & TBF_ALT) && plr.player.GetPSprite(PSP_WEAPON).CurState == wpn.FindState('Shoot'))
+			{
+				ThunderBuster.ThunderZap(plr, HDWeapon.GetShootOffset(plr, wpn.barrellength, wpn.barrellength - HDCONST_SHOULDERTORADIUS), false, wpn.WeaponStatus[TBS_BATTERY]);
 			}
 		}
 	}
 
 	// [Ace] The reference may go null, but the number stays the same.
 	int PlayerNumber;
+
+	private int LastBatteryCharge;
 }
