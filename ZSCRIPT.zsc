@@ -505,7 +505,7 @@ class AssemblyCore : HDPickup
 	States
 	{
 		Spawn:
-			ASCR ABCDEF 5;
+			ASCR ABCDEF 3;
 			Loop;
 	}
 }
