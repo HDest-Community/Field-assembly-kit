@@ -53,9 +53,9 @@ class FAK_UpgradeThinker : Thinker
 			}
 			if (wpn.WeaponStatus[TBS_FLAGS] & 256 && wpn.WeaponStatus[TBS_FLAGS] & TBF_ALT)
 			{
-				if (wpn.WeaponStatus[TBS_BATTERY] == -1)
+				if (LastBatteryCharge < wpn.WeaponStatus[TBS_BATTERY])
 				{
-					LastBatteryCharge = -1;
+					LastBatteryCharge = wpn.WeaponStatus[TBS_BATTERY];
 				}
 				else if (LastBatteryCharge == -1 && wpn.WeaponStatus[TBS_BATTERY] > -1)
 				{
