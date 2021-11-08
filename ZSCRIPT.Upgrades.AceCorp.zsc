@@ -148,8 +148,39 @@ class FAK_PSG_Repair : FAK_Upgrade
 {
 	override string GetItem() { return "HDPersonalShieldGenerator"; }
 	override string GetDisplayName() { return "Repair 50% Degradation"; }
+	override int GetCost() { return 2; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[6] /= 2; }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return 2; }
+}
+
+class FAK_PSG_Elemental : FAK_Upgrade
+{
+	override string GetItem() { return "HDPersonalShieldGenerator"; }
+	override string GetDisplayName() { return "Elemental Protection"; }
+	override int GetCost() { return 3; }
+	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 1; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 1 > 0; }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~1; GiveCore(wpn.owner, 1.0); }
+}
+
+class FAK_PSG_Regeneration : FAK_Upgrade
+{
+	override string GetItem() { return "HDPersonalShieldGenerator"; }
+	override string GetDisplayName() { return "Regeneration Field"; }
+	override int GetCost() { return 3; }
+	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 2; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 2 > 0; }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~2; GiveCore(wpn.owner, 1.0); }
+}
+
+class FAK_PSG_Medical : FAK_Upgrade
+{
+	override string GetItem() { return "HDPersonalShieldGenerator"; }
+	override string GetDisplayName() { return "Medical Field"; }
+	override int GetCost() { return 3; }
+	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 4; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 4 > 0; }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~4; GiveCore(wpn.owner, 1.0); }
 }
 
 class FAK_Barricade_Repair : FAK_Upgrade
