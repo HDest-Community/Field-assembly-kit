@@ -100,15 +100,6 @@ class FAK_Redline_LockOn : FAK_Upgrade
 	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~8; GiveCore(wpn.owner, 0.75); }
 }
 
-class FAK_Viper_LightTrigger : FAK_Upgrade
-{
-	override string GetItem() { return "HDViper"; }
-	override string GetDisplayName() { return "Lighter Trigger"; }
-	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 2; }
-	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 2 > 0; }
-	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~2; GiveCore(wpn.owner, 0.25); }
-}
-
 class FAK_Viper_HeavyFrame : FAK_Upgrade
 {
 	override string GetItem() { return "HDViper"; }
