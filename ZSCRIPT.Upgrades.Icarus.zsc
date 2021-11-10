@@ -25,16 +25,6 @@ class FAK_GFB_Capacitor : FAK_Upgrade
 	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~1; GiveCore(wpn.owner, 0.4); }
 }
 
-class FAK_DEagle_HeavyFrame : FAK_Viper_HeavyFrame
-{
-	override string GetItem() { return "HDDEagle"; }
-}
-
-class FAK_DEagle_ExtendedBarrel : FAK_Viper_ExtendedBarrel
-{
-	override string GetItem() { return "HDDEagle"; }
-}
-
 class FAK_PD42_Slugger : FAK_Upgrade
 {
 	override string GetItem() { return "HDPDFour"; }
