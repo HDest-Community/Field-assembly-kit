@@ -32,7 +32,7 @@ class FAK_Gungnir_AntiFrag : FAK_Upgrade
 {
 	override string GetItem() { return "HDGungnir"; }
 	override string GetDisplayName() { return "Anti-Frag Containment Cell"; }
-	override int GetCost() { return 2; }
+	override int GetCost() { return 3; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp)
 	{
 		wpn.WeaponStatus[0] |= 8;
@@ -95,6 +95,7 @@ class FAK_Redline_LockOn : FAK_Upgrade
 {
 	override string GetItem() { return "HDRedline"; }
 	override string GetDisplayName() { return "Lock-On"; }
+	override int GetCost() { return 2; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 8; }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 8 > 0; }
 	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~8; GiveCore(wpn.owner, 0.75); }
@@ -148,7 +149,7 @@ class FAK_PSG_Elemental : FAK_Upgrade
 {
 	override string GetItem() { return "HDPersonalShieldGenerator"; }
 	override string GetDisplayName() { return "Elemental Protection"; }
-	override int GetCost() { return 3; }
+	override int GetCost() { return 4; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 1; }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 1 > 0; }
 	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~1; GiveCore(wpn.owner, 1.0); }
@@ -158,7 +159,7 @@ class FAK_PSG_Regeneration : FAK_Upgrade
 {
 	override string GetItem() { return "HDPersonalShieldGenerator"; }
 	override string GetDisplayName() { return "Regeneration Field"; }
-	override int GetCost() { return 3; }
+	override int GetCost() { return 4; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 2; }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 2 > 0; }
 	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~2; GiveCore(wpn.owner, 1.0); }
@@ -168,7 +169,7 @@ class FAK_PSG_Medical : FAK_Upgrade
 {
 	override string GetItem() { return "HDPersonalShieldGenerator"; }
 	override string GetDisplayName() { return "Medical Field"; }
-	override int GetCost() { return 3; }
+	override int GetCost() { return 4; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 4; }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 4 > 0; }
 	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~4; GiveCore(wpn.owner, 1.0); }

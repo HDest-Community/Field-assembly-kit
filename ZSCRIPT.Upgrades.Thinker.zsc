@@ -75,6 +75,27 @@ class FAK_UpgradeThinker : Thinker
 				ThunderBuster.ThunderZap(plr, HDWeapon.GetShootOffset(plr, wpn.barrellength, wpn.barrellength - HDCONST_SHOULDERTORADIUS), false, wpn.WeaponStatus[TBS_BATTERY]);
 			}
 		}
+		if (wpn is 'BFG9K')
+		{
+			let psp = plr.player.GetPSprite(PSP_WEAPON);
+			if (wpn.WeaponStatus[BFGS_STATUS] & 128)
+			{
+				// [Ace] First condition is charging, rest is shooting.
+				if (psp.CurState == wpn.FindState('Charge') + 1 && psp.tics == 1)
+				{
+					wpn.WeaponStatus[BFGS_TIMER] += 2;
+				}
+
+				if (psp.CurState == wpn.FindState('chargeend') && psp.tics == 1)
+				{
+					wpn.WeaponStatus[BFGS_TIMER] += 2;
+				}
+				if (psp.CurState == wpn.FindState('Shoot') + 1)
+				{
+					wpn.WeaponStatus[BFGS_CRITTIMER] -= 2;
+				}
+			}
+		}
 	}
 
 	// [Ace] The reference may go null, but the number stays the same.

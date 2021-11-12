@@ -218,6 +218,7 @@ class FAK_Thunderbuster_Chiller : FAK_Upgrade
 {
 	override string GetItem() { return "Thunderbuster"; }
 	override string GetDisplayName() { return "Chiller"; }
+	override int GetCost() { return 2; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[TBS_FLAGS] |= 128; }
 	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[TBS_FLAGS] &= ~128; }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[TBS_FLAGS] & 128 > 0; }
@@ -227,6 +228,7 @@ class FAK_Thunderbuster_Stabilizer : FAK_Upgrade
 {
 	override string GetItem() { return "Thunderbuster"; }
 	override string GetDisplayName() { return "Stabilizer"; }
+	override int GetCost() { return 2; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[TBS_FLAGS] |= 256; }
 	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[TBS_FLAGS] &= ~256; }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[TBS_FLAGS] & 256 > 0; }
@@ -236,9 +238,20 @@ class FAK_Thunderbuster_Amplifier : FAK_Upgrade
 {
 	override string GetItem() { return "Thunderbuster"; }
 	override string GetDisplayName() { return "Amplifier"; }
+	override int GetCost() { return 2; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[TBS_FLAGS] |= 512; }
 	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[TBS_FLAGS] &= ~512; }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[TBS_FLAGS] & 512 > 0; }
+}
+
+class FAK_BFG_Accelerator : FAK_Upgrade
+{
+	override string GetItem() { return "BFG9K"; }
+	override string GetDisplayName() { return "Accelerator"; }
+	override int GetCost() { return 5; }
+	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[BFGS_STATUS] |= 128; }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[BFGS_STATUS] &= ~128; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[BFGS_STATUS] & 128 > 0; }
 }
 
 class FAK_Boss_FrontReticle : FAK_Upgrade
