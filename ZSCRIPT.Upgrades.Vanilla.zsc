@@ -39,9 +39,10 @@ class FAK_Hunter_FullAuto : FAK_Upgrade
 {
 	override string GetItem() { return "Hunter"; }
 	override string GetDisplayName() { return "Full-Auto"; }
+	override int GetCost() { return 2; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= HUNTF_CANFULLAUTO; wpn.WeaponStatus[0] &= ~HUNTF_EXPORT; }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & HUNTF_CANFULLAUTO > 0; } // [Ace] Yes, you can upgrade an Export hunter and make it full-auto. But why would you do that? Are you mad? Do you work for Tchernobog?
-	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~HUNTF_CANFULLAUTO; GiveCore(wpn.owner, 0.9); }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~HUNTF_CANFULLAUTO; GiveCore(wpn.owner, 1.0); }
 }
 
 class FAK_Hunter_MaxChoke : FAK_Upgrade
@@ -57,9 +58,10 @@ class FAK_Hunter_Feeder : FAK_Upgrade
 {
 	override string GetItem() { return "Hunter"; }
 	override string GetDisplayName() { return "Feeder"; }
+	override int GetCost() { return 3; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 256; }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 256 > 0; }
-	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~256; GiveCore(wpn.owner, 0.5); }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~256; GiveCore(wpn.owner, 1.0); }
 }
 
 class FAK_Slayer_MaxChoke : FAK_Upgrade
@@ -69,6 +71,16 @@ class FAK_Slayer_MaxChoke : FAK_Upgrade
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[SLAYS_CHOKE1] = 7; wpn.WeaponStatus[SLAYS_CHOKE2] = 7; }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[SLAYS_CHOKE1] == 7 && wpn.WeaponStatus[SLAYS_CHOKE2] == 7; }
 	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[SLAYS_CHOKE1] = 0; wpn.WeaponStatus[SLAYS_CHOKE2] = 0; GiveCore(wpn.owner, 0.03); }
+}
+
+class FAK_Slayer_Autoloader : FAK_Upgrade
+{
+	override string GetItem() { return "Slayer"; }
+	override string GetDisplayName() { return "Autoloader"; }
+	override int GetCost() { return 2; }
+	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 256; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 256 > 0; }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~256; GiveCore(wpn.owner, 0.5); }
 }
 
 class FAK_Slayer_SawnOff : FAK_Upgrade
@@ -220,7 +232,7 @@ class FAK_Thunderbuster_Chiller : FAK_Upgrade
 	override string GetDisplayName() { return "Chiller"; }
 	override int GetCost() { return 2; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[TBS_FLAGS] |= 128; }
-	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[TBS_FLAGS] &= ~128; }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[TBS_FLAGS] &= ~128; GiveCore(wpn.owner, 1.0); }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[TBS_FLAGS] & 128 > 0; }
 }
 
@@ -230,7 +242,7 @@ class FAK_Thunderbuster_Stabilizer : FAK_Upgrade
 	override string GetDisplayName() { return "Stabilizer"; }
 	override int GetCost() { return 2; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[TBS_FLAGS] |= 256; }
-	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[TBS_FLAGS] &= ~256; }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[TBS_FLAGS] &= ~256; GiveCore(wpn.owner, 1.0); }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[TBS_FLAGS] & 256 > 0; }
 }
 
@@ -240,7 +252,7 @@ class FAK_Thunderbuster_Amplifier : FAK_Upgrade
 	override string GetDisplayName() { return "Amplifier"; }
 	override int GetCost() { return 2; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[TBS_FLAGS] |= 512; }
-	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[TBS_FLAGS] &= ~512; }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[TBS_FLAGS] &= ~512; GiveCore(wpn.owner, 1.0); }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[TBS_FLAGS] & 512 > 0; }
 }
 
@@ -250,7 +262,7 @@ class FAK_BFG_Accelerator : FAK_Upgrade
 	override string GetDisplayName() { return "Accelerator"; }
 	override int GetCost() { return 5; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[BFGS_STATUS] |= 128; }
-	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[BFGS_STATUS] &= ~128; }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[BFGS_STATUS] &= ~128; GiveCore(wpn.owner, 1.0); }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[BFGS_STATUS] & 128 > 0; }
 }
 

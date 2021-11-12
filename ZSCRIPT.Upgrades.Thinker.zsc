@@ -45,6 +45,21 @@ class FAK_UpgradeThinker : Thinker
 			wpn.WeaponStatus[HUNTS_TUBE]++;
 			wpn.WeaponStatus[SHOTS_SIDESADDLE]--;
 		}
+		else if (wpn is 'Slayer' && wpn.WeaponStatus[0] & 256)
+		{
+			let psp = plr.player.GetPSprite(PSP_WEAPON);
+			if (psp.CurState == wpn.FindState('reloadnopocket') && wpn.WeaponStatus[SHOTS_SIDESADDLE] > 0 && !(wpn.WeaponStatus[0] & SLAYF_FROMPOCKETS))
+			{
+				wpn.WeaponStatus[SHOTS_SIDESADDLE]--;
+				wpn.WeaponStatus[SLAYS_CHAMBER1] = 2;
+				if (wpn.WeaponStatus[SHOTS_SIDESADDLE] > 0)
+				{
+					wpn.WeaponStatus[SHOTS_SIDESADDLE]--;
+					wpn.WeaponStatus[SLAYS_CHAMBER2] = 2;
+				}
+				psp.SetState(wpn.FindState('unloadend'));
+			}
+		}
 		else if (wpn is 'ThunderBuster')
 		{
 			if (wpn.WeaponStatus[TBS_FLAGS] & 128)
@@ -75,7 +90,7 @@ class FAK_UpgradeThinker : Thinker
 				ThunderBuster.ThunderZap(plr, HDWeapon.GetShootOffset(plr, wpn.barrellength, wpn.barrellength - HDCONST_SHOULDERTORADIUS), false, wpn.WeaponStatus[TBS_BATTERY]);
 			}
 		}
-		if (wpn is 'BFG9K')
+		else if (wpn is 'BFG9K')
 		{
 			let psp = plr.player.GetPSprite(PSP_WEAPON);
 			if (wpn.WeaponStatus[BFGS_STATUS] & 128)
