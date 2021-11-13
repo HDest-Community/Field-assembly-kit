@@ -60,6 +60,25 @@ class FAK_UpgradeThinker : Thinker
 				psp.SetState(wpn.FindState('unloadend'));
 			}
 		}
+		else if (wpn is 'ZM66AssaultRifle')
+		{
+			if (wpn.WeaponStatus[ZM66S_FLAGS] & 2048)
+			{
+				wpn.DrainHeat(ZM66S_HEAT, 12);
+			}
+			if (wpn.WeaponStatus[ZM66S_FLAGS] & 4096)
+			{
+				// [Ace] Technically this should make the condition in brokenround() always false so the gun doesn't jam.
+				wpn.WeaponStatus[ZM66S_BORESTRETCHED] = -200;
+			}
+		}
+		else if (wpn is 'LiberatorRifle' && wpn.WeaponStatus[LIBS_FLAGS] & 16384 && plr.CheckProximity('HDSpent7mm', plr.radius * 2, 1, CPXF_SETTRACER) && plr.tracer && plr.tracer.GetAge() < 3)
+		{
+			let pkp = HDUPK(plr.tracer);
+			pkp.picktarget = plr;
+			pkp.pickupmessage = "";
+			pkp.A_HDUPKGive();
+		}
 		else if (wpn is 'ThunderBuster')
 		{
 			if (wpn.WeaponStatus[TBS_FLAGS] & 128)

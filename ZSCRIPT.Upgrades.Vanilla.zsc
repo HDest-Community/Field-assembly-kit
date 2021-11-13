@@ -161,6 +161,24 @@ class FAK_ZM66_GL : FAK_Upgrade
 	}
 }
 
+class FAK_ZM66_HeatExhaust : FAK_Upgrade
+{
+	override string GetItem() { return "ZM66AssaultRifle"; }
+	override string GetDisplayName() { return "Heat Exhaust"; }
+	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[ZM66S_FLAGS] |= 2048; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[ZM66S_FLAGS] & 2048 > 0; }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[ZM66S_FLAGS] &= ~2048; GiveCore(wpn.owner, 0.8); }
+}
+
+class FAK_ZM66_Dejammer : FAK_Upgrade
+{
+	override string GetItem() { return "ZM66AssaultRifle"; }
+	override string GetDisplayName() { return "Dejammer"; }
+	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[ZM66S_FLAGS] |= 4096; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[ZM66S_FLAGS] & 4096 > 0; }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[ZM66S_FLAGS] &= ~4096; GiveCore(wpn.owner, 0.8); }
+}
+
 class FAK_Vulcanette_Repair : FAK_Upgrade
 {
 	override string GetItem() { return "Vulcanette"; }
@@ -204,6 +222,15 @@ class FAK_Liberator_NoBullpup : FAK_Upgrade
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[LIBS_FLAGS] |= 512; wpn.bFITSINBACKPACK = false; }
 	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[LIBS_FLAGS] &= ~512; wpn.bFITSINBACKPACK = true; GiveCore(wpn.owner, 0.8); }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[LIBS_FLAGS] & 512 > 0; }
+}
+
+class FAK_Liberator_BrassCatcher : FAK_Upgrade
+{
+	override string GetItem() { return "LiberatorRifle"; }
+	override string GetDisplayName() { return "Brass Catcher"; }
+	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[LIBS_FLAGS] |= 16384; }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[LIBS_FLAGS] &= ~16384; GiveCore(wpn.owner, 0.8); }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[LIBS_FLAGS] & 16384 > 0; }
 }
 
 class FAK_Liberator_FrontReticle : FAK_Upgrade
