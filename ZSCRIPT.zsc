@@ -21,7 +21,7 @@ class FAK_Handler : EventHandler
 
 	override void WorldThingDied(WorldEvent e)
 	{
-		if (!e.Thing.bFRIENDLY && (e.Thing is 'Necromancer' && !random(0, 10) || e.Thing.bBOSS && !random(0, 4)))
+		if (!e.Thing.bFRIENDLY && (e.Thing is 'Necromancer' && !random(0, 8) || e.Thing.bBOSS && !random(0, 4)))
 		{
 			e.Thing.A_SpawnItemEx('AssemblyCore', 0, 0, 0, frandom(0.5, 2.0), 0, frandom(1.0, 4.0), random(0, 359), SXF_NOCHECKPOSITION);
 		}
