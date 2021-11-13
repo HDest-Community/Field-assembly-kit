@@ -2,8 +2,7 @@ extend class FAK_Handler
 {
 	override void WorldThingSpawned(WorldEvent e)
 	{
-		// [Ace] Rocket Launcher & Blooper upgrades.
-		if (e.Thing is 'GyroGrenade')
+		if (e.Thing is 'GyroGrenade') // [Ace] Rocket Launcher & Blooper.
 		{
 			let gyro = GyroGrenade(e.Thing);
 			if (gyro.master && gyro.master.player && gyro.master.player.ReadyWeapon)
@@ -15,9 +14,7 @@ extend class FAK_Handler
 				}
 			}
 		}
-
-		// [Ace] Thunderbuster upgrades.
-		else if (e.Thing is 'BeamSpot')
+		else if (e.Thing is 'BeamSpot') // [Ace] Thunderbuster.
 		{
 			let spot = BeamSpot(e.Thing);
 			if (spot.target && spot.target.player && spot.target.player.ReadyWeapon && !spot.bSTANDSTILL) // [Ace] The flag is to avoid recursion. It's completely arbitrary.
@@ -34,6 +31,19 @@ extend class FAK_Handler
 						newSpot.pitch = spot.pitch;
 						newSpot.bSTANDSTILL = true;
 					}
+				}
+			}
+		}
+		else if (e.Thing is 'BFGBalle') // [Ace] BFG.
+		{
+			let ball = BFGBalle(e.Thing);
+			if (ball.master && ball.master.player && ball.master.player.ReadyWeapon)
+			{
+				let wpn = HDWeapon(ball.target.player.ReadyWeapon);
+				if (wpn is 'BFG9K' && wpn.WeaponStatus[BFGS_STATUS] & 256)
+				{
+					let ballThinker = new('FAK_BFGBallThinker');
+					ballThinker.Ball = ball;
 				}
 			}
 		}

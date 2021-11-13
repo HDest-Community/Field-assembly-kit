@@ -331,6 +331,16 @@ class FAK_BFG_Accelerator : FAK_Upgrade
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[BFGS_STATUS] & 128 > 0; }
 }
 
+class FAK_BFG_LinearCompensators : FAK_Upgrade
+{
+	override string GetItem() { return "BFG9K"; }
+	override string GetDisplayName() { return "Linear Compensators"; }
+	override int GetCost() { return 3; }
+	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[BFGS_STATUS] |= 256; }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[BFGS_STATUS] &= ~256; GiveCore(wpn.owner, 1.0); }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[BFGS_STATUS] & 256 > 0; }
+}
+
 class FAK_Boss_FrontReticle : FAK_Upgrade
 {
 	override string GetItem() { return "BossRifle"; }

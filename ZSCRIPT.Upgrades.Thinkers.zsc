@@ -156,3 +156,23 @@ class FAK_UpgradeThinker : Thinker
 
 	private int LastBatteryCharge;
 }
+
+class FAK_BFGBallThinker : Thinker
+{
+	override void Tick()
+	{
+		Super.Tick();
+		if (!Ball)
+		{
+			Destroy();
+			return;
+		}
+		
+		if (Ball.InStateSequence(Ball.CurState, Ball.FindState('Spawn2')))
+		{
+			Ball.A_ChangeVelocity(Ball.Speed * cos(Ball.pitch) * 0.6, random(-1, 1), random(-1, 1) + -Ball.Speed * sin(Ball.pitch) * 0.6, CVF_RELATIVE | CVF_REPLACE);
+		}
+	}
+
+	BFGBalle Ball;
+}

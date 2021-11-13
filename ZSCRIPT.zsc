@@ -1,7 +1,7 @@
 version "4.7"
 
 #include "ZSCRIPT.Upgrades.Handler.zsc"
-#include "ZSCRIPT.Upgrades.Thinker.zsc"
+#include "ZSCRIPT.Upgrades.Thinkers.zsc"
 #include "ZSCRIPT.Upgrades.Vanilla.zsc"
 #include "ZSCRIPT.Upgrades.AceCorp.zsc"
 #include "ZSCRIPT.Upgrades.Icarus.zsc"
