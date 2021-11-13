@@ -129,6 +129,16 @@ class FAK_Majestic_Accelerator : FAK_Upgrade
 	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~2; GiveCore(wpn.owner, 1.0); }
 }
 
+class FAK_Wyvern_Autoloader : FAK_Upgrade
+{
+	override string GetItem() { return "HDWyvern"; }
+	override string GetDisplayName() { return "Autoloader"; }
+	override int GetCost() { return 2; }
+	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 8; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 8 > 0; }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~8; GiveCore(wpn.owner, 1.0); }
+}
+
 class FAK_Jackdaw_RapidFire : FAK_Upgrade
 {
 	override string GetItem() { return "HDJackdaw"; }
