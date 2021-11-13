@@ -2,7 +2,7 @@ class FAK_Gungnir_Accelerator : FAK_Upgrade
 {
 	override string GetItem() { return "HDGungnir"; }
 	override string GetDisplayName() { return "Accelerator"; }
-	override int GetCost() { return 2; }
+	override int GetCost() { return 3; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 1; }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 1 > 0; }
 	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~1; GiveCore(wpn.owner, 0.9); }
@@ -12,7 +12,7 @@ class FAK_Gungnir_Capacitor : FAK_Upgrade
 {
 	override string GetItem() { return "HDGungnir"; }
 	override string GetDisplayName() { return "Capacitor"; }
-	override int GetCost() { return 2; }
+	override int GetCost() { return 3; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 2; }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 2 > 0; }
 	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~2; GiveCore(wpn.owner, 0.9); }
@@ -22,7 +22,7 @@ class FAK_Gungnir_Processor : FAK_Upgrade
 {
 	override string GetItem() { return "HDGungnir"; }
 	override string GetDisplayName() { return "Processor"; }
-	override int GetCost() { return 2; }
+	override int GetCost() { return 3; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 4; }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 4 > 0; }
 	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~4; GiveCore(wpn.owner, 0.9); }
