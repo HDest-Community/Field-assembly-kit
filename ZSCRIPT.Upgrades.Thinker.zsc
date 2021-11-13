@@ -121,10 +121,6 @@ class FAK_UpgradeThinker : Thinker
 					LastBatteryCharge = wpn.WeaponStatus[TBS_BATTERY];
 				}
 			}
-			if (wpn.WeaponStatus[TBS_FLAGS] & 512 && !(wpn.WeaponStatus[TBS_FLAGS] & TBF_ALT) && psp.CurState == wpn.FindState('Shoot'))
-			{
-				ThunderBuster.ThunderZap(plr, HDWeapon.GetShootOffset(plr, wpn.barrellength, wpn.barrellength - HDCONST_SHOULDERTORADIUS), false, wpn.WeaponStatus[TBS_BATTERY]);
-			}
 		}
 		else if (wpn is 'BFG9K')
 		{
