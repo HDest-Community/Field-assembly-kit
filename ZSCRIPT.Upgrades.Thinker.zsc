@@ -9,6 +9,7 @@ class FAK_UpgradeThinker : Thinker
 		}
 
 		let wpn = HDWeapon(plr.player.ReadyWeapon);
+		let psp = plr.player.GetPSprite(PSP_WEAPON);
 		if (wpn is 'HDRevolver')
 		{
 			let rev = HDRevolver(wpn);
@@ -47,7 +48,6 @@ class FAK_UpgradeThinker : Thinker
 		}
 		else if (wpn is 'Slayer' && wpn.WeaponStatus[0] & 256)
 		{
-			let psp = plr.player.GetPSprite(PSP_WEAPON);
 			if (psp.CurState == wpn.FindState('reloadnopocket') && wpn.WeaponStatus[SHOTS_SIDESADDLE] > 0 && !(wpn.WeaponStatus[0] & SLAYF_FROMPOCKETS))
 			{
 				wpn.WeaponStatus[SHOTS_SIDESADDLE]--;
@@ -70,6 +70,23 @@ class FAK_UpgradeThinker : Thinker
 			{
 				// [Ace] Technically this should make the condition in brokenround() always false so the gun doesn't jam.
 				wpn.WeaponStatus[ZM66S_BORESTRETCHED] = -200;
+			}
+		}
+		else if (wpn is 'HDRL' && psp.CurState == wpn.FindState('Shoot') + 1)
+		{
+			if (wpn.WeaponStatus[RLS_STATUS] & 8)
+			{
+				psp.SetState(wpn.FindState('Chamber'));
+			}
+			if (wpn.WeaponStatus[RLS_STATUS] & 16)
+			{
+				if (!plr.gunbraced)
+				{
+					plr.A_MuzzleClimb((0, 0),
+					(-frandom(1.2, 1.7), frandom(2, 2.5)) * 0.5,
+					(-frandom(1.0, 1.2), frandom(2.5, 3)) * 0.5,
+					(-frandom(0.6, 0.8), frandom(2, 3)) * 0.5);
+				}
 			}
 		}
 		else if (wpn is 'LiberatorRifle' && wpn.WeaponStatus[LIBS_FLAGS] & 16384 && plr.CheckProximity('HDSpent7mm', plr.radius * 2, 1, CPXF_SETTRACER) && plr.tracer && plr.tracer.GetAge() < 3)
@@ -104,14 +121,13 @@ class FAK_UpgradeThinker : Thinker
 					LastBatteryCharge = wpn.WeaponStatus[TBS_BATTERY];
 				}
 			}
-			if (wpn.WeaponStatus[TBS_FLAGS] & 512 && !(wpn.WeaponStatus[TBS_FLAGS] & TBF_ALT) && plr.player.GetPSprite(PSP_WEAPON).CurState == wpn.FindState('Shoot'))
+			if (wpn.WeaponStatus[TBS_FLAGS] & 512 && !(wpn.WeaponStatus[TBS_FLAGS] & TBF_ALT) && psp.CurState == wpn.FindState('Shoot'))
 			{
 				ThunderBuster.ThunderZap(plr, HDWeapon.GetShootOffset(plr, wpn.barrellength, wpn.barrellength - HDCONST_SHOULDERTORADIUS), false, wpn.WeaponStatus[TBS_BATTERY]);
 			}
 		}
 		else if (wpn is 'BFG9K')
 		{
-			let psp = plr.player.GetPSprite(PSP_WEAPON);
 			if (wpn.WeaponStatus[BFGS_STATUS] & 128)
 			{
 				// [Ace] First condition is charging, rest is shooting.

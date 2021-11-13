@@ -1,0 +1,18 @@
+extend class FAK_Handler
+{
+	override void WorldThingSpawned(WorldEvent e)
+	{
+		if (e.Thing is 'GyroGrenade')
+		{
+			let gyro = GyroGrenade(e.Thing);
+			if (gyro.master && gyro.master.player && gyro.master.player.ReadyWeapon)
+			{
+				let wpn = HDWeapon(gyro.master.player.ReadyWeapon);
+				if (wpn is 'HDRL' && wpn.WeaponStatus[RLS_STATUS] & 32)
+				{
+					gyro.primed = true;
+				}
+			}
+		}
+	}
+}
