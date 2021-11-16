@@ -501,6 +501,7 @@ class AssemblyCore : HDPickup
 		Inventory.PickupMessage "Picked up an assembly core.";
 		Inventory.PickupSound "weapons/pocket";
 		HDPickup.Bulk 15;
+		Scale 0.6;
 	}
 
 	States
