@@ -80,7 +80,7 @@ class FAK_Slayer_Autoloader : FAK_Upgrade
 	override int GetCost() { return 2; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 256; }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 256 > 0; }
-	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~256; GiveCore(wpn.owner, 0.5); }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~256; GiveCore(wpn.owner, 1.0); }
 }
 
 class FAK_Slayer_SawnOff : FAK_Upgrade
