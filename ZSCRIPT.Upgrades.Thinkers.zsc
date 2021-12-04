@@ -149,6 +149,15 @@ class FAK_UpgradeThinker : Thinker
 				}
 			}
 		}
+		else if (wpn is 'MagManager')
+		{
+			let mm = MagManager(wpn);
+			if (mm.thismag && wpn.WeaponStatus[0] & 16)
+			{
+				mm.thismag.inserttime = 1;
+				mm.thismag.extracttime = 1;
+			}
+		}
 	}
 
 	// [Ace] The reference may go null, but the number stays the same.
