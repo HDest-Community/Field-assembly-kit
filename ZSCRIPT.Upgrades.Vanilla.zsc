@@ -376,7 +376,7 @@ class FAK_MagManager_Speedloader : FAK_Upgrade
 {
 	override string GetItem() { return "MagManager"; }
 	override string GetDisplayName() { return "Speedloader"; }
-	override int GetCost() { return 3; }
+	override int GetCost() { return 6; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 16; }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 16 > 0; }
 	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~16; GiveCore(wpn.owner, 1.0); }
