@@ -295,7 +295,7 @@ class FAK_Thunderbuster_Chiller : FAK_Upgrade
 {
 	override string GetItem() { return "Thunderbuster"; }
 	override string GetDisplayName() { return "Chiller"; }
-	override int GetCost() { return 2; }
+	override int GetCost() { return 3; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[TBS_FLAGS] |= 128; }
 	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[TBS_FLAGS] &= ~128; GiveCore(wpn.owner, 1.0); }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[TBS_FLAGS] & 128 > 0; }
@@ -305,7 +305,7 @@ class FAK_Thunderbuster_Stabilizer : FAK_Upgrade
 {
 	override string GetItem() { return "Thunderbuster"; }
 	override string GetDisplayName() { return "Stabilizer"; }
-	override int GetCost() { return 2; }
+	override int GetCost() { return 3; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[TBS_FLAGS] |= 256; }
 	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[TBS_FLAGS] &= ~256; GiveCore(wpn.owner, 1.0); }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[TBS_FLAGS] & 256 > 0; }
@@ -315,7 +315,7 @@ class FAK_Thunderbuster_Amplifier : FAK_Upgrade
 {
 	override string GetItem() { return "Thunderbuster"; }
 	override string GetDisplayName() { return "Amplifier"; }
-	override int GetCost() { return 2; }
+	override int GetCost() { return 3; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[TBS_FLAGS] |= 512; }
 	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[TBS_FLAGS] &= ~512; GiveCore(wpn.owner, 1.0); }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[TBS_FLAGS] & 512 > 0; }
