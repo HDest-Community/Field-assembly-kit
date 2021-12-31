@@ -55,9 +55,8 @@ class FAK_Lisa_Scope : FAK_Upgrade
 	override string GetItem() { return "HDLisa"; }
 	override string GetDisplayName() { return "Box Scope"; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 4; wpn.WeaponStatus[0] &= ~8; }
-	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 4 ? 1 : 4; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 4 ? HUResult_Installed : HUResult_Unique; }
 	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~4; GiveCore(wpn.owner, 0.3); }
-	override string GetConflictingUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 8 ? "Tech Scope" : ""; }
 }
 
 class FAK_Lisa_TechScope : FAK_Upgrade
@@ -65,9 +64,8 @@ class FAK_Lisa_TechScope : FAK_Upgrade
 	override string GetItem() { return "HDLisa"; }
 	override string GetDisplayName() { return "Tech Scope"; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 8; wpn.WeaponStatus[0] &= ~4; }
-	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 8 ? 1 : 4; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 8 ? HUResult_Installed : HUResult_Unique; }
 	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~8; GiveCore(wpn.owner, 0.3); }
-	override string GetConflictingUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 4 ? "Box Scope" : ""; }
 }
 
 class FAK_Lisa_DoubleAction : FAK_Upgrade
@@ -109,9 +107,8 @@ class FAK_BoxCannon_ExtendedMag : FAK_Upgrade
 	override string GetItem() { return "HDBoxCannon"; }
 	override string GetDisplayName() { return "Extended Magazine"; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[7] = 1; }
-	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[7] == 1 ? 1 : 4; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[7] == 1 ? HUResult_Installed : HUResult_Unique; }
 	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[7] = 0; GiveCore(wpn.owner, 0.3); }
-	override string GetConflictingUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[7] == 2 ? "Drum Mag" : ""; }
 }
 
 class FAK_BoxCannon_DrumMag : FAK_Upgrade
@@ -119,9 +116,8 @@ class FAK_BoxCannon_DrumMag : FAK_Upgrade
 	override string GetItem() { return "HDBoxCannon"; }
 	override string GetDisplayName() { return "Drum Magazine"; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[7] = 2; }
-	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[7] == 2 ? 1 : 4; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[7] == 2 ? HUResult_Installed : HUResult_Unique; }
 	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[7] = 0; GiveCore(wpn.owner, 0.3); }
-	override string GetConflictingUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[7] == 1 ? "Extended Magazine" : ""; }
 }
 
 class FAK_BoxCannon_Broomhandle : FAK_Upgrade
@@ -138,9 +134,8 @@ class FAK_BoxCannon_LongerBarrel : FAK_Upgrade
 	override string GetItem() { return "HDBoxCannon"; }
 	override string GetDisplayName() { return "Longer Barrel"; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[6] = 1; }
-	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[6] == 1 ? 1 : 4; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[6] == 1 ? HUResult_Installed : HUResult_Unique; }
 	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[6] = 0; GiveCore(wpn.owner, 0.25); }
-	override string GetConflictingUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[6] == 2 ? "Longer Barrel" : ""; }
 }
 
 class FAK_BoxCannon_Suppressor : FAK_Upgrade
@@ -148,9 +143,8 @@ class FAK_BoxCannon_Suppressor : FAK_Upgrade
 	override string GetItem() { return "HDBoxCannon"; }
 	override string GetDisplayName() { return "Suppressor"; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[6] = 2; }
-	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[6] == 2 ? 1 : 4; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[6] == 2 ? HUResult_Installed : HUResult_Unique; }
 	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[6] = 0; GiveCore(wpn.owner, 0.25); }
-	override string GetConflictingUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[6] == 1 ? "Suppressor" : ""; }
 }
 
 class FAK_Lotus_Scope : FAK_Upgrade
@@ -176,9 +170,8 @@ class FAK_Lotus_ExtendedBarrel : FAK_Upgrade
 	override string GetItem() { return "HDLotus"; }
 	override string GetDisplayName() { return "Extended Barrel"; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[7] = 1; }
-	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[7] == 1; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[7] == 1 ? HUResult_Installed : HUResult_Unique; }
 	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[7] = 0; GiveCore(wpn.owner, 0.35); }
-	override string GetConflictingUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[7] == 1 ? "Suppressor" : ""; }
 }
 
 class FAK_Lotus_Suppressor : FAK_Upgrade
@@ -186,7 +179,6 @@ class FAK_Lotus_Suppressor : FAK_Upgrade
 	override string GetItem() { return "HDLotus"; }
 	override string GetDisplayName() { return "Suppressor"; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[7] = 2; }
-	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[7] == 2; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[7] == 2 ? HUResult_Installed : HUResult_Unique; }
 	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[7] = 0; GiveCore(wpn.owner, 0.35); }
-	override string GetConflictingUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[7] == 2 ? "Extended Barrel" : ""; }
 }

@@ -116,7 +116,7 @@ class FAK_Slayer_SawnOff : FAK_Upgrade
 		sawedOff.WeaponStatus[1] = leftChamber;
 		sawedOff.WeaponStatus[2] = rightChamber;
 	}
-	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return 3; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return HUResult_Destructive; }
 	override bool CheckPrerequisites(HDWeapon wpn, HDPickup pkp)
 	{
 		Name cls = 'SawedSlayer';
@@ -184,7 +184,7 @@ class FAK_Vulcanette_Repair : FAK_Upgrade
 	override string GetItem() { return "Vulcanette"; }
 	override string GetDisplayName() { return "Full Repair"; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[VULCS_PERMADAMAGE] = 0; wpn.WeaponStatus[VULCS_BREAKCHANCE] = 0; }
-	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return 2; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return HUResult_Repeatable; }
 }
 
 class FAK_RL_RapidFire : FAK_Upgrade
@@ -369,7 +369,7 @@ class FAK_Armor_Repair : FAK_Upgrade
 		let arm = HDArmour(pkp);
 		arm.Mags[arm.Mags.Size() - 1] = arm.mega ? 1070 : 144;
 	}
-	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return 2; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return HUResult_Repeatable; }
 }
 
 class FAK_MagManager_Speedloader : FAK_Upgrade

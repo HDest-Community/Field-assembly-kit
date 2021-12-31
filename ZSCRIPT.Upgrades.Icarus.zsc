@@ -79,7 +79,7 @@ class FAK_Six12_Barracuda : FAK_Upgrade
 			Barr.WeaponStatus[3] |= 1 << 1;
 		}
 	}
-	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return 3; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return HUResult_Destructive; }
 	override bool CheckPrerequisites(HDWeapon wpn, HDPickup pkp)
 	{
 		Name cls = 'HDBarracuda';
@@ -128,7 +128,7 @@ class FAK_MBR_FactoryFrame : FAK_Upgrade
 	override string GetItem() { return "HDMBR"; }
 	override string GetDisplayName() { return "Frame (Factory)"; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[3] = 0; }
-	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[3] == 0 ? 1 : 4; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[3] == 0 ? HUResult_Installed : HUResult_Unique; }
 	override bool CanDowngrade() { return false; }
 }
 
@@ -137,7 +137,7 @@ class FAK_MBR_CQCFrame : FAK_Upgrade
 	override string GetItem() { return "HDMBR"; }
 	override string GetDisplayName() { return "Frame (CQC)"; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[3] = 1; }
-	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[3] == 1 ? 1 : 4; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[3] == 1 ? HUResult_Installed : HUResult_Unique; }
 	override bool CanDowngrade() { return false; }
 }
 
@@ -146,7 +146,7 @@ class FAK_MBR_DMRFrame : FAK_Upgrade
 	override string GetItem() { return "HDMBR"; }
 	override string GetDisplayName() { return "Frame (DMR)"; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[3] = 2; }
-	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[3] == 2 ? 1 : 4; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[3] == 2 ? HUResult_Installed : HUResult_Unique; }
 	override bool CanDowngrade() { return false; }
 }
 
@@ -187,5 +187,5 @@ class FAK_HEV_Repair : FAK_Upgrade
 		let arm = HDArmour(pkp);
 		arm.Mags[arm.Mags.Size() - 1] = 107;
 	}
-	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return 2; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return HUResult_Repeatable; }
 }

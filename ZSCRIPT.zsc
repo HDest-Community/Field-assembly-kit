@@ -50,8 +50,19 @@ class FAK_Upgrade abstract
 	{
 		FMType_Requirements,
 		FMType_Installed,
+		FMType_MaxedOut, // [Ace] Only really useful for repeatable upgrades.
 		FMType_Uninstalled,
 		FMType_NotAvailable
+	}
+
+	enum HasUpgradeResult
+	{
+		HUResult_NotInstalled,
+		HUResult_Installed,
+		HUResult_Repeatable,
+		HUResult_MaxedOut,
+		HUResult_Destructive,
+		HUResult_Unique
 	}
 
 	abstract string GetItem();
@@ -72,8 +83,6 @@ class FAK_Upgrade abstract
 		}
 	}
 
-	virtual string GetConflictingUpgrade(HDWeapon wpn, HDPickup pkp) const { return ""; }
-
 	virtual bool CheckPrerequisites(HDWeapon wpn, HDPickup pkp) const { return true; }
 	virtual string GetFailMessage(HDWeapon wpn, HDPickup pkp, int type) const
 	{
@@ -81,6 +90,7 @@ class FAK_Upgrade abstract
 		{
 			case FMType_Requirements: return "Requirements not met.";
 			case FMType_Installed: return "Upgrade has already been installed.";
+			case FMType_MaxedOut: return "Upgrade has been maxed out.";
 			case FMType_Uninstalled: return "Upgrade has already been uninstalled.";
 			case FMType_NotAvailable: return "Downgrade not available.";
 		}
@@ -238,10 +248,11 @@ class HDFieldAssemblyKit : HDWeapon
 				string hasUpStr = " \c[Red]Not installed\c-";
 				switch (CurrUpgrades[i].HasUpgrade(HDWeapon(selItem), HDPickup(selItem)))
 				{
-					case 1: hasUpStr = " \c[Green]Installed\c-"; break;
-					case 2: hasUpStr = " \c[Purple]Repeatable\c-"; break;
-					case 3: hasUpStr = " \c[Fire]Destructive\c-"; break;
-					case 4: hasUpStr = " \c[Sapphire]Unique\c-"; break;
+					case FAK_Upgrade.HUResult_Installed: hasUpStr = " \c[Green]Installed\c-"; break;
+					case FAK_Upgrade.HUResult_Repeatable: hasUpStr = " \c[Purple]Repeatable\c-"; break;
+					case FAK_Upgrade.HUResult_MaxedOut: hasUpStr = " \c[FAK_Blue]Maxed Out\c-"; break;
+					case FAK_Upgrade.HUResult_Destructive: hasUpStr = " \c[Fire]Destructive\c-"; break;
+					case FAK_Upgrade.HUResult_Unique: hasUpStr = " \c[Sapphire]Unique\c-"; break;
 				}
 
 				int cost = CurrUpgrades[i].GetCost();
@@ -270,13 +281,6 @@ class HDFieldAssemblyKit : HDWeapon
 			{
 				pos.y += 10;
 				sb.DrawString(sb.pSmallFont, str, pos + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_GREEN);
-
-				string conflict = GetSelectedUpgrade().GetConflictingUpgrade(HDWeapon(selItem), HDPickup(selItem));
-				if (conflict != "")
-				{
-					pos.y += 10;
-					sb.DrawString(sb.pSmallFont, "This will remove "..conflict.."!", pos + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_FIRE);
-				}
 			}
 		}
 		else
@@ -353,11 +357,13 @@ class HDFieldAssemblyKit : HDWeapon
 				A_WeaponMessage("Not enough assembly cores.");
 				return;
 			}
-			if (upgrade.HasUpgrade(HDWeapon(item), HDPickup(item)) == 1)
+
+			switch (upgrade.HasUpgrade(HDWeapon(item), HDPickup(item)))
 			{
-				A_WeaponMessage(upgrade.GetFailMessage(HDWeapon(item), HDPickup(item), FAK_Upgrade.FMType_Installed));
-				return;
+				case FAK_Upgrade.HUResult_Installed: A_WeaponMessage(upgrade.GetFailMessage(HDWeapon(item), HDPickup(item), FAK_Upgrade.FMType_Installed)); return;
+				case FAK_Upgrade.HUResult_MaxedOut: A_WeaponMessage(upgrade.GetFailMessage(HDWeapon(item), HDPickup(item), FAK_Upgrade.FMType_MaxedOut)); return;
 			}
+
 			if (!upgrade.CheckPrerequisites(HDWeapon(item), HDPickup(item)))
 			{
 				A_WeaponMessage(upgrade.GetFailMessage(HDWeapon(item), HDPickup(item), FAK_Upgrade.FMType_Requirements));
@@ -371,12 +377,18 @@ class HDFieldAssemblyKit : HDWeapon
 				A_WeaponMessage(upgrade.GetFailMessage(HDWeapon(item), HDPickup(item), FAK_Upgrade.FMType_NotAvailable));
 				return;
 			}
-			switch (upgrade.HasUpgrade(HDWeapon(item), HDPickup(item)))
+
+			// [Ace] This is here because some upgrades are not necessarily marked as explicitly undowngradeable.
+			// An example is Peppergrinder's Lotus. It can have either a suppressor or an extended barrel, but it can also have neither.
+			// On the other hand, Icarus's MBR can only have one barrel type, but it MUST have a barrel, so those are explicitly marked as undowngradeable, despite being unique.
+			// Bottom line, if it's doesn't say "installed", it can't be downgraded, period. Same with repeatable upgrades, despite some of those being installation-like, e.g. PSG's upgrades.
+			// CanDowngrade() has limited use, like with the MBR, so don't use it willy-nilly.
+
+			int result = upgrade.HasUpgrade(HDWeapon(item), HDPickup(item));
+			if (result != FAK_Upgrade.HUResult_Installed)
 			{
-				case 2:
-				case 3:
-				case 4: A_WeaponMessage(upgrade.GetFailMessage(HDWeapon(item), HDPickup(item), FAK_Upgrade.FMType_NotAvailable)); return;
-				case 0: A_WeaponMessage(upgrade.GetFailMessage(HDWeapon(item), HDPickup(item), FAK_Upgrade.FMType_Uninstalled)); return;
+				A_WeaponMessage(upgrade.GetFailMessage(HDWeapon(item), HDPickup(item), result == FAK_Upgrade.HUResult_NotInstalled ? FAK_Upgrade.FMType_Uninstalled : FAK_Upgrade.FMType_NotAvailable));
+				return;
 			}
 		}
 

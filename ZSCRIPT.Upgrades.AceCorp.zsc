@@ -152,8 +152,8 @@ class FAK_PSG_ExtraPoint : FAK_Upgrade
 {
 	override string GetItem() { return "HDPersonalShieldGenerator"; }
 	override string GetDisplayName() { return "+1 Upgrade Point"; }
-	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[8] += 1; wpn.Icon = TexMan.CheckForTexture(wpn.GetPickupSprite(), TexMan.Type_Any); }
-	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return 2; }
+	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[8]++; wpn.Icon = TexMan.CheckForTexture(wpn.GetPickupSprite(), TexMan.Type_Any); }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[8] < 70 ? HUResult_Repeatable : HUResult_MaxedOut; }
 }
 
 class FAK_PSG_Repair : FAK_Upgrade
@@ -162,7 +162,7 @@ class FAK_PSG_Repair : FAK_Upgrade
 	override string GetDisplayName() { return "Repair 50% Degradation"; }
 	override int GetCost() { return 2; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[6] /= 2; }
-	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return 2; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return HUResult_Repeatable; }
 }
 
 class FAK_PSG_Elemental : FAK_Upgrade
@@ -200,5 +200,5 @@ class FAK_Barricade_Repair : FAK_Upgrade
 	override string GetItem() { return "HDDeployableBarricade"; }
 	override string GetDisplayName() { return "Full Repair"; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { pkp.Health = pkp.default.Health; }
-	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return 2; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return HUResult_Repeatable; }
 }
