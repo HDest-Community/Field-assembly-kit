@@ -235,7 +235,7 @@ class HDFieldAssemblyKit : HDWeapon
 		let selItem = GetSelectedItem();
 		if (selItem)
 		{
-			sb.DrawImage(AceCore.GetIcon(selItem), pos + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_BOTTOM, box: (40, 40), scale: (2.0, 2.0));
+			sb.DrawImage(AceCore.GetIcon(selItem), pos + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_BOTTOM, box: (70, 40), scale: (2.0, 2.0));
 			pos.y += 10;
 			sb.DrawString(sb.pSmallFont, selItem.GetTag(), pos + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_SAPPHIRE);
 			pos.y += 10;
