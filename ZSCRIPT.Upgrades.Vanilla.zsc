@@ -191,8 +191,9 @@ class FAK_RL_RapidFire : FAK_Upgrade
 {
 	override string GetItem() { return "HDRL"; }
 	override string GetDisplayName() { return "Rapid Rockets"; }
+	override int GetCost() { return 2; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[RLS_STATUS] |= 8; }
-	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[RLS_STATUS] &= ~8; GiveCore(wpn.owner, 0.8); }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[RLS_STATUS] &= ~8; GiveCore(wpn.owner, 1.0); }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[RLS_STATUS] & 8 > 0; }
 }
 
@@ -200,8 +201,9 @@ class FAK_RL_RecoilDampener : FAK_Upgrade
 {
 	override string GetItem() { return "HDRL"; }
 	override string GetDisplayName() { return "Recoil Dampener"; }
+	override int GetCost() { return 2; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[RLS_STATUS] |= 16; }
-	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[RLS_STATUS] &= ~16; GiveCore(wpn.owner, 0.8); }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[RLS_STATUS] &= ~16; GiveCore(wpn.owner, 1.0); }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[RLS_STATUS] & 16 > 0; }
 }
 
