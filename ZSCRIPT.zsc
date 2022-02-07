@@ -124,6 +124,21 @@ class HDFieldAssemblyKit : HDWeapon
 		}
 	}
 
+	override void DoEffect()
+	{
+		Super.DoEffect();
+		if (owner.player && owner.player.ReadyWeapon == self)
+		{
+			for (int i = AvailableItems.Size() - 1; i >= 0; --i)
+			{
+				if (!AvailableItems[i])
+				{
+					AvailableItems.Delete(i);
+				}
+			}
+		}
+	}
+
 	override string GetHelpText()
 	{
 		return WEPHELP_FIRE.."  Upgrade weapon\n"
@@ -195,26 +210,16 @@ class HDFieldAssemblyKit : HDWeapon
 
 	private clearscope Inventory GetSelectedItem()
 	{
-		int Size = AvailableItems.Size();
-		int SelIndex = WeaponStatus[KProp_SelectedWeapon];
-		if (Size > 0 && SelIndex < Size)
-		{
-			return AvailableItems[SelIndex];
-		}
-
-		return null;
+		int size = AvailableItems.Size();
+		int selIndex = min(WeaponStatus[KProp_SelectedWeapon], size - 1);
+		return selIndex > -1 ? AvailableItems[selIndex] : null;
 	}
 
 	private clearscope FAK_Upgrade GetSelectedUpgrade()
 	{
-		int Size = CurrUpgrades.Size();
-		int SelIndex = WeaponStatus[KProp_SelectedUpgrade];
-		if (Size > 0 && SelIndex < Size)
-		{
-			return CurrUpgrades[SelIndex];
-		}
-
-		return null;
+		int size = CurrUpgrades.Size();
+		int selIndex = min(WeaponStatus[KProp_SelectedUpgrade], size - 1);
+		return selIndex > -1 ? CurrUpgrades[selIndex] : null;
 	}
 
 	override void DrawHUDStuff(HDStatusBar sb, HDWeapon hdw, HDPlayerPawn hpl)
@@ -292,23 +297,23 @@ class HDFieldAssemblyKit : HDWeapon
 	private action void A_CheckWeaponCycle(int cycleDir)
 	{
 		A_UpdateAvailableItems();
-		int Size = invoker.AvailableItems.Size();
-		if (Size < 1)
+		int size = invoker.AvailableItems.Size();
+		if (size < 1)
 		{
 			return;
 		}
 
-		int SelIndex = invoker.WeaponStatus[KProp_SelectedWeapon];
+		int selIndex = invoker.WeaponStatus[KProp_SelectedWeapon];
 		switch (cycleDir)
 		{
 			case 1:
-				++SelIndex %= Size;
+				++selIndex %= size;
 				break;
 			case -1:
-				SelIndex = SelIndex == 0 ? invoker.AvailableItems.Size() - 1 : SelIndex - 1;
+				selIndex = selIndex == 0 ? size - 1 : selIndex - 1;
 				break;
 		}
-		invoker.WeaponStatus[KProp_SelectedWeapon] = SelIndex;
+		invoker.WeaponStatus[KProp_SelectedWeapon] = selIndex;
 		invoker.WeaponStatus[KProp_SelectedUpgrade] = 0;
 		A_UpdateUpgradesForItem(invoker.GetSelectedItem());
 		invoker.ResetConfirmation();
@@ -322,17 +327,17 @@ class HDFieldAssemblyKit : HDWeapon
 			return;
 		}
 
-		int SelIndex = invoker.WeaponStatus[KProp_SelectedUpgrade];
+		int selIndex = invoker.WeaponStatus[KProp_SelectedUpgrade];
 		switch (cycleDir)
 		{
 			case 1:
-				++SelIndex %= Size;
+				++selIndex %= Size;
 				break;
 			case -1:
-				SelIndex = SelIndex == 0 ? invoker.CurrUpgrades.Size() - 1 : SelIndex - 1;
+				selIndex = selIndex == 0 ? invoker.CurrUpgrades.Size() - 1 : selIndex - 1;
 				break;
 		}
-		invoker.WeaponStatus[KProp_SelectedUpgrade] = SelIndex;
+		invoker.WeaponStatus[KProp_SelectedUpgrade] = selIndex;
 		invoker.ResetConfirmation();
 	}
 
