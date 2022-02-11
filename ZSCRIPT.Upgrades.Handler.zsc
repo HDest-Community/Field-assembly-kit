@@ -34,18 +34,5 @@ extend class FAK_Handler
 				}
 			}
 		}
-		else if (e.Thing is 'BFGBalle') // [Ace] BFG.
-		{
-			let ball = BFGBalle(e.Thing);
-			if (ball.master && ball.master.player && ball.master.player.ReadyWeapon)
-			{
-				let wpn = HDWeapon(ball.target.player.ReadyWeapon);
-				if (wpn is 'BFG9K' && wpn.WeaponStatus[BFGS_STATUS] & 256)
-				{
-					let ballThinker = new('FAK_BFGBallThinker');
-					ballThinker.Ball = ball;
-				}
-			}
-		}
 	}
 }
