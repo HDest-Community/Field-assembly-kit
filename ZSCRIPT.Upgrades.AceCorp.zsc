@@ -69,9 +69,9 @@ class FAK_Redline_LockOn : FAK_Upgrade
 	override string GetItem() { return "HDRedline"; }
 	override string GetDisplayName() { return "Lock-On"; }
 	override int GetCost() { return 3; }
-	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 8; }
-	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 8 > 0; }
-	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~8; GiveCore(wpn.owner, 1.0); }
+	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 1; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 1 > 0; }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~1; GiveCore(wpn.owner, 1.0); }
 }
 
 class FAK_Viper_HeavyFrame : FAK_Upgrade
