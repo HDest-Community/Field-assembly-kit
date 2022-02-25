@@ -13,6 +13,8 @@ version "4.7"
 
 class FAK_Handler : EventHandler
 {
+	private bool GaveCore;
+
 	override void PlayerEntered(PlayerEvent e)
 	{
 		FAK_UpgradeThinker thonker = new('FAK_UpgradeThinker');
@@ -29,7 +31,7 @@ class FAK_Handler : EventHandler
 
 	override void WorldUnloaded(WorldEvent e)
 	{
-		if (level.total_secrets > 0 && level.found_secrets == level.total_secrets && level.total_monsters > 0 && level.killed_monsters >= level.total_monsters * 0.9)
+		if (!GaveCore && level.total_secrets > 0 && level.found_secrets == level.total_secrets && level.total_monsters > 0 && level.killed_monsters >= level.total_monsters * 0.9)
 		{
 			for (int i = 0; i < MAXPLAYERS; ++i)
 			{
@@ -40,6 +42,7 @@ class FAK_Handler : EventHandler
 				}
 				plr.A_GiveInventory('AssemblyCore', 1);
 			}
+			GaveCore = true;
 		}
 	}
 }
