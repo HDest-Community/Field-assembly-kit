@@ -81,7 +81,7 @@ class FAK_Upgrade abstract
 	{
 		if (frandom(0.01, 1.00) <= chance)
 		{
-			other.A_Log('You have obtained an assembly core from this downgrade.');
+			other.A_Log('You have obtained an assembly core from this downgrade.', true);
 			other.A_GiveInventory('AssemblyCore', 1);
 		}
 	}
