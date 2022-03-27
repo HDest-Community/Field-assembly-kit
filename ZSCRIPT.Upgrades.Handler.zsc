@@ -34,7 +34,7 @@ extend class FAK_Handler
 				}
 			}
 		}
-		if (e.Thing is 'HDSpent7mm')
+		else if (e.Thing is 'HDSpent7mm')
 		{
 			for (int i = 0; i < MAXPLAYERS; ++i)
 			{
