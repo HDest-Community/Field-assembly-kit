@@ -89,20 +89,6 @@ class FAK_UpgradeThinker : Thinker
 				}
 			}
 		}
-		else if (wpn is 'LiberatorRifle' && wpn.WeaponStatus[LIBS_FLAGS] & 16384)
-		{
-			BlockThingsIterator it = BlockThingsIterator.Create(plr, plr.radius * 2);
-			while (it.Next())
-			{
-				if (it.thing is 'HDSpent7mm' && it.thing.GetAge() < 3)
-				{
-					let pkp = HDUPK(it.thing);
-					pkp.picktarget = plr;
-					pkp.pickupmessage = "";
-					pkp.A_HDUPKGive();
-				}
-			}
-		}
 		else if (wpn is 'ThunderBuster')
 		{
 			if (wpn.WeaponStatus[TBS_FLAGS] & 128)
