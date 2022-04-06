@@ -126,7 +126,7 @@ class FAK_PSG_ExtraPoint : FAK_Upgrade
 	override string GetItem() { return "HDPersonalShieldGenerator"; }
 	override string GetDisplayName() { return "+1 Upgrade Point"; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[8]++; wpn.Icon = TexMan.CheckForTexture(wpn.GetPickupSprite(), TexMan.Type_Any); }
-	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[8] < 70 ? HUResult_Repeatable : HUResult_MaxedOut; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[8] < 35 ? HUResult_Repeatable : HUResult_MaxedOut; }
 }
 
 class FAK_PSG_Repair : FAK_Upgrade
