@@ -185,3 +185,13 @@ class FAK_Barricade_Repair : FAK_Upgrade
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { pkp.Health = pkp.default.Health; }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return HUResult_Repeatable; }
 }
+
+class FAK_Blackhawk_SemiAuto : FAK_Upgrade
+{
+	override string GetItem() { return "HDBlackhawk"; }
+	override string GetDisplayName() { return "Semi-Auto"; }
+	override int GetCost() { return 2; }
+	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 1; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 1 > 0; ; }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~1; GiveCore(wpn.owner, 1.0); }
+}
