@@ -134,10 +134,18 @@ class HDFieldAssemblyKit : HDWeapon
 		{
 			for (int i = AvailableItems.Size() - 1; i >= 0; --i)
 			{
-				if (!AvailableItems[i])
+				if (!AvailableItems[i] || !AvailableItems[i].owner)
 				{
 					AvailableItems.Delete(i);
+					A_UpdateUpgradesForItem(GetSelectedItem());
 				}
+			}
+
+			// [Ace] If you pick something up, automatically update interface.
+			if (AvailableItems.Size() == 0)
+			{
+				A_UpdateAvailableItems();
+				A_UpdateUpgradesForItem(GetSelectedItem());
 			}
 		}
 	}
@@ -185,13 +193,14 @@ class HDFieldAssemblyKit : HDWeapon
 		invoker.AvailableItems.Clear();
 		for (int i = 0; i < invoker.AllUpgrades.Size(); ++i)
 		{
-			Inventory item = FindInventory(invoker.AllUpgrades[i].GetItem());
+			Inventory item = invoker.owner.FindInventory(invoker.AllUpgrades[i].GetItem());
 			if (item && invoker.AvailableItems.Find(item) == invoker.AvailableItems.Size())
 			{
 				invoker.AvailableItems.Push(item);
 			}
 		}
 		invoker.WeaponStatus[KProp_SelectedWeapon] = clamp(invoker.WeaponStatus[KProp_SelectedWeapon], 0, invoker.AvailableItems.Size() - 1);
+		invoker.ResetConfirmation();
 	}
 
 	private action void A_UpdateUpgradesForItem(Inventory item)
@@ -324,8 +333,8 @@ class HDFieldAssemblyKit : HDWeapon
 
 	private action void A_CheckUpgradeCycle(int cycleDir)
 	{
-		int Size = invoker.CurrUpgrades.Size();
-		if (Size < 1)
+		int size = invoker.CurrUpgrades.Size();
+		if (size < 1)
 		{
 			return;
 		}
@@ -334,7 +343,7 @@ class HDFieldAssemblyKit : HDWeapon
 		switch (cycleDir)
 		{
 			case 1:
-				++selIndex %= Size;
+				++selIndex %= size;
 				break;
 			case -1:
 				selIndex = selIndex == 0 ? invoker.CurrUpgrades.Size() - 1 : selIndex - 1;

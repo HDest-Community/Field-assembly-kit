@@ -186,6 +186,15 @@ class FAK_Barricade_Repair : FAK_Upgrade
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return HUResult_Repeatable; }
 }
 
+class FAK_DSD_ExtraCapacity : FAK_Upgrade
+{
+	override string GetItem() { return "DSDInterface"; }
+	override string GetDisplayName() { return "+500 Capacity"; }
+	override int GetCost() { return 1; }
+	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[1]++; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return HUResult_Repeatable; }
+}
+
 class FAK_Blackhawk_SemiAuto : FAK_Upgrade
 {
 	override string GetItem() { return "HDBlackhawk"; }
