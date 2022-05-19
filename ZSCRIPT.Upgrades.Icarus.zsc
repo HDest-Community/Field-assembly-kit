@@ -127,6 +127,7 @@ class FAK_MBR_FactoryFrame : FAK_Upgrade
 {
 	override string GetItem() { return "HDMBR"; }
 	override string GetDisplayName() { return "Frame (Factory)"; }
+	override int GetCost() { return 0; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[3] = 0; }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[3] == 0 ? HUResult_Installed : HUResult_Unique; }
 	override bool CanDowngrade() { return false; }
@@ -136,6 +137,7 @@ class FAK_MBR_CQCFrame : FAK_Upgrade
 {
 	override string GetItem() { return "HDMBR"; }
 	override string GetDisplayName() { return "Frame (CQC)"; }
+	override int GetCost() { return 0; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[3] = 1; }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[3] == 1 ? HUResult_Installed : HUResult_Unique; }
 	override bool CanDowngrade() { return false; }
@@ -145,6 +147,7 @@ class FAK_MBR_DMRFrame : FAK_Upgrade
 {
 	override string GetItem() { return "HDMBR"; }
 	override string GetDisplayName() { return "Frame (DMR)"; }
+	override int GetCost() { return 0; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[3] = 2; }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[3] == 2 ? HUResult_Installed : HUResult_Unique; }
 	override bool CanDowngrade() { return false; }
