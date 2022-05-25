@@ -125,8 +125,9 @@ class FAK_PSG_ExtraPoint : FAK_Upgrade
 {
 	override string GetItem() { return "HDPersonalShieldGenerator"; }
 	override string GetDisplayName() { return "+1 Upgrade Point"; }
+	override int GetCost() { return 5; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[9]++; wpn.Icon = TexMan.CheckForTexture(wpn.GetPickupSprite(), TexMan.Type_Any); }
-	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[9] < 35 ? HUResult_Repeatable : HUResult_MaxedOut; }
+	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[9] < 7 ? HUResult_Repeatable : HUResult_MaxedOut; }
 }
 
 class FAK_PSG_Repair : FAK_Upgrade
@@ -142,7 +143,7 @@ class FAK_PSG_Elemental : FAK_Upgrade
 {
 	override string GetItem() { return "HDPersonalShieldGenerator"; }
 	override string GetDisplayName() { return "Elemental Protection"; }
-	override int GetCost() { return 4; }
+	override int GetCost() { return 5; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 1; }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 1 > 0; }
 	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~1; GiveCore(wpn.owner, 1.0); }
@@ -152,7 +153,7 @@ class FAK_PSG_Medical : FAK_Upgrade
 {
 	override string GetItem() { return "HDPersonalShieldGenerator"; }
 	override string GetDisplayName() { return "Medical Field"; }
-	override int GetCost() { return 5; }
+	override int GetCost() { return 6; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 2; }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 2 > 0; }
 	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~2; GiveCore(wpn.owner, 1.0); }
@@ -172,7 +173,7 @@ class FAK_PSG_Cloaking : FAK_Upgrade
 {
 	override string GetItem() { return "HDPersonalShieldGenerator"; }
 	override string GetDisplayName() { return "Cloaking Field"; }
-	override int GetCost() { return 6; }
+	override int GetCost() { return 8; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] |= 8; }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return wpn.WeaponStatus[0] & 8 > 0; }
 	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[0] &= ~8; GiveCore(wpn.owner, 1.0); }
