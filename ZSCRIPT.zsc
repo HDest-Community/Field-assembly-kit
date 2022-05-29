@@ -157,7 +157,7 @@ class HDFieldAssemblyKit : HDWeapon
 		..WEPHELP_ZOOM.."+"..WEPHELP_FIRE.."/"..WEPHELP_ALTFIRE.."  Cycle weapons\n"
 		..WEPHELP_FIREMODE.."+"..WEPHELP_FIRE.."/"..WEPHELP_ALTFIRE.."  Cycle upgrades\n";
 	}
-	override string, double GetPickupSprite() { return "FAKTA0" , 1.0; }
+	override string, double GetPickupSprite() { return "FAKTA0", 0.5; }
 	override double GunMass() { return 0; }
 	override double WeaponBulk() { return 40; }
 	override bool AddSpareWeapon(actor newowner) { return AddSpareWeaponRegular(newowner); }
@@ -452,7 +452,7 @@ class HDFieldAssemblyKit : HDWeapon
 		+HDWEAPON.FITSINBACKPACK
 		Inventory.PickupSound "weapons/pocket";
 		Inventory.PickupMessage "Picked up a field assembly kit.";
-		Scale 0.6;
+		Scale 0.3;
 		HDWeapon.RefId "FAK";
 		Tag "Field assembly kit";
 	}
