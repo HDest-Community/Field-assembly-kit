@@ -246,7 +246,7 @@ class HDFieldAssemblyKit : HDWeapon
 		vector2 bob = hpl.hudbob * 0.3;
 		int BaseYOffset = -40;
 		
-		sb.DrawImage(GetPickupSprite(), (0, BaseYOffset) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER_BOTTOM, 1.0, scale:(2, 2));
+		sb.DrawImage(GetPickupSprite(), (0, BaseYOffset) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER_BOTTOM);
 
 		vector2 pos = (0, BaseYOffset - 160);
 		let selItem = GetSelectedItem();
