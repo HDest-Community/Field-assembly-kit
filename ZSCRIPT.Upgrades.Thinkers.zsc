@@ -138,7 +138,7 @@ class FAK_UpgradeThinker : Thinker
 		else if (wpn is 'MagManager')
 		{
 			let mm = MagManager(wpn);
-			if (mm.thismag && wpn.WeaponStatus[0] & 16)
+			if (!(mm.thismag is 'HDBattery') && mm.thismag && wpn.WeaponStatus[0] & 16)
 			{
 				mm.thismag.inserttime = 1;
 				mm.thismag.extracttime = 1;
