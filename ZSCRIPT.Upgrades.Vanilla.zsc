@@ -214,7 +214,16 @@ class FAK_RL_Magazine : FAK_Upgrade
 	override int GetCost() { return 1; }
 	override void DoUpgrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[RLS_STATUS] &= ~RLF_NOMAG; }
 	override int HasUpgrade(HDWeapon wpn, HDPickup pkp) { return !(wpn.WeaponStatus[RLS_STATUS] & RLF_NOMAG); }
-	override void DoDowngrade(HDWeapon wpn, HDPickup pkp) { wpn.WeaponStatus[RLS_STATUS] |= RLF_NOMAG; GiveCore(wpn.owner, 0.85); }
+	override void DoDowngrade(HDWeapon wpn, HDPickup pkp)
+	{
+		if (wpn.WeaponStatus[RLS_MAG] > 0)
+		{
+			wpn.owner.A_GiveInventory('HDRocketAmmo', wpn.WeaponStatus[RLS_MAG]);
+			wpn.WeaponStatus[RLS_MAG] = 0;
+		}
+		wpn.WeaponStatus[RLS_STATUS] |= RLF_NOMAG;
+		GiveCore(wpn.owner, 0.85);
+	}
 }
 
 class FAK_RL_NoSafety : FAK_Upgrade
