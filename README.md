@@ -1,3 +1,7 @@
+### NOTICE ###
+---
+- Currently just porting this over, will expand and update later. -Cryomundus
+
 ### Important
 ---
 - This mod requires [AceCoreLib](https://gitlab.com/accensi/hd-addons/acecorelib).
