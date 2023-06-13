@@ -2,15 +2,15 @@ extend class FAK_Handler
 {
 	override void WorldThingSpawned(WorldEvent e)
 	{
-		if (e.Thing is 'GyroGrenade') // [Ace] Rocket Launcher & Blooper.
+		if (e.Thing is 'RocketGrenade') // [Ace] Rocket Launcher & Blooper.
 		{
-			let gyro = GyroGrenade(e.Thing);
-			if (gyro.master && gyro.master.player && gyro.master.player.ReadyWeapon)
+			let rckt = RocketGrenade(e.Thing);
+			if (rckt.master && rckt.master.player && rckt.master.player.ReadyWeapon)
 			{
-				let wpn = HDWeapon(gyro.master.player.ReadyWeapon);
+				let wpn = HDWeapon(rckt.master.player.ReadyWeapon);
 				if (wpn is 'HDRL' && wpn.WeaponStatus[RLS_STATUS] & 32 || wpn is 'Blooper' && wpn.WeaponStatus[BLOPS_STATUS] & 8)
 				{
-					gyro.primed = true;
+					rckt.primed = true;
 				}
 			}
 		}
