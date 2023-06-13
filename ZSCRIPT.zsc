@@ -67,7 +67,8 @@ class FAK_Upgrade abstract
 		HUResult_Destructive,
 		HUResult_Unique
 	}
-
+	
+	//Array<string> Icons;
 	abstract string GetItem();
 	abstract string GetDisplayName();
 	virtual int GetCost() const { return 1; }
@@ -103,6 +104,9 @@ class FAK_Upgrade abstract
 
 class HDFieldAssemblyKit : HDWeapon
 {
+	
+	Array<string> Icons;
+	
 	enum KitProperties
 	{
 		KProp_SelectedWeapon,
@@ -243,7 +247,7 @@ class HDFieldAssemblyKit : HDWeapon
 		sb.DrawRect(-32, -20, 11, 3); // Scope.
 		sb.DrawRect(-18, -17, 6, 1); // Barrel.
 
-		vector2 bob = hpl.hudbob * 0.3;
+		vector2 bob = hpl.wepbob * 0.3;
 		int BaseYOffset = -40;
 		
 		sb.DrawImage(GetPickupSprite(), (0, BaseYOffset) + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_CENTER_BOTTOM);
@@ -252,8 +256,10 @@ class HDFieldAssemblyKit : HDWeapon
 		let selItem = GetSelectedItem();
 		if (selItem)
 		{
-			sb.DrawImage(ItemStorage.GetIcon(selItem), pos + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_BOTTOM, box: (70, 40), scale: (2.0, 2.0));
-			pos.y += 10;
+			//StorageItem CurItem = Storage.Items[RealIndex];
+			//sb.DrawImage(ItemStorage.GetIcon(selItem), pos + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_BOTTOM, box: (70, 40), scale: (2.0, 2.0));
+			//sb.DrawImage(SelItem.Icons[i], pos + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_ITEM_BOTTOM, box: (70, 40), scale: (2.0, 2.0));
+			//pos.y += 10;
 			sb.DrawString(sb.pSmallFont, selItem.GetTag(), pos + bob, sb.DI_SCREEN_CENTER_BOTTOM | sb.DI_TEXT_ALIGN_CENTER, Font.CR_SAPPHIRE);
 			pos.y += 10;
 
