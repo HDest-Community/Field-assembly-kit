@@ -1,10 +1,10 @@
 ### NOTICE ###
 ---
-- Currently just porting this over, will expand and update later. -Cryomundus
+- Currently functional, will update with missing/new weapons at some point later. -Cryomundus
 
 ### Important
 ---
-- This mod requires [AceCoreLib](https://gitlab.com/accensi/hd-addons/acecorelib).
+- This mod requires [AceCoreLib](https://github.com/HDest-Community/AceCoreLib).
 
 ### Notes
 ---
